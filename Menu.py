@@ -156,7 +156,7 @@ class Menu:
       eleccion = input("Ingrese el número de la opción: ")
 
       if eleccion == "1":
-        self.mostrar_actividades()
+        self.mostrar_actividad()
       elif eleccion == "2":
         self.ver_reservas_actividades()
       elif eleccion == "3":
