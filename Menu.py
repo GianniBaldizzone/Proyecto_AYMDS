@@ -3,7 +3,7 @@ from bd import Conexion
 
 
 class Menu:
-
+  
   #menu principal
   def mostrar_menu(self):
     bucle = 0
