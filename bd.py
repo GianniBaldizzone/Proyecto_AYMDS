@@ -178,3 +178,107 @@ class Conexion:
   
   #ABM Reserva
 
+  #ABM Actividad - EN PROCESO
+  def CrearTablaActividad(self):
+    self.cursor.execute('''
+    CREATE TABLE IF NOT EXISTS ACTIVIDAD(
+      id INTEGER PRIMARY KEY,
+      nombre TEXT,
+      tipo_actividad TEXT,
+      capacidad TEXT,
+      reserva_id INT,
+      FOREIGN KEY (reserva_id) REFERENCES RESERVA (id)
+      )
+    ''')
+    self.conexion.commit()
+
+  def IngresarActividad(self, nombre, tipo_actividad, reserva_id):
+    self.cursor.execute(
+      "INSERT INTO ACTIVIDAD (nombre, tipo_actividad, capacidad, reserva_id) VALUES (?, ?, 10, ?)",
+      (nombre, tipo_actividad, reserva_id))
+    self.conexion.commit()
+    print("Actividad creada con exito!!!")
+  ######
+  def MostrarHabitaciones(self):
+    self.cursor.execute("SELECT *FROM HABITACION")
+    habitaciones = self.cursor.fetchall()
+    return habitaciones
+
+  def ModificarHabitacion(self, nombre, apellido, dni, id):
+    self.cursor.execute(
+        " UPDATE CLIENTE SET nombre=?,apellido=?,dni=? WHERE id = ? ",
+        (nombre, apellido, dni, id))
+    self.conexion.commit()
+
+  def ModificarEliminar(self, id):
+    self.cursor.execute(" DELETE FROM HABITACION WHERE id = ?", (id))
+    self.conexion.commit()
+
+
+  
+  #ABM Actividad
+
+  #ABM Huesped
+  def CrearTablaHuesped(self):
+    self.cursor.execute('''
+    CREATE TABLE IF NOT EXISTS HUESPED(
+    id INTEGER PRIMARY KEY,
+    nombre TEXT,
+    apellido TEXT,
+    numero_pasaporte INT,
+    dni INT,
+    nacionalidad INT,
+    grupo_sanguineo TEXT,
+    seguro_vida TEXT
+    )
+    ''')
+    self.conexion.commit()
+  
+  def IngresarHuesped(self, nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida):
+    self.cursor.execute(
+      "INSERT INTO HUESPED (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida))
+    self.conexion.commit()
+    print("Huesped creado con exito!!!")
+  
+  def MostrarHuespedes(self):
+    try:
+        self.cursor.execute("SELECT * FROM HUESPED")
+        huespedes = self.cursor.fetchall()
+        return huespedes
+    except sqlite3.Error as e:
+        print("Error al recuperar huespedes:", e)
+        return []
+  
+  def ModificarHuespedes(self, id, nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida):
+    
+      self.cursor.execute(
+          " UPDATE HUESPED SET nombre=?,apellido=?, numero_pasaporte=?,dni=?,nacionalidad=?,grupo_sanguineo=?, seguro_vida=? WHERE id = ? ",
+          (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida, id))
+      
+        
+      self.conexion.commit()
+      print("\n")
+      print("Huesped modificado con éxito!!!")
+      print("\n")
+      
+   
+  #Verifica que hay un ID existente contandolo en la bd
+  def IDExists(self, numeroID):   
+    self.cursor.execute("SELECT COUNT(*) FROM HUESPED WHERE id = ?", (numeroID,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
+     
+  def HuespedEliminar(self, id):
+    self.cursor.execute(" DELETE FROM HUESPED WHERE id = ?", (id))
+    self.conexion.commit()
+    print("\n")
+    print("Huesped eliminado con exito!!!")
+    print("\n")
+  
+  
+  #ABM Huesped

@@ -101,7 +101,8 @@ class Menu:
       print("2. Hacer nuevo Check_in")
       print("3. Modificar Check-in")
       print("4. Eliminar Check-in")
-      print("5. Volver")
+      print("5. Mostrar Check-in")
+      print("6. Volver")
 
       eleccion = input("Ingrese el número de la opción: ")
 
@@ -114,6 +115,8 @@ class Menu:
       elif eleccion == "4":
         self.eliminar_checkin()
       elif eleccion == "5":
+        self.mostrar_checkin()
+      elif eleccion == "6":
         print("Volviendo...")
         print("\n")
         self.mostrar_menu()
@@ -125,18 +128,87 @@ class Menu:
   def ver_hospedajes(self):
     print("Mostrar hospedajes...")
     print("\n")
-
+    
+  ## CHECKIN ##
   def check_in(self):
-    print("Haciendo el Check-in...")
+    print("=== Crear Check-in ===")
     print("\n")
-
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaHuesped()
+    nombre = input("Ingrese el nombre del huesped:")
+    apellido = input("Ingrese el apellido del huesped:")
+    numero_pasaporte = input("Ingrese el pasaporte del huesped:")
+    dni = input("Ingrese el dni del huesped:")
+    nacionalidad = input("Ingrese la nacionalidad del huesped:")
+    grupo_sanguineo = input("Ingrese el grupo sanguíneo del huesped:")
+    seguro_vida = input("Ingrese el seguro de vida del huesped:")
+    ##VALIDACIONES
+    ##piso = validacion.validacionPiso()
+    ##numero = validacion.validar_numero_habitacion(piso)
+    ##precio = validacion.validacion_precio()
+    ##capacidadMaxima = validacion.validacionCantidadMaxima()
+    ##tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
+    conexion.IngresarHuesped(nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+    
+    
+  ## CHECKIN ##
+  
   def modificar_checkin(self):
-    print("Modificando Check-in...")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaHuesped()
+    print("\n")
+    
+    ##si el numeroID no esta dentro de la base de datos, volver a ingresarlo
+    while True:
+        numeroID = input("Ingresar ID del huesped a modificar: ")
+        
+        if conexion.IDExists(numeroID):
+            break  #sale del loop si es true
+        else:
+            print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
+            print("\n")
+            
+    nombre = input("Ingresar nombre a modificar:")
+    apellido = input("Ingresar apellido a modificar:")
+    numero_pasaporte = input("Ingresar pasaporte a modificar:")
+    dni = input("Ingresar dni a modificar:")
+    nacionalidad = input("Ingresar nacionalidad a modificar:")
+    grupo_sanguineo = input("Ingresar grupo sanguineo a modificar:")
+    seguro_vida = input("Ingresar seguro de vida a modificar:")
+    print("\n")
+    conexion.ModificarHuespedes(numeroID, nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+    print("\n")
     print("\n")
 
   def eliminar_checkin(self):
-    print("Eliminando Check-in...")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaHuesped()
     print("\n")
+    numeroID= input("Ingresar ID a eliminar")
+    print("\n")
+    conexion.HuespedEliminar(numeroID)
+    print("\n")
+    
+  def mostrar_checkin(self):
+    print("### Lista checkin - Huespedes ###")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaHuesped()
+    huespedes = conexion.MostrarHuespedes()
+
+    if len(huespedes) > 0:
+      for huesped in huespedes:
+        print(
+          f"ID: {huesped[0]}, Nombre: {huesped[1]}, Apellido: {huesped[2]}, Pasaporte: {huesped[3]}, DNI: {huesped[4]}, Nacionalidad: {huesped[5]}, Grupo sanguineo: {huesped[6]}, Seguro de vida: {huesped[7]}"
+          )
+        print("\n")
+    else:
+      print("No hay huespedes registrados")
+      print("\n")
+
 #menu hospedaje
 #menu actividades
 
@@ -157,6 +229,20 @@ class Menu:
 
       if eleccion == "1":
         self.mostrar_actividad()
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaActividad()
+        actividades = conexion.MostrarActividades()
+
+        if len(actividades) > 0:
+          for actividad in actividades:
+            print(
+                f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo Actividad: {actividad[2]}, Capacidad: {actividad[3]}, Reserva ID: {actividad[4]}"
+            )
+            print("\n")
+        else:
+          print("No hay actividades")
+          print("\n")
       elif eleccion == "2":
         self.ver_reservas_actividades()
       elif eleccion == "3":
