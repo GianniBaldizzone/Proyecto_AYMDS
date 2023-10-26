@@ -111,5 +111,70 @@ class Conexion:
   
   #ABM Empleados
 
+  #ABM Reserva
+  def CrearTablaReserva(self):
+        self.cursor.execute('''
+        CREATE TABLE IF NOT EXISTS RESERVA (
+        id INTEGER PRIMARY KEY,
+        empleado_id INTEGER,
+        fechaChekin DATETIME,
+        fechaCheckout DATETIME,
+        habitacion_id INTEGER,
+        estado TEXT,
+        huesped_id INTEGER,
+        tipoReserva TEXT,
+        FOREIGN KEY (empleado_id) REFERENCES EMPLEADO (id),
+        FOREIGN KEY (habitacion_id) REFERENCES HABITACION (id),
+        FOREIGN KEY (huesped_id) REFERENCES HUESPED (id)
+        )
+        ''')
+        self.conexion.commit()
+    
+  def IngresarReserva(self, empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva):
+        result = None
+        self.cursor.execute(
+            "INSERT INTO RESERVA (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva))
+        if self.cursor:
+            self.conexion.commit()
+            result = "Reserva creada con éxito!!!"
+        else:
+            result = "Error al crear la reserva"
+        return result
+    
+  def MostrarReservas(self):
+        result = None
+        self.cursor.execute("SELECT * FROM RESERVA")
+        if self.cursor:
+            result = self.cursor.fetchall()
+        else:
+            result = "Error al recuperar reservas"
+        return result
+    
+  def ModificarReserva(self, empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva, id):
+        result = None
+        self.cursor.execute(
+            "UPDATE RESERVA SET empleado_id=?, fechaChekin=?, fechaCheckout=?, habitacion_id=?, estado=?, huesped_id=?, tipoReserva=? WHERE id = ?",
+            (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva, id))
+        if self.cursor:
+            self.conexion.commit()
+            result = "Reserva modificada con éxito!!!"
+        else:
+            result = "Error al modificar la reserva"
+        return result
+    
+  def EliminarReserva(self, id):
+        result = None
+        self.cursor.execute("DELETE FROM RESERVA WHERE id = ?", (id,))
+        if self.cursor:
+            self.conexion.commit()
+            result = "Reserva eliminada con éxito!!!"
+        else:
+            result = "Error al eliminar la reserva"
+        return result
 
+  def CerrarConexion(self):
+        self.conexion.close()
+  
+  #ABM Reserva
 
