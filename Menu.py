@@ -62,9 +62,9 @@ class Menu:
       elif eleccion == "2":
         self.hacer_reserva()
       elif eleccion == "3":
-        self.modificar_reserva()
-      elif eleccion == "4":
         self.eliminar_reserva()
+      elif eleccion == "4":
+        self.modificar_reserva()
       elif eleccion == "5":
         print("Volviendo...")
         self.mostrar_menu()
@@ -117,7 +117,13 @@ class Menu:
     print("\n")
 
   def eliminar_reserva(self):
-    print("Eliminando reserva...")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaHuesped()
+    print("\n")
+    numeroID= input("Ingresar ID a eliminar")
+    print("\n")
+    conexion.EliminarReserva(numeroID)
     print("\n")
 #menu reservas
 #menu hospedaje

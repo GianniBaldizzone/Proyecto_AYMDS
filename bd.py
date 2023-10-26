@@ -133,7 +133,7 @@ class Conexion:
   def IngresarReserva(self, empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva):
         result = None
         self.cursor.execute(
-            "INSERT INTO RESERVA (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva ) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO RESERVA (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipo_reserva) VALUES (?, ?, ?, ?, ?, ?, ?)",
             (empleado_id, fecha_checkin, fecha_checkout, habitacion_id, estado, huesped_id, tipo_reserva))
         if self.cursor:
             self.conexion.commit()
@@ -168,10 +168,10 @@ class Conexion:
         self.cursor.execute("DELETE FROM RESERVA WHERE id = ?", (id,))
         if self.cursor:
             self.conexion.commit()
-            result = "Reserva eliminada con éxito!!!"
+            print("Reserva eliminada con éxito!!!")
         else:
-            result = "Error al eliminar la reserva"
-        return result
+            print("Error al eliminar la reserva")
+        
 
   def CerrarConexion(self):
         self.conexion.close()
