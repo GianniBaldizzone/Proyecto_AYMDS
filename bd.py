@@ -117,12 +117,12 @@ class Conexion:
         CREATE TABLE IF NOT EXISTS RESERVA (
         id INTEGER PRIMARY KEY,
         empleado_id INTEGER,
-        fechaChekin DATETIME,
-        fechaCheckout DATETIME,
+        fecha_checkin DATETIME,
+        fecha_checkout DATETIME,
         habitacion_id INTEGER,
         estado TEXT,
         huesped_id INTEGER,
-        tipoReserva TEXT,
+        tipo_reserva TEXT,
         FOREIGN KEY (empleado_id) REFERENCES EMPLEADO (id),
         FOREIGN KEY (habitacion_id) REFERENCES HABITACION (id),
         FOREIGN KEY (huesped_id) REFERENCES HUESPED (id)
@@ -130,11 +130,11 @@ class Conexion:
         ''')
         self.conexion.commit()
     
-  def IngresarReserva(self, empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva):
+  def IngresarReserva(self, empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva):
         result = None
         self.cursor.execute(
-            "INSERT INTO RESERVA (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva) VALUES (?, ?, ?, ?, ?, ?, ?)",
-            (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva))
+            "INSERT INTO RESERVA (empleado_id, fecha_checkin, fecha_checkout, habitacion_id, estado, huesped_id, tipo_reserva) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (empleado_id, fecha_checkin, fecha_checkout, habitacion_id, estado, huesped_id, tipo_reserva))
         if self.cursor:
             self.conexion.commit()
             result = "Reserva creada con éxito!!!"
@@ -151,11 +151,11 @@ class Conexion:
             result = "Error al recuperar reservas"
         return result
     
-  def ModificarReserva(self, empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva, id):
+  def ModificarReserva(self, empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipoReserva, id):
         result = None
         self.cursor.execute(
-            "UPDATE RESERVA SET empleado_id=?, fechaChekin=?, fechaCheckout=?, habitacion_id=?, estado=?, huesped_id=?, tipoReserva=? WHERE id = ?",
-            (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva, id))
+            "UPDATE RESERVA SET empleado_id=?, fecha_chekin=?, fecha_checkout=?, habitacion_id=?, estado=?, huesped_id=?, tipoReserva=? WHERE id = ?",
+            (empleado_id, fecha_checkin, fecha_checkout, habitacion_id, estado, huesped_id, tipoReserva, id))
         if self.cursor:
             self.conexion.commit()
             result = "Reserva modificada con éxito!!!"

@@ -42,7 +42,7 @@ class Menu:
         )
 #menu principal
 #menu reservas
-
+  ###
   def mostrar_reservas(self):
     bucle = 0
 
@@ -74,11 +74,42 @@ class Menu:
         )
 
   def ver_reservas(self):
-    print("Mostrando reservas...")
+    print("### Listado de reservas ###")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaReserva()
+    reservas = conexion.MostrarReservas()
+
+    if len(reservas) > 0:
+      for reserva in reservas:
+        print(
+          f"ID Reserva: {reserva[0]}, Empleado ID: {reserva[1]}, Fecha checkin: {reserva[2]}, Fecha checkout: {reserva[3]}, ID Habitacion: {reserva[4]}, Estado: {reserva[5]}, ID Huesped: {reserva[6]}, Tipo de Reserva: {reserva[7]}"
+          )
+        print("\n")
+    else:
+      print("No hay reservas registradas")
+      print("\n")
     print("\n")
 
   def hacer_reserva(self):
-    print("Haciendo reserva...")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaHuesped()
+    empleado_id = input("Ingrese el ID del empleado:")
+    fecha_checkin = input("Ingrese la fecha de checkin (YYYY-MM-DD HH:MM):")
+    fecha_checkout = input("Ingrese la fecha de checkout (YYYY-MM-DD HH:MM):")
+    habitacion_id = input("Ingrese el ID de la habitacion")
+    estado = input("Ingrese el estado:")
+    huesped_id = input("Ingrese el ID del huesped:")
+    tipo_reserva = input("Ingrese tipo reserva")
+
+    ##VALIDACIONES
+    ##piso = validacion.validacionPiso()
+    ##numero = validacion.validar_numero_habitacion(piso)
+    ##precio = validacion.validacion_precio()
+    ##capacidadMaxima = validacion.validacionCantidadMaxima()
+    ##tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
+    conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
     print("\n")
 
   def modificar_reserva(self):
