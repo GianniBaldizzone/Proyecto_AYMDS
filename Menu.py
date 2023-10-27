@@ -10,6 +10,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú principal ===")
       print("Seleccione una opción:")
       print("1. Reserva")
@@ -48,6 +49,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú Reserva ===")
       print("Seleccione una opción:")
       print("1. Ver reservas")
@@ -55,6 +57,7 @@ class Menu:
       print("3. Cancelar reserva")
       print("4. Modificar reserva")
       print("5. Volver")
+      print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
 
@@ -143,6 +146,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú Hospedajes ===")
       print("Seleccione una opción:")
       print("1. Ver hospedajes")
@@ -151,6 +155,7 @@ class Menu:
       print("4. Eliminar Check-in")
       print("5. Mostrar Check-in")
       print("6. Volver")
+      print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
 
@@ -264,6 +269,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú Actividades ===")
       print("Seleccione una opción:")
       print("1. Ver Actividades disponibles")
@@ -272,6 +278,7 @@ class Menu:
       print("4. Modificar reserva")
       print("5. Eliminar reserva")
       print("6. Volver")
+      print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
 
@@ -334,6 +341,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú Limpieza ===")
       print("Seleccione una opción:")
       print("1. Ver estado de las habitaciones")
@@ -377,11 +385,13 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú ABM ===")
       print("Seleccione una opción:")
       print("1. Habitaciones")
       print("2. Empleados")
-      print("3. Volver")
+      print("3. Control maestro BD")
+      print("4. Volver")
       print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
@@ -391,6 +401,8 @@ class Menu:
       elif eleccion == "2":
         self.mostrar_menu_empleado()
       elif eleccion == "3":
+        self.mostrar_menu_controlmaestro()
+      elif eleccion == "4":
         print("Volviendo...")
         print("\n")
         self.mostrar_menu()
@@ -404,6 +416,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú ABM - Habitaciones ===")
       print("Seleccione una opción:")
       print("1. Crear Habitacion")
@@ -472,6 +485,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú ABM - Habitaciones - Filtrar Habitaciones===")
       print("Seleccione una opción:")
       print("1. Filtrar por piso")
@@ -527,6 +541,7 @@ class Menu:
     bucle = 0
 
     while bucle != 1:
+      print("\n")
       print(f"=== Menú ABM - Empleados ===")
       print("Seleccione una opción:")
       print("1. Crear Empleado")
@@ -587,3 +602,198 @@ class Menu:
 
 #menu abm - empleados
 #menu abm
+
+#Menu contro maestro
+  def mostrar_menu_controlmaestro(self):
+    bucle = 0
+
+    while bucle != 1:
+      print("\n")
+      print(f"=== Menú ABM - Control maestror ===")
+      print("Seleccione una opción:")
+      print("1. Crear tablas")
+      print("2. Eliminar tablas")
+      print("3. Setear tablas")
+      print("4. Volver")
+      print("\n")
+
+      eleccion = input("Ingrese el número de la opción: ")
+
+      if eleccion == "1":  
+        self.mostrar_menu_controlmaestro_crear()
+        
+      elif eleccion == "2":
+        self.mostrar_menu_controlmaestro_eliminar()
+      elif eleccion == "3":
+        self.mostrar_menu_controlmaestro_setear()()
+      elif eleccion == "4":
+        print("Volviendo...")
+        print("\n")
+        self.mostrar_abm()
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+#Menu contro maestro
+
+#menu ABM - Menu contro maestro - Eliminar
+  def mostrar_menu_controlmaestro_eliminar(self):
+    bucle = 0
+
+    while bucle != 1:
+      print("\n")
+      print(f"=== Menú ABM - Control maestro - Eliminar ===")
+      print("Seleccione una opción:")
+      print("1. Eliminar tabla Habitacion")
+      print("2. Eliminar tabla Reserva")
+      print("3. Eliminar tabla Empleado")
+      print("4. Eliminar tabla Actividad")
+      print("5. Eliminar tabla Huesped")
+      print("6. Volver")
+      print("\n")
+
+      eleccion = input("Ingrese el número de la opción: ")
+
+      if eleccion == "1":  
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.EliminarTablaHabitacion()
+        
+      elif eleccion == "2":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.EliminarTablaReserva()
+      elif eleccion == "3":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.EliminarTablaEmpleados()
+      elif eleccion == "4":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaActividad()
+      elif eleccion == "5":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaHuesped()
+      elif eleccion == "6":
+        print("Volviendo...")
+        print("\n")
+        self.mostrar_menu()
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+
+#menu ABM - Menu contro maestro - Eliminar
+
+#menu ABM - Menu contro maestro - Crear
+
+
+  def mostrar_menu_controlmaestro_crear(self):
+    bucle = 0
+
+    while bucle != 1:
+      print("\n")
+      print(f"=== Menú ABM - Control maestro - Crear ===")
+      print("Seleccione una opción:")
+      print("1. Crear tabla Habitacion")
+      print("2. Crear tabla Reserva")
+      print("3. Crear tabla Empleado")
+      print("4. Crear tabla Actividad")
+      print("5. Crear tabla Huesped")
+      print("6. Volver")
+      print("\n")
+
+      eleccion = input("Ingrese el número de la opción: ")
+
+      if eleccion == "1":  
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaHabitacion()
+        
+      elif eleccion == "2":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaReserva()
+      elif eleccion == "3":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaActividad()
+      elif eleccion == "4":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaActividad()
+      elif eleccion == "5":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaHuesped()
+      elif eleccion == "6":
+        print("Volviendo...")
+        print("\n")
+        self.mostrar_menu()
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+
+#menu ABM - Menu contro maestro - crear
+
+
+#menu ABM - Menu contro maestro - Setear
+
+
+  def mostrar_menu_controlmaestro_setear(self):
+    bucle = 0
+
+    while bucle != 1:
+      print("\n")
+      print(f"=== Menú ABM - Control maestro - Setear ===")
+      print(f"=== Utilizar estos metodos al tener tablas vacias ===")
+      print("Seleccione una opción:")
+      print("1. Setear tabla Habitacion")
+      print("2. Setear tabla Reserva")
+      print("3. Setear tabla Empleado")
+      print("4. Setear tabla Actividad")
+      print("5. Setear tabla Huesped")
+      print("6. Volver")
+      print("\n")
+
+      eleccion = input("Ingrese el número de la opción: ")
+
+      if eleccion == "1":  
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.InsertarDatosPruebaHabitacion()
+        
+      elif eleccion == "2":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.InsertarDatosPruebaReserva()
+      elif eleccion == "3":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.InsertarDatosPruebaEmpleados()
+      elif eleccion == "4":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.InsertarDatosPruebaActividad()
+      elif eleccion == "5":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.InsertarDatosPruebaHuesped()
+      elif eleccion == "6":
+        print("Volviendo...")
+        print("\n")
+        self.mostrar_menu_controlmaestro()
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+
+#menu ABM - Menu contro maestro - Setear
+
+
+
+
+
+

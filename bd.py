@@ -22,18 +22,17 @@ class Conexion:
       numero INT,
       precio FLOAT,
       piso INT,
-      estado_de_limpieza TEXT,
-      capacidad_actual INT,
-      capacidad_maxima INT,
+      capacidad INT,
       tipo_de_habitacion TEXT
+      disponibilidad TEXT
       )
     ''')
     self.conexion.commit()
 
-  def IngresarHabitacion(self, numero, precio, piso,capacidadMaxima, tipoDeHabitacion):
+  def IngresarHabitacion(self, numero, precio, piso, capacidad, tipoDeHabitacion):
     self.cursor.execute(
-      "INSERT INTO HABITACION (numero, precio, piso, estado_de_limpieza, capacidad_actual, capacidad_maxima, tipo_de_habitacion) VALUES (?, ?, ?,'Limpio', 0, ?, ?)",
-      (numero, precio, piso, capacidadMaxima, tipoDeHabitacion))
+      "INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) VALUES (?, ?, ?,?, ?, ?, ?, Disponible)",
+      (numero, precio, piso, capacidad, tipoDeHabitacion))
     self.conexion.commit()
     print("Habitacion creada con exito!!!")
 
@@ -42,10 +41,10 @@ class Conexion:
     habitaciones = self.cursor.fetchall()
     return habitaciones
 
-  def ModificarHabitacion(self, nombre, apellido, dni, id):
+  def ModificarHabitacion(self, numero, precio, piso, capacidad, tipoDeHabitacion, disponibilidad):
     self.cursor.execute(
-        " UPDATE CLIENTE SET nombre=?,apellido=?,dni=? WHERE id = ? ",
-        (nombre, apellido, dni, id))
+        " UPDATE HABITACION SET numero=?,precio=?,piso=?,capacidad=?,tipoDeHabitacion=?,disponibilidad=?  WHERE id = ? ",
+        ( numero, precio, piso, capacidad, tipoDeHabitacion,disponibilidad))
     self.conexion.commit()
 
   def ModificarEliminar(self, id):
@@ -199,19 +198,19 @@ class Conexion:
     self.conexion.commit()
     print("Actividad creada con exito!!!")
   ######
-  def MostrarHabitaciones(self):
-    self.cursor.execute("SELECT *FROM HABITACION")
+  def MostrarActividad(self):
+    self.cursor.execute("SELECT *FROM ACTIVIDAD")
     habitaciones = self.cursor.fetchall()
     return habitaciones
 
-  def ModificarHabitacion(self, nombre, apellido, dni, id):
+  def ModificaActividad(nombre, tipo_actividad, capacidad, reserva_id):
     self.cursor.execute(
-        " UPDATE CLIENTE SET nombre=?,apellido=?,dni=? WHERE id = ? ",
-        (nombre, apellido, dni, id))
+        " UPDATE ACTIVIDAD SET nombre=?,capacidad=?,reserva_id=? WHERE id = ? ",
+        (nombre, tipo_actividad, capacidad, reserva_id))
     self.conexion.commit()
 
   def ModificarEliminar(self, id):
-    self.cursor.execute(" DELETE FROM HABITACION WHERE id = ?", (id))
+    self.cursor.execute(" DELETE FROM ACTIVIDAD WHERE id = ?", (id))
     self.conexion.commit()
 
 
@@ -282,3 +281,130 @@ class Conexion:
   
   
   #ABM Huesped
+
+  #Eliminación de tablas - Test 
+
+  def EliminarTablaHabitacion(self):
+        self.cursor.execute("DROP TABLE IF EXISTS HABITACION")
+        self.conexion.commit()
+        print("Tabla HABITACION eliminada con éxito!!!")
+
+  def EliminarTablaEmpleados(self):
+        self.cursor.execute("DROP TABLE IF EXISTS EMPLEADO")
+        self.conexion.commit()
+        print("Tabla EMPLEADO eliminada con éxito!!!")
+
+  def EliminarTablaReserva(self):
+        self.cursor.execute("DROP TABLE IF EXISTS RESERVA")
+        self.conexion.commit()
+        print("Tabla RESERVA eliminada con éxito!!!")
+
+  def EliminarTablaActividad(self):
+        self.cursor.execute("DROP TABLE IF EXISTS ACTIVIDAD")
+        self.conexion.commit()
+        print("Tabla ACTIVIDAD eliminada con éxito!!!")
+
+  def EliminarTablaHuesped(self):
+        self.cursor.execute("DROP TABLE IF EXISTS HUESPED")
+        self.conexion.commit()
+        print("Tabla HUESPED eliminada con éxito!!!")
+
+  #Eliminación de tablas - Test 
+
+  #Seteo de datos
+
+  def InsertarDatosPruebaHabitacion(self):
+    query = '''
+    INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) 
+    VALUES 
+    (101, 150, 1, 2, 'Doble', 'Disponible'),
+    (102, 200, 2, 4, 'Suite', 'Disponible'),
+    (103, 250, 1, 3, 'Individual', 'Disponible'),
+    (104, 300, 3, 6, 'Suite Presidencial', 'Disponible'),
+    (105, 180, 2, 3, 'Doble', 'Disponible'),
+    (106, 220, 1, 2, 'Individual', 'Disponible'),
+    (107, 270, 3, 4, 'Doble', 'Disponible'),
+    (108, 320, 2, 3, 'Individual', 'Disponible'),
+    (109, 350, 4, 5, 'Suite', 'Disponible'),
+    (110, 400, 3, 4, 'Doble', 'Disponible')
+    '''
+    self.cursor.execute(query)
+    self.conexion.commit()
+    print("Datos de prueba para HABITACION insertados con éxito!!!")
+
+  def InsertarDatosPruebaEmpleados(self):
+    query = '''
+    INSERT INTO EMPLEADO (nombre, apellido, dni, isAdmin, telefono) 
+    VALUES 
+    ('Gianni', 'Baldizzone', 12345678, 1, 123456789),
+    ('Victoria', 'Troiano', 23456789, 1, 234567890),
+    ('Carlos', 'Rodriguez', 34567890, 0, 345678901),
+    ('Laura', 'Martinez', 45678901, 0, 456789012),
+    ('David', 'Lopez', 56789012, 0, 567890123),
+    ('Ana', 'Torres', 67890123, 0, 678901234),
+    ('Pedro', 'Sanchez', 78901234, 0, 789012345),
+    ('Elena', 'Ramirez', 89012345, 0, 890123456),
+    ('Gabriel', 'Hernandez', 90123456, 0, 901234567),
+    ('Sofia', 'Diaz', 12345670, 0, 123456780)
+    '''
+    self.cursor.execute(query)
+    self.conexion.commit()
+    print("Datos de prueba para EMPLEADO insertados con éxito!!!")
+
+  def InsertarDatosPruebaReserva(self):
+    query = '''
+    INSERT INTO RESERVA (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva) 
+    VALUES 
+    (1, '2023-11-01', '2023-11-10', 1, 'Activa', 1, 'Reserva'),
+    (1, '2023-11-02', '2023-11-11', 2, 'Activa', 2, 'Reserva'),
+    (1, '2023-11-03', '2023-11-12', 3, 'Activa', 3, 'Reserva'),
+    (1, '2023-11-04', '2023-11-13', 4, 'Activa', 4, 'Reserva'),
+    (1, '2023-11-05', '2023-11-14', 5, 'Activa', 5, 'Reserva'),
+    (2, '2023-11-06', '2023-11-15', 6, 'Activa', 6, 'Reserva'),
+    (2, '2023-11-07', '2023-11-16', 7, 'Activa', 7, 'Reserva'),
+    (2, '2023-11-08', '2023-11-17', 8, 'Activa', 8, 'Reserva'),
+    (2, '2023-11-09', '2023-11-18', 9, 'Activa', 9, 'Reserva'),
+    (2, '2023-11-10', '2023-11-19', 10, 'Activa', 10, 'Reserva')
+    '''
+    self.cursor.execute(query)
+    self.conexion.commit()
+    print("Datos de prueba para RESERVA insertados con éxito!!!")
+
+
+  def InsertarDatosPruebaActividad(self):
+    query = '''
+    INSERT INTO ACTIVIDAD (nombre, tipo_actividad, capacidad, reserva_id) 
+    VALUES 
+    ('Gimnasio', 'Deporte', 20, 1),
+    ('Piscina', 'Recreación', 50, 2),
+    ('Masajes', 'Bienestar', 10, 3),
+    ('Excursión local', 'Turismo', 30, 4),
+    ('Clases de cocina', 'Culinaria', 15, 5),
+    ('Sala de conferencias', 'Negocios', 100, 6),
+    ('Entretenimiento nocturno', 'Entretenimiento', 80, 7),
+    ('Servicio de habitaciones', 'Servicio', 200, 8),
+    ('Lavandería', 'Servicio', 150, 9),
+    ('Transporte local', 'Turismo', 40, 10)
+    '''
+    self.cursor.execute(query)
+    self.conexion.commit()
+    print("Datos de prueba para ACTIVIDAD insertados con éxito!!!")
+
+  def InsertarDatosPruebaHuesped(self):
+    query = '''
+    INSERT INTO HUESPED (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida) 
+    VALUES 
+    ('Carlos', 'Gomez', 'AB123456', 12345678, 'Argentina', 'A+', 'Sí'),
+    ('Ana', 'Martinez', 'CD789012', 23456789, 'España', 'B-', 'No'),
+    ('Luis', 'Rodriguez', 'EF345678', 34567890, 'México', 'O+', 'Sí'),
+    ('Elena', 'Perez', 'GH901234', 45678901, 'Colombia', 'AB-', 'No'),
+    ('Marta', 'Hernandez', 'IJ567890', 56789012, 'Perú', 'A-', 'Sí'),
+    ('Javier', 'Lopez', 'KL123456', 67890123, 'Chile', 'B+', 'No'),
+    ('Isabel', 'Diaz', 'MN789012', 78901234, 'Brasil', 'O-', 'Sí'),
+    ('Sergio', 'Sanchez', 'OP901234', 89012345, 'Uruguay', 'AB+', 'No'),
+    ('Laura', 'Garcia', 'QR123456', 90123456, 'Paraguay', 'A+', 'Sí'),
+    ('Daniel', 'Fernandez', 'ST789012', 12345670, 'Ecuador', 'B-', 'No')
+    '''
+    self.cursor.execute(query)
+    self.conexion.commit()
+    print("Datos de prueba para HUESPED insertados con éxito!!!")
