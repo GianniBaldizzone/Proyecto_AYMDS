@@ -1,5 +1,6 @@
 from ValidacionesHabitaciones import ValidacionesHabitaciones
 from bd import Conexion
+from datetime import datetime
 
 
 class Menu:
@@ -95,8 +96,18 @@ class Menu:
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
-    empleado_id = input("Ingrese el ID del empleado:")
-    fecha_checkin = input("Ingrese la fecha de checkin (YYYY-MM-DD HH:MM):")
+    empleado_id = int(input("Ingrese el ID del empleado:"))
+   
+    try:
+      fecha = 0
+      fecha_checkin = int(input("Ingrese la fecha de checkin (YYYY-MM-DD HH:MM):"))
+      fecha = datetime(fecha_checkin)
+      if(type(fecha) == type(fecha_checkin)):
+        print("cumple con el formato")
+    except:
+      print(type(fecha))
+      print("Ingrese una fecha valida.")
+
     fecha_checkout = input("Ingrese la fecha de checkout (YYYY-MM-DD HH:MM):")
     habitacion_id = input("Ingrese el ID de la habitacion")
     estado = input("Ingrese el estado:")
