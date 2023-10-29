@@ -133,17 +133,15 @@ class Menu:
     huesped_id = input("Ingrese el ID del huesped:")
     tipo_reserva = input("Ingrese tipo reserva")
 
-    ##VALIDACIONES
-    ##piso = validacion.validacionPiso()
-    ##numero = validacion.validar_numero_habitacion(piso)
-    ##precio = validacion.validacion_precio()
-    ##capacidadMaxima = validacion.validacionCantidadMaxima()
-    ##tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
+    
     conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
     print("\n")
 
   def modificar_reserva(self):
-    print("Modificando reserva...")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.ModificarReserva()
+    
     print("\n")
 
   def eliminar_reserva(self):
@@ -227,8 +225,6 @@ class Menu:
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
-    print("\n")
-    
     ##si el numeroID no esta dentro de la base de datos, volver a ingresarlo
     while True:
         numeroID = input("Ingresar ID del huesped a modificar: ")
@@ -238,18 +234,56 @@ class Menu:
         else:
             print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
             print("\n")
-            
-    nombre = input("Ingresar nombre a modificar:")
-    apellido = input("Ingresar apellido a modificar:")
-    numero_pasaporte = input("Ingresar pasaporte a modificar:")
-    dni = input("Ingresar dni a modificar:")
-    nacionalidad = input("Ingresar nacionalidad a modificar:")
-    grupo_sanguineo = input("Ingresar grupo sanguineo a modificar:")
-    seguro_vida = input("Ingresar seguro de vida a modificar:")
     print("\n")
-    conexion.ModificarHuespedes(numeroID, nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
-    print("\n")
-    print("\n")
+    
+    bucle = 0
+    while bucle != 1:
+      print("\n")
+      print("Seleccione una opción a modificar:")
+      print("1. Nombre")
+      print("2. Apellido")
+      print("3. Pasaporte")
+      print("4. DNI")
+      print("5. Nacionalidad")
+      print("6. Grupo Sanguineo")
+      print("7. Seguro de vida")
+      print("8. Salir de modificar")
+      print("\n")
+      
+      eleccion = input("Ingrese el número de la opción: ")
+      print("\n")
+
+      if eleccion == "1":
+        campo = "nombre"
+      elif eleccion == "2":
+        campo = "apellido"
+      elif eleccion == "3":
+        campo = "numero_pasaporte"
+      elif eleccion == "4":
+        campo = "dni"
+      elif eleccion == "5":
+        campo = "nacionalidad"
+      elif eleccion == "6":
+        campo = "grupo_sanguineo"
+      elif eleccion == "7":
+        campo = "seguro_vida"
+      elif eleccion == "8":
+        bucle = 1
+        print("Has salido del menu modificar huesped")
+
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+    
+      print("\n")
+      if eleccion != "8":
+        print("\n")
+        nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        conexion.ModificarHuespedes(numeroID, campo, nuevo_valor)
+        print(f"Se ha modificado el campo {campo} satisfactoriamente.")
+        print("\n")
+        print("\n")
 
   def eliminar_checkin(self):
     nombreBD = "househunter.db"

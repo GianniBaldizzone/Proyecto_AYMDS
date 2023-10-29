@@ -249,17 +249,16 @@ class Conexion:
         print("Error al recuperar huespedes:", e)
         return []
   
-  def ModificarHuespedes(self, id, nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida):
+  def ModificarHuespedes(self, numeroID, campo, nuevo_valor):
+    consulta_sql = f"UPDATE HUESPED SET {campo} = ? WHERE id = ?"
     
-      self.cursor.execute(
-          " UPDATE HUESPED SET nombre=?,apellido=?, numero_pasaporte=?,dni=?,nacionalidad=?,grupo_sanguineo=?, seguro_vida=? WHERE id = ? ",
-          (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida, id))
-      
-        
-      self.conexion.commit()
-      print("\n")
-      print("Huesped modificado con éxito!!!")
-      print("\n")
+  
+    self.cursor.execute(consulta_sql, (nuevo_valor, numeroID))
+    self.conexion.commit()
+
+    print("\n")
+    print("Huesped modificado con éxito!!!")
+    print("\n")
       
    
   #Verifica que hay un ID existente contandolo en la bd
