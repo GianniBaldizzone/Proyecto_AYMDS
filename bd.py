@@ -23,21 +23,21 @@ class Conexion:
       precio FLOAT,
       piso INT,
       capacidad INT,
-      tipo_de_habitacion TEXT
+      tipo_de_habitacion TEXT,
       disponibilidad TEXT
       )
     ''')
     self.conexion.commit()
 
-  def IngresarHabitacion(self, numero, precio, piso, capacidad, tipoDeHabitacion):
+  def IngresarHabitacion(self, numero, precio, piso, capacidad, tipoDeHabitacion, disponibilidad):
     self.cursor.execute(
-      "INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) VALUES (?, ?, ?,?, ?, ?, ?, Disponible)",
-      (numero, precio, piso, capacidad, tipoDeHabitacion))
+      "INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) VALUES (?, ?, ?,?, ?, ?)",
+      (numero, precio, piso, capacidad, tipoDeHabitacion, disponibilidad))
     self.conexion.commit()
     print("Habitacion creada con exito!!!")
 
   def MostrarHabitaciones(self):
-    self.cursor.execute("SELECT *FROM HABITACION")
+    self.cursor.execute("SELECT * FROM HABITACION")
     habitaciones = self.cursor.fetchall()
     return habitaciones
 
@@ -132,7 +132,7 @@ class Conexion:
   def IngresarReserva(self, empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva):
         result = None
         self.cursor.execute(
-            "INSERT INTO RESERVA (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipo_reserva) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO RESERVA (empleado_id, fechaChekin, fechaCheckout, habitacion_id, estado, huesped_id, tipoReserva) VALUES (?, ?, ?, ?, ?, ?, ?)",
             (empleado_id, fecha_checkin, fecha_checkout, habitacion_id, estado, huesped_id, tipo_reserva))
         if self.cursor:
             self.conexion.commit()

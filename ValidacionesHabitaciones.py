@@ -124,6 +124,8 @@ class ValidacionesHabitaciones:
           print(
               "Error Opción no válida ---> Por favor seleccione una opción válida"
           )
+          
+  
 
   def validar_numero_habitacion(self, piso):
 

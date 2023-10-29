@@ -100,18 +100,34 @@ class Menu:
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
     empleado_id = int(input("Ingrese el ID del empleado:"))
-   
-    try:
-      fecha = 0
-      fecha_checkin = int(input("Ingrese la fecha de checkin (YYYY-MM-DD HH:MM):"))
-      fecha = datetime(fecha_checkin)
-      if(type(fecha) == type(fecha_checkin)):
-        print("cumple con el formato")
-    except:
-      print(type(fecha))
-      print("Ingrese una fecha valida.")
-
-    fecha_checkout = input("Ingrese la fecha de checkout (YYYY-MM-DD HH:MM):")
+    fecha_checkin = datetime.now()
+    print('Fecha checkin: ', datetime.now())
+    
+    bucle=0
+    while bucle != 1:
+      fecha_checkout=0
+      try:
+        año = int(input("Ingrese año"))
+        mes = int(input("Ingrese mes"))
+        dia = int(input("Ingrese dia"))
+        hora = int(input("Ingrese hora"))
+        minutos = int(input("Ingrese minutos"))
+        fecha_checkout =  datetime(año,mes,dia, hora,minutos)
+        
+        if fecha_checkout > fecha_checkin and dia > fecha_checkin.day and mes >= fecha_checkin.month:
+          bucle = 1
+          print("Fecha válida.")
+          print(fecha_checkout)
+        else:
+          print("Fecha inválida. La fecha de check-out debe ser posterior a la fecha de check-in.")
+      except ValueError:
+        print("Fecha inválida.")
+        print(type(fecha_checkout))
+        print(fecha_checkout)
+        print("Parece que has ingresado la fecha en otro formato. Por favor, introduzca la fecha en numeros.")
+        
+    
+    
     habitacion_id = input("Ingrese el ID de la habitacion")
     estado = input("Ingrese el estado:")
     huesped_id = input("Ingrese el ID del huesped:")
@@ -439,7 +455,8 @@ class Menu:
         precio = validacion.validacion_precio()
         capacidadMaxima = validacion.validacionCantidadMaxima()
         tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
-        conexion.IngresarHabitacion(numero, precio, piso, capacidadMaxima, tipoDeHabitacion)
+        disponibilidad = "Disponible"
+        conexion.IngresarHabitacion(numero, precio, piso, capacidadMaxima, tipoDeHabitacion, disponibilidad)
       elif eleccion == "2":
         print("Modificando habitacion ...")
       elif eleccion == "3":
@@ -459,7 +476,7 @@ class Menu:
         if len(habitaciones) > 0:
           for habitacion in habitaciones:
             print(
-                f"ID: {habitacion[0]}, Número: {habitacion[1]}, Precio: {habitacion[2]}, Piso: {habitacion[3]}, Estado de Limpieza: {habitacion[4]}, Capacidad Actual: {habitacion[5]}, Capacidad Máxima: {habitacion[6]}, Tipo de Habitación: {habitacion[7]}"
+                f"ID: {habitacion[0]}, Número: {habitacion[1]}, Precio: {habitacion[2]}, Piso: {habitacion[3]}, Capacidad: {habitacion[4]}, Tipo de Habitacion: {habitacion[5]}, Disponibilidad: {habitacion[6]}"
             )
             print("\n")
         else:
