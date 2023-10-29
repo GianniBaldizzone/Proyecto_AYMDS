@@ -66,22 +66,27 @@ class Conexion:
   #ABM habitaciones
   #ABM empleados
   def CrearTablaEmpleados(self):
-    self.cursor.execute('''
-    CREATE TABLE IF NOT EXISTS EMPLEADO(
-    id INTEGER PRIMARY KEY,
-    nombre TEXT,
-    apellido TEXT,
-    dni INT,
-    isAdmin INT,
-    telefono INT
-    )
-    ''')
-    self.conexion.commit()
+    try:
+        self.cursor.execute('''
+        CREATE TABLE IF NOT EXISTS EMPLEADO(
+        id INTEGER PRIMARY KEY,
+        nombre TEXT,
+        apellido TEXT,
+        dni INT,
+        isAdmin INT,
+        telefono INT,
+        contraseña TEXT
+        )
+        ''')
+        self.conexion.commit()
+        print("Tabla EMPLEADO creada exitosamente!")
+    except sqlite3.Error as e:
+        print("Error al crear la tabla EMPLEADO:", e)
   
-  def IngresarEmpleados(self, nombre, apellido, dni,isAdmin, telefono):
+  def IngresarEmpleados(self, nombre, apellido, dni,isAdmin, telefono, contraseña):
     self.cursor.execute(
-      "INSERT INTO EMPLEADO (nombre, apellido, dni, isAdmin, telefono) VALUES (?, ?, ?, ?, ?)",
-      (nombre, apellido, dni, isAdmin, telefono))
+      "INSERT INTO EMPLEADO (nombre, apellido, dni, isAdmin, telefono,contraseña) VALUES (?, ?, ?, ?, ?,?)",
+      (nombre, apellido, dni, isAdmin, telefono, contraseña))
     self.conexion.commit()
     print("Empleado creado con exito!!!")
   
@@ -284,29 +289,44 @@ class Conexion:
   #Eliminación de tablas - Test 
 
   def EliminarTablaHabitacion(self):
+    try:
         self.cursor.execute("DROP TABLE IF EXISTS HABITACION")
         self.conexion.commit()
         print("Tabla HABITACION eliminada con éxito!!!")
+    except sqlite3.Error as e:
+        print("Error al eliminar la tabla HABITACION:", e)
 
   def EliminarTablaEmpleados(self):
+    try:
         self.cursor.execute("DROP TABLE IF EXISTS EMPLEADO")
         self.conexion.commit()
         print("Tabla EMPLEADO eliminada con éxito!!!")
+    except sqlite3.Error as e:
+        print("Error al eliminar la tabla EMPLEADO:", e)
 
   def EliminarTablaReserva(self):
+    try:
         self.cursor.execute("DROP TABLE IF EXISTS RESERVA")
         self.conexion.commit()
         print("Tabla RESERVA eliminada con éxito!!!")
+    except sqlite3.Error as e:
+        print("Error al eliminar la tabla RESERVA:", e)
 
   def EliminarTablaActividad(self):
+    try:
         self.cursor.execute("DROP TABLE IF EXISTS ACTIVIDAD")
         self.conexion.commit()
         print("Tabla ACTIVIDAD eliminada con éxito!!!")
+    except sqlite3.Error as e:
+        print("Error al eliminar la tabla ACTIVIDAD:", e)
 
   def EliminarTablaHuesped(self):
+    try:
         self.cursor.execute("DROP TABLE IF EXISTS HUESPED")
         self.conexion.commit()
         print("Tabla HUESPED eliminada con éxito!!!")
+    except sqlite3.Error as e:
+        print("Error al eliminar la tabla HUESPED:", e)
 
   #Eliminación de tablas - Test 
 
@@ -333,22 +353,23 @@ class Conexion:
 
   def InsertarDatosPruebaEmpleados(self):
     query = '''
-    INSERT INTO EMPLEADO (nombre, apellido, dni, isAdmin, telefono) 
+    INSERT INTO EMPLEADO (nombre, apellido, dni, isAdmin, telefono, contraseña) 
     VALUES 
-    ('Gianni', 'Baldizzone', 12345678, 1, 123456789),
-    ('Victoria', 'Troiano', 23456789, 1, 234567890),
-    ('Carlos', 'Rodriguez', 34567890, 0, 345678901),
-    ('Laura', 'Martinez', 45678901, 0, 456789012),
-    ('David', 'Lopez', 56789012, 0, 567890123),
-    ('Ana', 'Torres', 67890123, 0, 678901234),
-    ('Pedro', 'Sanchez', 78901234, 0, 789012345),
-    ('Elena', 'Ramirez', 89012345, 0, 890123456),
-    ('Gabriel', 'Hernandez', 90123456, 0, 901234567),
-    ('Sofia', 'Diaz', 12345670, 0, 123456780)
+    ('Gianni', 'Baldizzone', 12345678, 1, 123456789, 'contrasena1'),
+    ('Victoria', 'Troiano', 23456789, 1, 234567890, 'contrasena2'),
+    ('Carlos', 'Rodriguez', 34567890, 0, 345678901, 'contrasena3'),
+    ('Laura', 'Martinez', 45678901, 0, 456789012, 'contrasena4'),
+    ('David', 'Lopez', 56789012, 0, 567890123, 'contrasena5'),
+    ('Ana', 'Torres', 67890123, 0, 678901234, 'contrasena6'),
+    ('Pedro', 'Sanchez', 78901234, 0, 789012345, 'contrasena7'),
+    ('Elena', 'Ramirez', 89012345, 0, 890123456, 'contrasena8'),
+    ('Gabriel', 'Hernandez', 90123456, 0, 901234567, 'contrasena9'),
+    ('Sofia', 'Diaz', 12345670, 0, 123456780, 'contrasena10')
     '''
     self.cursor.execute(query)
     self.conexion.commit()
-    print("Datos de prueba para EMPLEADO insertados con éxito!!!")
+    print("Datos de prueba para EMPLEADO (incluyendo contraseñas) insertados con éxito!!!")
+
 
   def InsertarDatosPruebaReserva(self):
     query = '''

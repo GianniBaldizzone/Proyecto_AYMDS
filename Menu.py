@@ -635,7 +635,7 @@ class Menu:
         if len(empleados) > 0:
           for empleado in empleados:
             print(
-                f"ID: {empleado[0]}, Nombre: {empleado[1]}, Apellido: {empleado[2]}, Dni: {empleado[3]}, Es Admin: {empleado[4]}, Telefono: {empleado[5]}"
+                f"ID: {empleado[0]}, Nombre: {empleado[1]}, Apellido: {empleado[2]}, Dni: {empleado[3]}, Es Admin: {empleado[4]}, Telefono: {empleado[5]}, Contraseña: {empleado[6]}"
             )
             print("\n")
         else:
@@ -769,7 +769,7 @@ class Menu:
       elif eleccion == "3":
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
-        conexion.CrearTablaActividad()
+        conexion.CrearTablaEmpleados()
       elif eleccion == "4":
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
