@@ -102,8 +102,7 @@ class Menu:
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
     empleado_id = ValidacionesEmpleado.validar_ID()
-    fecha_checkin = datetime.now()
-    print('Fecha checkin: ', datetime.now())
+    fecha_checkin = ValidacionesReserva.validar_checkin() 
     fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
     habitacion_id = ValidacionesHabitaciones.validaciones_id_hab()
     estado = ValidacionesHabitaciones.validaciones_estado_hab()
@@ -116,7 +115,53 @@ class Menu:
   def modificar_reserva(self):
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
-    conexion.ModificarReserva()
+    numeroID = ValidacionesReserva.validar_id_reserva()
+    bucle = 0
+    while bucle != 1:
+      print("\n")
+      print("Seleccione una opción a modificar:")
+      print("1. Empleado ID")
+      print("2. Fecha checkout")
+      print("3. Habitacion ID")
+      print("4. Estado")
+      print("5. Huesped ID")
+      print("6. Tipo de reserva")
+      print("7. Salir de modificar")
+      print("\n")
+
+      eleccion = input("Ingrese el número de la opción: ")
+      print("\n")
+
+      if eleccion == "1":
+        campo = "empleado_id"
+      elif eleccion == "2":
+        campo = "fecha_checkout"
+      elif eleccion == "3":
+        campo = "habitacion_id"
+      elif eleccion == "4":
+        campo = "estado"
+      elif eleccion == "5":
+        campo = "huesped_id"
+      elif eleccion == "6":
+        campo = "tipo_reserva"
+      elif eleccion == "7":
+        bucle = 1
+        print("Has salido del menu modificar huesped")
+
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+
+      print("\n")
+      if eleccion != "7":
+        print("\n")
+        nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        conexion.ModificarReservas(numeroID, campo, nuevo_valor)
+        print(f"Se ha modificado el campo {campo} satisfactoriamente.")
+        print("\n")
+        print("\n")
+    conexion.ModificarReservas(numeroID, campo, nuevo_valor)
     
     print("\n")
 

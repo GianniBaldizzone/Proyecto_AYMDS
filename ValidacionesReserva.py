@@ -1,11 +1,41 @@
 from bd import Conexion
 from datetime import datetime
 class ValidacionesReserva:
+    @staticmethod
+    def validar_checkin():
+        bucle=0
+        fecha_checkin=0
+        fecha_actual = datetime.now()
+        print("Fecha checkin")
+        while bucle != 1:
+            
+            try:
+                año = int(input("Ingrese año"))
+                mes = int(input("Ingrese mes"))
+                dia = int(input("Ingrese dia"))
+                hora = int(input("Ingrese hora"))
+                minutos = int(input("Ingrese minutos"))
+                fecha_checkin =  datetime(año,mes,dia, hora,minutos)
+                
+                if fecha_checkin.date() > fecha_actual.date():
+                    bucle = 1
+                    print("Fecha válida.")
+                    print(fecha_checkin)
+                else:
+                    print("Fecha inválida. La fecha de check-in debe ser posterior a la fecha actual.")
+            except ValueError:
+                print("Fecha inválida.")
+                print(type(fecha_checkin))
+                print(fecha_checkin)
+                print("Parece que has ingresado la fecha en otro formato. Por favor, introduzca la fecha en numeros.")
+        return fecha_checkin
+        
     
     @staticmethod
     def validar_checkout(fecha_checkin):
         bucle=0
         fecha_checkout=0
+        print("Fecha checkout")
         while bucle != 1:
             
             try:
@@ -28,6 +58,7 @@ class ValidacionesReserva:
                 print(fecha_checkout)
                 print("Parece que has ingresado la fecha en otro formato. Por favor, introduzca la fecha en numeros.")
         return fecha_checkout
+    
     @staticmethod
     def validaciones_tipo_reserva():
         bucle = True

@@ -173,17 +173,17 @@ class Conexion:
             result = "Error al recuperar reservas"
         return result
     
-  def ModificarReserva(self, empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipoReserva, id):
-        result = None
-        self.cursor.execute(
-            "UPDATE RESERVA SET empleado_id=?, fechaChekin=?, fechaCheckout=?, habitacion_id=?, estado=?, huesped_id=?, tipoReserva=? WHERE id = ?",
-            (empleado_id, fecha_checkin, fecha_checkout, habitacion_id, estado, huesped_id, tipoReserva, id))
-        if self.cursor:
-            self.conexion.commit()
-            result = "Reserva modificada con éxito!!!"
-        else:
-            result = "Error al modificar la reserva"
-        return result
+  def ModificarReservas(self, numeroID, campo, nuevo_valor):
+    consulta_sql = f"UPDATE RESERVA SET {campo} = ? WHERE id = ?"
+    
+  
+    self.cursor.execute(consulta_sql, (nuevo_valor, numeroID))
+    self.conexion.commit()
+
+    print("\n")
+    print("Reserva modificada con éxito!!!")
+    print("\n")
+      
     
   def EliminarReserva(self, id):
         result = None
