@@ -125,7 +125,7 @@ class Menu:
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
     print("\n")
-    numeroID= input("Ingresar ID a eliminar")
+    numeroID = ValidacionesReserva.validar_id_reserva()
     print("\n")
     conexion.EliminarReserva(numeroID)
     print("\n")

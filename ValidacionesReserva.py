@@ -50,3 +50,34 @@ class ValidacionesReserva:
                 return tipo_reserva
             else:
                 print("Error: Opción no válida. Por favor, seleccione una opción válida.")
+                
+    @staticmethod
+    def validar_id_reserva():
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        while True:
+            numeroID = input("Ingrese el ID de la reserva a eliminar: ")
+            
+                # Validar que el id no sea nulo
+            if numeroID is None:
+                print("Error: Parece que no has ingresado ningún ID.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+
+            # Validar que el id sea un número entero mayor que 0
+            try:
+                numeroID = int(numeroID)  # Intenta convertir el valor a un entero
+                if numeroID <= 0 :
+                    print("Error: El ID debe ser un número entero mayor que 0.")
+                    print("Por favor, ingrese un dato válido.")
+                    continue
+            except ValueError:
+                print("Error: El ID debe ser un número entero mayor que 0.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            
+            if not conexion.IDReservaExists(numeroID):
+                print("Error: La reserva con el ID proporcionado no existe en la base de datos.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            return numeroID

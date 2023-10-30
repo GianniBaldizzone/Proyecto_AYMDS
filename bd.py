@@ -198,6 +198,16 @@ class Conexion:
   def CerrarConexion(self):
         self.conexion.close()
   
+  #Verifica que hay un ID existente contandolo en la bd
+  def IDReservaExists(self, numeroID):   
+    self.cursor.execute("SELECT COUNT(*) FROM RESERVA WHERE id = ?", (numeroID,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
+  
   #ABM Reserva
 
   #ABM Actividad - EN PROCESO
