@@ -2,18 +2,20 @@ from bd import Conexion
 class ValidacionesHuesped:
     
     @staticmethod
-    def validar_nombre(nombre):
+    def validar_nombre():
+        nombre = input("Ingrese el nombre del huesped:")
         while True:
-            if nombre and nombre.strip().isalpha():
+            if nombre.strip().isalpha():
                 return nombre.strip()
             else:
                 print("Error: El nombre no puede estar vacío y debe contener solo letras.")
                 nombre = input("Por favor, ingrese el nombre nuevamente: ")
-
+        
     @staticmethod
-    def validar_apellido(apellido):
+    def validar_apellido():
+        apellido = input("Ingrese el apellido del huesped:")
         while True:
-            if apellido and apellido.strip().isalpha():
+            if apellido.strip().isalpha():
                 return apellido.strip()
             else:
                 print("Error: El apellido no puede estar vacío y debe contener solo letras.")

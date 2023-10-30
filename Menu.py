@@ -230,19 +230,14 @@ class Menu:
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
-    nombre = input("Ingrese el nombre del huesped:")
-    apellido = input("Ingrese el apellido del huesped:")
-    numero_pasaporte = input("Ingrese el pasaporte del huesped:")
-    dni = input("Ingrese el dni del huesped:")
-    nacionalidad = input("Ingrese la nacionalidad del huesped:")
-    grupo_sanguineo = input("Ingrese el grupo sanguíneo del huesped:")
-    seguro_vida = input("Ingrese el seguro de vida del huesped:")
-    ##VALIDACIONES
-    ##piso = validacion.validacionPiso()
-    ##numero = validacion.validar_numero_habitacion(piso)
-    ##precio = validacion.validacion_precio()
-    ##capacidadMaxima = validacion.validacionCantidadMaxima()
-    ##tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
+    nombre = ValidacionesHuesped.validar_nombre()
+    apellido = ValidacionesHuesped.validar_apellido()
+    numero_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
+    dni = ValidacionesHuesped.validar_dni()
+    nacionalidad = ValidacionesHuesped.validar_nacionalidad()
+    grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+    seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+   
     conexion.IngresarHuesped(nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
     
     
@@ -317,8 +312,16 @@ class Menu:
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
     print("\n")
-    numeroID= input("Ingresar ID a eliminar")
+    while True:
+        numeroID = input("Ingresar ID del huesped a modificar/eliminar: ")
+        
+        if conexion.IDExists(numeroID):
+            break  #sale del loop si es true
+        else:
+            print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
+            print("\n")
     print("\n")
+    
     conexion.HuespedEliminar(numeroID)
     print("\n")
     
@@ -714,10 +717,8 @@ class Menu:
               nombreBD = "househunter.db"
               conexion = Conexion(nombreBD)
               conexion.CrearTablaHuesped()
-              nombre = input("Ingrese nombre del empleado: ")
-              nombre = ValidacionesHuesped.validar_nombre(nombre)
-              apellido = input("Ingresar apellido: ")
-              apellido = ValidacionesHuesped.validar_apellido(apellido)
+              nombre = ValidacionesHuesped.validar_nombre()
+              apellido = ValidacionesHuesped.validar_apellido()
               numero_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
               dni = ValidacionesHuesped.validar_dni()
               nacionalidad = ValidacionesHuesped.validar_nacionalidad()
@@ -734,9 +735,9 @@ class Menu:
                 conexion = Conexion(nombreBD)
                 conexion.CrearTablaHuesped()
                 print("\n")
-                numeroID = input("Ingresar ID del huésped a eliminar: ")
-                print("\n")
-                conexion.HuespedEliminar(numeroID)
+                self.eliminar_checkin()
+                
+          
 
             elif eleccion == "4":
                 nombreBD = "househunter.db"
@@ -766,7 +767,6 @@ class Menu:
                     "Error: Opción no válida. Por favor, seleccione una opción válida."
                 )
 #menu abm - huesped
-#menu abm
 
 #Menu contro maestro
   def mostrar_menu_controlmaestro(self):
@@ -956,6 +956,46 @@ class Menu:
         )
 
 #menu ABM - Menu contro maestro - Setear
+
+
+#menu abm huesped filtros
+def mostrar_menu_huespedes_filtros(self):
+    bucle = 0
+
+    while bucle != 1:
+      print("\n")
+      print(f"=== Menú ABM - Huespedes - Filtrar Huespedes===")
+      print("Seleccione una opción:")
+      print("1. Filtrar por ID")
+      print("2. Volver")
+      print("\n")
+
+      eleccion = input("Ingrese el número de la opción: ")
+
+      if eleccion == "1":
+        validacion = ValidacionesHabitaciones()
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaHabitacion()
+        piso = validacion.validacionPiso()
+        habitaciones = conexion.MostrarHabitacionesPorPiso(piso)
+
+        if len(habitaciones) > 0:
+          for habitacion in habitaciones:
+            print(
+                f"ID: {habitacion[0]}, Número: {habitacion[1]}, Precio: {habitacion[2]}, Piso: {habitacion[3]}, Estado de Limpieza: {habitacion[4]}, Capacidad Actual: {habitacion[5]}, Capacidad Máxima: {habitacion[6]}, Tipo de Habitación: {habitacion[7]}"
+            )
+            print("\n")
+
+      elif eleccion == "2":
+        print("Volviendo...")
+        print("\n")
+        self.mostrar_menu_habitacion()
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+#menu abm huesped filtros
 
 
 
