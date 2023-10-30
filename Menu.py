@@ -64,12 +64,16 @@ class Menu:
       eleccion = input("Ingrese el número de la opción: ")
 
       if eleccion == "1":
+        print("Ingresaste a la lista de reservas")
         self.ver_reservas()
       elif eleccion == "2":
+        print("Ingresaste al menú realizar reservas")
         self.hacer_reserva()
       elif eleccion == "3":
+        print("Ingresaste al menú para eliminar reservas")
         self.eliminar_reserva()
       elif eleccion == "4":
+        print("Ingresaste al menú para modificar reservas")
         self.modificar_reserva()
       elif eleccion == "5":
         print("Volviendo...")
@@ -121,12 +125,13 @@ class Menu:
       print("\n")
       print("Seleccione una opción a modificar:")
       print("1. Empleado ID")
-      print("2. Fecha checkout")
-      print("3. Habitacion ID")
-      print("4. Estado")
-      print("5. Huesped ID")
-      print("6. Tipo de reserva")
-      print("7. Salir de modificar")
+      print("2. Fecha checkin")
+      print("3. Fecha checkout")
+      print("4. Habitacion ID")
+      print("5. Estado")
+      print("6. Huesped ID")
+      print("7. Tipo de reserva")
+      print("8. Salir de modificar")
       print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
@@ -154,9 +159,10 @@ class Menu:
         )
 
       print("\n")
-      if eleccion != "7":
+      if eleccion != "8":
         print("\n")
         nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        campo = ValidacionesReserva.validar_campos(campo)
         conexion.ModificarReservas(numeroID, campo, nuevo_valor)
         print(f"Se ha modificado el campo {campo} satisfactoriamente.")
         print("\n")

@@ -87,7 +87,7 @@ class ValidacionesReserva:
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         while True:
-            numeroID = input("Ingrese el ID de la reserva a eliminar: ")
+            numeroID = input("Ingrese el ID de la reserva que quiere eliminar/modificar: ")
             
                 # Validar que el id no sea nulo
             if numeroID is None:
@@ -112,3 +112,18 @@ class ValidacionesReserva:
                 print("Por favor, ingrese un dato válido.")
                 continue
             return numeroID
+    
+    @staticmethod
+    def validar_campos(campo):
+        if campo == "empleado_id":
+                # Aquí puedes realizar la validación para el nuevo valor del empleado_id
+                if not ValidacionesReserva.validar_id_reserva():
+                    print("Error: El valor de empleado_id no es válido.")
+                    return False
+
+                elif campo == "fecha_checkout":
+                    # Aquí puedes realizar la validación para el nuevo valor de la fecha_checkout
+                    if not ValidacionesReserva.validar_checkout():
+                        print("Error: La fecha de checkout no es válida.")
+                        return False
+        
