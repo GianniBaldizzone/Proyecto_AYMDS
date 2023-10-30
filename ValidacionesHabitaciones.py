@@ -50,30 +50,25 @@ class ValidacionesHabitaciones:
             "Error Opción no válida ---> Por favor seleccione una opción válida"
         )
 
-  def validacionCantidadMaxima(self):
+  def validacionCantidad(self):
     bucle2 = 0
 
     while bucle2 != 1:
       print(f"*** Ingresar Cantidad Maxima ***")
+      print("1 Personas")
       print("2 Personas")
-      print("4 Personas")
-      print("6 Personas")
-      print("8 Personas")
+      print("3 Personas")
 
       eleccion = input("Ingrese el número de la opción: ")
 
-      if eleccion == "2":
+      if eleccion == "1":
+        cantMaxima = 1
+        return cantMaxima
+      elif eleccion == "2":
         cantMaxima = 2
         return cantMaxima
-      elif eleccion == "4":
-        cantMaxima = 4
-        return cantMaxima
-
-      elif eleccion == "6":
-        cantMaxima = 6
-        return cantMaxima
-      elif eleccion == "8":
-        cantMaxima = 8
+      elif eleccion == "3":
+        cantMaxima = 3
         return cantMaxima
       else:
         print(

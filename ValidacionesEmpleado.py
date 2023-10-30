@@ -1,3 +1,6 @@
+import sqlite3
+from bd import Conexion
+
 
 class ValidacionesEmpleado:
     @staticmethod
@@ -45,3 +48,20 @@ class ValidacionesEmpleado:
             else:
                 print("Error: El número de teléfono debe tener al menos 7 dígitos y ser un número válido.")
   
+
+    @staticmethod    
+    def validar_contrasena():
+        while True:
+            contrasena = input("Ingrese la contraseña: ")
+
+            # Validar que la contraseña tiene al menos 8 caracteres
+            if len(contrasena) < 8:
+                print("Error: La contraseña debe tener al menos 8 caracteres.")
+                continue
+
+            # Validar que la contraseña contiene al menos una letra y un número
+            if not any(c.isalpha() for c in contrasena) or not any(c.isdigit() for c in contrasena):
+                print("Error: La contraseña debe contener al menos una letra y un número.")
+                continue
+
+            return contrasena

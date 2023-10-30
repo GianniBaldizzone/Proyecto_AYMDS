@@ -1,7 +1,7 @@
 from ValidacionesHabitaciones import ValidacionesHabitaciones
 from bd import Conexion
 from datetime import datetime
-
+from ValidacionesEmpleado import ValidacionesEmpleado
 
 class Menu:
   
@@ -487,10 +487,9 @@ class Menu:
         piso = validacion.validacionPiso()
         numero = validacion.validar_numero_habitacion(piso)
         precio = validacion.validacion_precio()
-        capacidadMaxima = validacion.validacionCantidadMaxima()
+        capacidad = validacion.validacionCantidad()
         tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
-        disponibilidad = "Disponible"
-        conexion.IngresarHabitacion(numero, precio, piso, capacidadMaxima, tipoDeHabitacion, disponibilidad)
+        conexion.IngresarHabitacion(numero, precio, piso, capacidad, tipoDeHabitacion)
       elif eleccion == "2":
         print("Modificando habitacion ...")
       elif eleccion == "3":
@@ -606,16 +605,23 @@ class Menu:
 
       if eleccion == "1":
         
+        
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         conexion.CrearTablaEmpleados()
-        nombre = input("Ingresar nombre")
-        apellido = input("Ingresar apellido")
-        dni = input("Ingresar dni")
-        isAdmin = input("Ingresar isAdmin")
-        telefono = input("Ingresar telefono")
         
-        conexion.IngresarEmpleados(nombre, apellido, dni, isAdmin,telefono)
+        nombre = input("Ingrese nombre del empleado: ")
+        nombre = ValidacionesEmpleado.validar_nombre(nombre)
+          
+        apellido = input("Ingresar apellido: ")
+        apellido = ValidacionesEmpleado.validar_apellido(apellido)
+          
+        dni = ValidacionesEmpleado.validar_dni()
+        isAdmin = ValidacionesEmpleado.validar_administrador()
+        telefono = ValidacionesEmpleado.validar_telefono()
+        contrasena = ValidacionesEmpleado.validar_contrasena() 
+        conexion.IngresarEmpleados(nombre, apellido, dni, isAdmin,telefono,contrasena)
+
       elif eleccion == "2":
         self.mostrar_menu_empleado()
       elif eleccion == "3":
@@ -644,7 +650,7 @@ class Menu:
       elif eleccion == "5":
         print("Volviendo...")
         print("\n")
-        self.mostrar_menu()
+        self.mostrar_abm()
       else:
         print(
             "Error Opción no válida ---> Por favor seleccione una opción válida"
@@ -729,7 +735,7 @@ class Menu:
       elif eleccion == "6":
         print("Volviendo...")
         print("\n")
-        self.mostrar_menu()
+        self.mostrar_menu_controlmaestro()
       else:
         print(
             "Error Opción no válida ---> Por favor seleccione una opción válida"
@@ -781,7 +787,7 @@ class Menu:
       elif eleccion == "6":
         print("Volviendo...")
         print("\n")
-        self.mostrar_menu()
+        self.mostrar_menu_controlmaestro()
       else:
         print(
             "Error Opción no válida ---> Por favor seleccione una opción válida"

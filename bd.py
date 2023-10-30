@@ -29,10 +29,10 @@ class Conexion:
     ''')
     self.conexion.commit()
 
-  def IngresarHabitacion(self, numero, precio, piso, capacidad, tipoDeHabitacion, disponibilidad):
+  def IngresarHabitacion(self, numero, precio, piso, capacidad, tipoDeHabitacion):
     self.cursor.execute(
-      "INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) VALUES (?, ?, ?,?, ?, ?)",
-      (numero, precio, piso, capacidad, tipoDeHabitacion, disponibilidad))
+      "INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) VALUES (?, ?, ?,?, ?,?)",
+      (numero, precio, piso, capacidad, tipoDeHabitacion,"Disponible"))
     self.conexion.commit()
     print("Habitacion creada con exito!!!")
 
