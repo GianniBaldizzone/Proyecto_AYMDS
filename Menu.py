@@ -1,3 +1,4 @@
+from ValidacionesHuesped import ValidacionesHuesped
 from ValidacionesHabitaciones import ValidacionesHabitaciones
 from bd import Conexion
 from datetime import datetime
@@ -440,8 +441,10 @@ class Menu:
       print("Seleccione una opción:")
       print("1. Habitaciones")
       print("2. Empleados")
-      print("3. Control maestro BD")
-      print("4. Volver")
+      print("3. Actividades")
+      print("4. Huespedes")
+      print("5. Control maestro BD")
+      print("6. Volver")
       print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
@@ -451,8 +454,12 @@ class Menu:
       elif eleccion == "2":
         self.mostrar_menu_empleado()
       elif eleccion == "3":
-        self.mostrar_menu_controlmaestro()
+        self.mostrar_menu_actividad()
       elif eleccion == "4":
+        self.mostrar_menu_huesped()
+      elif eleccion == "5":
+        self.mostrar_menu_controlmaestro()
+      elif eleccion == "6":
         print("Volviendo...")
         print("\n")
         self.mostrar_menu()
@@ -658,6 +665,81 @@ class Menu:
 
 
 #menu abm - empleados
+#menu abm - huesped
+  def mostrar_menu_huesped(self):
+        bucle = 0
+
+        while bucle != 1:
+            print("\n")
+            print(f"=== Menú ABM - Huéspedes ===")
+            print("Seleccione una opción:")
+            print("1. Crear Huésped")
+            print("2. Modificar Huésped")
+            print("3. Eliminar Huésped")
+            print("4. Mostrar Huéspedes")
+            print("5. Filtrar Huéspedes")
+            print("6. Volver")
+            print("\n")
+
+            eleccion = input("Ingrese el número de la opción: ")
+
+            if eleccion == "1":
+              ValidacionesHuesped()
+              nombreBD = "househunter.db"
+              conexion = Conexion(nombreBD)
+              conexion.CrearTablaHuesped()
+              nombre = input("Ingrese nombre del empleado: ")
+              nombre = ValidacionesHuesped.validar_nombre(nombre)
+              apellido = input("Ingresar apellido: ")
+              apellido = ValidacionesHuesped.validar_apellido(apellido)
+              numero_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
+              dni = ValidacionesHuesped.validar_dni()
+              nacionalidad = ValidacionesHuesped.validar_nacionalidad()
+              grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+              seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+              conexion.IngresarHuesped(nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+
+            elif eleccion == "2":
+                print("Modificando huésped ...")
+                # Lógica para modificar huésped
+
+            elif eleccion == "3":
+                nombreBD = "househunter.db"
+                conexion = Conexion(nombreBD)
+                conexion.CrearTablaHuesped()
+                print("\n")
+                numeroID = input("Ingresar ID del huésped a eliminar: ")
+                print("\n")
+                conexion.HuespedEliminar(numeroID)
+
+            elif eleccion == "4":
+                nombreBD = "househunter.db"
+                conexion = Conexion(nombreBD)
+                conexion.CrearTablaHuesped()
+                huespedes = conexion.MostrarHuespedes()
+
+                if len(huespedes) > 0:
+                    for huesped in huespedes:
+                        print(
+                            f"ID: {huesped[0]}, Nombre: {huesped[1]}, Apellido: {huesped[2]}, Número de Pasaporte: {huesped[3]}, DNI: {huesped[4]}, Nacionalidad: {huesped[5]}, Grupo Sanguíneo: {huesped[6]}, Seguro de Vida: {'Sí' if huesped[7] else 'No'}"
+                        )
+                        print("\n")
+                else:
+                    print("No hay huéspedes")
+                    print("\n")
+
+            elif eleccion == "5":
+                self.mostrar_menu_huespedes_filtros()
+
+            elif eleccion == "6":
+                print("Volviendo...")
+                print("\n")
+                self.mostrar_abm()
+            else:
+                print(
+                    "Error: Opción no válida. Por favor, seleccione una opción válida."
+                )
+#menu abm - huesped
 #menu abm
 
 #Menu contro maestro
