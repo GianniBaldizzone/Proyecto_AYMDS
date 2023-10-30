@@ -65,3 +65,34 @@ class ValidacionesEmpleado:
                 continue
 
             return contrasena
+        
+    @staticmethod    
+    def validar_ID():
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        while True:
+            empleado_id = input("Ingrese el ID del empleado: ")
+            
+                # Validar que el id no sea nulo
+            if empleado_id is None:
+                print("Error: Parece que no has ingresado ningún ID.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+
+            # Validar que el id sea un número entero mayor que 0
+            try:
+                empleado_id = int(empleado_id)  # Intenta convertir el valor a un entero
+                if empleado_id <= 0 :
+                    print("Error: El ID debe ser un número entero mayor que 0.")
+                    print("Por favor, ingrese un dato válido.")
+                    continue
+            except ValueError:
+                print("Error: El ID debe ser un número entero mayor que 0.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            
+            if not conexion.existeID(empleado_id):
+                print("Error: El empleado con el ID proporcionado no existe en la base de datos.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            return empleado_id

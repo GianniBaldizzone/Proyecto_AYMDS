@@ -3,6 +3,7 @@ from ValidacionesHabitaciones import ValidacionesHabitaciones
 from bd import Conexion
 from datetime import datetime
 from ValidacionesEmpleado import ValidacionesEmpleado
+from ValidacionesReserva import ValidacionesReserva
 
 class Menu:
   
@@ -100,40 +101,14 @@ class Menu:
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
-    empleado_id = int(input("Ingrese el ID del empleado:"))
+    empleado_id = ValidacionesEmpleado.validar_ID()
     fecha_checkin = datetime.now()
     print('Fecha checkin: ', datetime.now())
-    
-    bucle=0
-    while bucle != 1:
-      fecha_checkout=0
-      try:
-        año = int(input("Ingrese año"))
-        mes = int(input("Ingrese mes"))
-        dia = int(input("Ingrese dia"))
-        hora = int(input("Ingrese hora"))
-        minutos = int(input("Ingrese minutos"))
-        fecha_checkout =  datetime(año,mes,dia, hora,minutos)
-        
-        if fecha_checkout > fecha_checkin and dia > fecha_checkin.day and mes >= fecha_checkin.month:
-          bucle = 1
-          print("Fecha válida.")
-          print(fecha_checkout)
-        else:
-          print("Fecha inválida. La fecha de check-out debe ser posterior a la fecha de check-in.")
-      except ValueError:
-        print("Fecha inválida.")
-        print(type(fecha_checkout))
-        print(fecha_checkout)
-        print("Parece que has ingresado la fecha en otro formato. Por favor, introduzca la fecha en numeros.")
-        
-    
-    
-    habitacion_id = input("Ingrese el ID de la habitacion")
-    estado = input("Ingrese el estado:")
-    huesped_id = input("Ingrese el ID del huesped:")
-    tipo_reserva = input("Ingrese tipo reserva")
-
+    fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
+    habitacion_id = ValidacionesHabitaciones.validaciones_id_hab()
+    estado = ValidacionesHabitaciones.validaciones_estado_hab()
+    huesped_id = ValidacionesHuesped.validaciones_id_huesp()
+    tipo_reserva = ValidacionesReserva.validaciones_tipo_reserva()
     
     conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
     print("\n")

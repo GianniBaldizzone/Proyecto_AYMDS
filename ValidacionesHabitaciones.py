@@ -1,9 +1,4 @@
-#import unittest
-
-#class test(unittest.TestCase):
-  #def test_piso():
-    #self.assertTrue(inicio_sesion.autenticar("usuario", "contraseña"), "Autenticación exitosa esperada")
-
+from bd import Conexion
 
 class ValidacionesHabitaciones:
 
@@ -120,8 +115,56 @@ class ValidacionesHabitaciones:
               "Error Opción no válida ---> Por favor seleccione una opción válida"
           )
           
-  
+  def validaciones_id_hab():
+      nombreBD = "househunter.db"
+      conexion = Conexion(nombreBD)
+      while True:
+        habitacion_id = input("Ingrese el ID de la habitacion:")
+        if habitacion_id is None:
+          print("Error: Parece que no has ingresado ningún ID.")
+          print("Por favor, ingrese un dato válido.")
+          continue
+         # Validar que el id sea un número entero mayor que 0
+        try:
+              habitacion_id = int(habitacion_id)  # Intenta convertir el valor a un entero
+              if habitacion_id <= 0:
+                  print("Error: El ID debe ser un número entero mayor que 0.")
+                  print("Por favor, ingrese un dato válido.")
+                  continue
+        except ValueError:
+              print("Error: El ID debe ser un número entero mayor que 0.")
+              print("Por favor, ingrese un dato válido.")
+              continue
 
+        if not conexion.existeIDHab(habitacion_id):
+              print("Error: La habitación con el ID proporcionado no existe en la base de datos.")
+              print("Por favor, ingrese un dato válido.")
+              continue
+        return habitacion_id
+  
+  def validaciones_estado_hab():
+    bucle = True
+
+    while bucle:
+      print("*** Seleccionar Tipo de Estado ***")
+      print("1. Disponible")
+      print("2. Ocupado")
+            
+
+      eleccion = input("Ingrese el número de la opción: ")
+
+      if eleccion == "1":
+        estado = "Disponible"
+        print("El tipo de estado seleccionado fue Disponible.")
+        return estado
+      elif eleccion == "2":
+        estado = "Actividad"
+        print("El tipo de reserva seleccionado fue Actividad.")
+        return estado
+      else:
+        print("Error: Opción no válida. Por favor, seleccione una opción válida.")
+      
+      
   def validar_numero_habitacion(self, piso):
 
     if piso == 0:
@@ -207,7 +250,9 @@ class ValidacionesHabitaciones:
       print("\n")
 
 
-
+    
+        
+    
 
 
 #def validar_numero_habitacion(piso):

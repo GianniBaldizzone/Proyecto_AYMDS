@@ -62,6 +62,15 @@ class Conexion:
     self.cursor.execute("SELECT *FROM HABITACION WHERE capacidad_maxima = ?",(cantidadMaxima,))
     habitaciones = self.cursor.fetchall()
     return habitaciones
+  
+  def existeIDHab(self, habitacion_id):
+    self.cursor.execute("SELECT COUNT(*) FROM HABITACION WHERE id = ?", (habitacion_id,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
 
   #ABM habitaciones
   #ABM empleados
@@ -111,6 +120,15 @@ class Conexion:
     print("\n")
     print("Empleado eliminado con exito!!!")
     print("\n")
+  
+  def existeID(self, empleado_id):
+    self.cursor.execute("SELECT COUNT(*) FROM EMPLEADO WHERE id = ?", (empleado_id,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
   
   
   #ABM Empleados
@@ -282,6 +300,15 @@ class Conexion:
     print("\n")
     print("Huesped eliminado con exito!!!")
     print("\n")
+  
+  def existeIDHuesp(self, huesped_id):
+    self.cursor.execute("SELECT COUNT(*) FROM HUESPED WHERE id = ?", (huesped_id,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
   
   
   #ABM Huesped

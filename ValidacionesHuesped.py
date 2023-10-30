@@ -1,3 +1,4 @@
+from bd import Conexion
 class ValidacionesHuesped:
     
     @staticmethod
@@ -148,3 +149,34 @@ class ValidacionesHuesped:
                 return "no"
             else:
                 print("Error: Por favor, ingrese 'Sí' o 'No' para indicar si el huésped tiene seguro de vida.")
+    
+    @staticmethod
+    def validaciones_id_huesp():
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        while True:
+            huesped_id = input("Ingrese el ID del huesped: ")
+            
+                # Validar que el id no sea nulo
+            if huesped_id is None:
+                print("Error: Parece que no has ingresado ningún ID.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+
+            # Validar que el id sea un número entero mayor que 0
+            try:
+                huesped_id = int(huesped_id)  # Intenta convertir el valor a un entero
+                if huesped_id <= 0 :
+                    print("Error: El ID debe ser un número entero mayor que 0.")
+                    print("Por favor, ingrese un dato válido.")
+                    continue
+            except ValueError:
+                print("Error: El ID debe ser un número entero mayor que 0.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            
+            if not conexion.existeIDHuesp(huesped_id):
+                print("Error: El huesped con el ID proporcionado no existe en la base de datos.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            return huesped_id
