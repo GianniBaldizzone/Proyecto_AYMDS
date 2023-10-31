@@ -760,12 +760,13 @@ class Menu:
           nombre = validacion.validacionNombre()
           tipo_actividad = validacion.validarTipoActividad()
           #capacidad = input("Ingrese la capacidad:")
-          reserva_id = validacion.validarReservaId()
+          #reserva_id = validacion.validarReservaId()
   
-          conexion.IngresarActividad(nombre, tipo_actividad, reserva_id)
+          conexion.IngresarActividad(nombre, tipo_actividad)
           
       elif eleccion == "2":
           print("Modificando actividad ...")
+          
       elif eleccion == "3":
           nombreBD = "househunter.db"
           conexion = Conexion(nombreBD)
@@ -773,7 +774,8 @@ class Menu:
           print("\n")
           numeroID= input("Ingresar ID a eliminar")
           print("\n")
-          conexion.ModificaActividad(numeroID)
+          conexion.EliminarActividad(numeroID)
+          
       elif eleccion == "4":
           nombreBD = "househunter.db"
           conexion = Conexion(nombreBD)
@@ -783,7 +785,7 @@ class Menu:
           if len(actividades) > 0:
             for actividad in actividades:
               print(
-                  f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo de Actividad: {actividad[2]}, Capacidad: {actividad[3]}, ID Reserva: {actividad[4]} "
+                  f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo de Actividad: {actividad[2]}, Capacidad: {actividad[3]} "
               )
               print("\n")
           else:

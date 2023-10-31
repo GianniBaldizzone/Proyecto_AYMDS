@@ -234,22 +234,22 @@ class Conexion:
     ''')
     self.conexion.commit()
 
-  def IngresarActividad(self, nombre, tipo_actividad, reserva_id):
+  def IngresarActividad(self, nombre, tipo_actividad):
     self.cursor.execute(
-      "INSERT INTO ACTIVIDAD (nombre, tipo_actividad, capacidad, reserva_id) VALUES (?, ?, 10, ?)",
-      (nombre, tipo_actividad, reserva_id))
+      "INSERT INTO ACTIVIDAD (nombre, tipo_actividad, capacidad) VALUES (?, ?, 10)",
+      (nombre, tipo_actividad))
     self.conexion.commit()
     print("Actividad creada con exito!!!")
   
   
-  def ModificaActividad(nombre, tipo_actividad, capacidad, reserva_id):
+  def ModificaActividad(nombre, tipo_actividad, capacidad):
     self.cursor.execute(
-        " UPDATE ACTIVIDAD SET nombre=?,capacidad=?,reserva_id=? WHERE id = ? ",
-        (nombre, tipo_actividad, capacidad, reserva_id))
+        " UPDATE ACTIVIDAD SET nombre=?,tipo_actividad=?,capacidad=? WHERE id = ? ",
+        (nombre, tipo_actividad, capacidad))
     self.conexion.commit()
 
-  def ModificarEliminar(self, id):
-    self.cursor.execute(" DELETE FROM ACTIVIDAD WHERE id = ?", (id))
+  def EliminarActividad(self, id):
+    self.cursor.execute(" DELETE FROM ACTIVIDAD WHERE id = ?", (id,))
     self.conexion.commit()
 
   def MostrarActividades(self):
