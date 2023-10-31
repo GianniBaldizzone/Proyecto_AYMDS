@@ -243,8 +243,8 @@ class Conexion:
 
   def MostrarActividades(self):
     self.cursor.execute("SELECT * FROM ACTIVIDAD")
-    habitaciones = self.cursor.fetchall()
-    return habitaciones
+    actividades = self.cursor.fetchall()
+    return actividades
 
   
   #ABM Actividad
