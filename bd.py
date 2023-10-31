@@ -208,6 +208,16 @@ class Conexion:
       count = False
     return count
   
+  #Verifica que hay un ID existente contandolo en la bd
+  def IDReservaExiste(self, reserva_id):   
+    self.cursor.execute("SELECT COUNT(*) FROM RESERVA WHERE id = ?", (reserva_id,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
+  
   #ABM Reserva
 
   #ABM Actividad - EN PROCESO
@@ -231,6 +241,7 @@ class Conexion:
     self.conexion.commit()
     print("Actividad creada con exito!!!")
   
+  
   def ModificaActividad(nombre, tipo_actividad, capacidad, reserva_id):
     self.cursor.execute(
         " UPDATE ACTIVIDAD SET nombre=?,capacidad=?,reserva_id=? WHERE id = ? ",
@@ -245,10 +256,72 @@ class Conexion:
     self.cursor.execute("SELECT * FROM ACTIVIDAD")
     actividades = self.cursor.fetchall()
     return actividades
-
   
   #ABM Actividad
-
+  
+  #ABM Reserva actividad
+   ##################################
+  #ABM ACTIVIDAD RESERVA
+  def CrearTablaActividadReserva(self):
+    self.cursor.execute('''
+    CREATE TABLE IF NOT EXISTS ACTIVIDADRESERVA(
+    id INTEGER PRIMARY KEY,
+    actividad_id INTEGER,
+    reserva_id INTEGER,
+    FOREIGN KEY (actividad_id) REFERENCES ACTIVIDAD (id),
+    FOREIGN KEY (reserva_id) REFERENCES RESERVA (id)
+    )
+    ''')
+    self.conexion.commit()
+  ##La reserva de la actividad
+  def IngresarReservaActividad(self, actividad_id, reserva_id):
+    self.cursor.execute(
+      "INSERT INTO ACTIVIDADRESERVA (actividad_id, reserva_id) VALUES (?, ?)",
+      (actividad_id, reserva_id))
+    self.conexion.commit()
+    print("Actividad reservada con exito!!!")
+  
+  def MostrarActividadReserva(self):
+    try:
+        self.cursor.execute("SELECT * FROM ACTIVIDADRESERVA")
+        reservas = self.cursor.fetchall()
+        return reservas
+    except sqlite3.Error as e:
+        print("Error al recuperar las reservas de las actividades:", e)
+        return []
+  
+  def ModificaActividadReserva(actividad_id, reserva_id):
+    self.cursor.execute(
+        " UPDATE ACTIVIDADRESERVA SET actividad_id=?,reserva_id=? WHERE id = ? ",
+        (actividad_id, reserva_id))
+    self.conexion.commit()
+  
+  def EliminarActividadReserva(self, id):
+    self.cursor.execute("DELETE FROM ACTIVIDADRESERVA WHERE id = ?", (id,))
+    self.conexion.commit()
+  
+  #Verifica que hay un ID existente contandolo en la bd
+  def IDActividadExiste(self, actividad_id):   
+    self.cursor.execute("SELECT COUNT(*) FROM ACTIVIDAD WHERE id = ?", (actividad_id,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
+  
+  def IDActividadReservaExiste(self, numeroID):   
+    self.cursor.execute("SELECT COUNT(*) FROM ACTIVIDADRESERVA WHERE id = ?", (numeroID,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count
+  
+  ###################################
+  #ABM Reserva actividad
+  
   #ABM Huesped
   def CrearTablaHuesped(self):
     self.cursor.execute('''

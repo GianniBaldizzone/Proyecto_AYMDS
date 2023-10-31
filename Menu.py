@@ -365,20 +365,6 @@ class Menu:
 
       if eleccion == "1":
         self.mostrar_actividad()
-        nombreBD = "househunter.db"
-        conexion = Conexion(nombreBD)
-        conexion.CrearTablaActividad()
-        actividades = conexion.MostrarActividades()
-
-        if len(actividades) > 0:
-          for actividad in actividades:
-            print(
-                f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo Actividad: {actividad[2]}, Capacidad: {actividad[3]}, Reserva ID: {actividad[4]}"
-            )
-            print("\n")
-        else:
-          print("No hay actividades")
-          print("\n")
       elif eleccion == "2":
         self.ver_reservas_actividades()
       elif eleccion == "3":
@@ -397,15 +383,51 @@ class Menu:
         )
 
   def mostrar_actividad(self):
-    print("Mostrando actividades disponibles...")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaActividad()
+    actividades = conexion.MostrarActividades()
+    print("## Listado de Actividades Disponibles ##")
+
+    if len(actividades) > 0:
+          for actividad in actividades:
+            print(
+                f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo Actividad: {actividad[2]}, Capacidad: {actividad[3]}, Reserva ID: {actividad[4]}"
+            )
+            
+    else:
+          print("No hay actividades")
+          print("\n")
     print("\n")
 
   def ver_reservas_actividades(self):
-    print("Mostrando reservas de actividades...")
+    print("## Listado de Reservas Actividades ##")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaActividadReserva()
+    reservas = conexion.MostrarActividadReserva()
+
+    if len(reservas) > 0:
+          for reserva in reservas:
+            print(
+                f"ID Reserva Actividad: {reserva[0]}, ID Actividad: {reserva[1]}, ID Reserva: {reserva[2]}"
+            )
+            print("\n")
+    else:
+          print("No hay reservas de actividades.")
+          print("\n")
+    
     print("\n")
 
   def hacer_reserva_de_actividades(self):
-    print("Realizando reserva de actividades...")
+    validacion = ValidacionesActividades()
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaActividadReserva()
+    actividad_id = validacion.validarActividadId()
+    reserva_id = validacion.validarReservaId()
+  
+    conexion.IngresarReservaActividad(actividad_id, reserva_id)
     print("\n")
 
   def modificar_reserva_actividades(self):
@@ -414,7 +436,24 @@ class Menu:
 
   def eliminar_reserva_actividades(self):
     print("Eliminando reserva de actividades...")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaActividadReserva()
     print("\n")
+    while True:
+        numeroID = input("Ingresar ID de la reserva a modificar/eliminar: ")
+        
+        if conexion.IDActividadReservaExiste(numeroID):
+          break  #sale del loop si es true
+        else:
+            print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
+            print("\n")
+    print("\n")
+    
+    conexion.EliminarActividadReserva(numeroID)
+    print("\n")
+    
+    
   #menu actividades
   #menu limpieza
 
@@ -719,12 +758,10 @@ class Menu:
           conexion = Conexion(nombreBD)
           conexion.CrearTablaActividad()
           nombre = validacion.validacionNombre()
-          nombre = input("Ingrese un nombre para la actividad:")
-          tipo_actividad = input("Ingrese el tipo de actividad:")
+          tipo_actividad = validacion.validarTipoActividad()
           #capacidad = input("Ingrese la capacidad:")
-          reserva_id = input("Ingrese el ID de la reserva:")
-          #piso = validacion.validacionPiso()
-          #capacidad = validacion.validacionCantidad()
+          reserva_id = validacion.validarReservaId()
+  
           conexion.IngresarActividad(nombre, tipo_actividad, reserva_id)
           
       elif eleccion == "2":
@@ -769,77 +806,77 @@ class Menu:
 #menu abm - actividades
 
 #menu abm - huesped
-def mostrar_menu_huesped(self):
-        bucle = 0
+  def mostrar_menu_huesped(self):
+          bucle = 0
 
-        while bucle != 1:
-            print("\n")
-            print(f"=== Menú ABM - Huéspedes ===")
-            print("Seleccione una opción:")
-            print("1. Crear Huésped")
-            print("2. Modificar Huésped")
-            print("3. Eliminar Huésped")
-            print("4. Mostrar Huéspedes")
-            print("5. Filtrar Huéspedes")
-            print("6. Volver")
-            print("\n")
+          while bucle != 1:
+              print("\n")
+              print(f"=== Menú ABM - Huéspedes ===")
+              print("Seleccione una opción:")
+              print("1. Crear Huésped")
+              print("2. Modificar Huésped")
+              print("3. Eliminar Huésped")
+              print("4. Mostrar Huéspedes")
+              print("5. Filtrar Huéspedes")
+              print("6. Volver")
+              print("\n")
 
-            eleccion = input("Ingrese el número de la opción: ")
+              eleccion = input("Ingrese el número de la opción: ")
 
-            if eleccion == "1":
-              ValidacionesHuesped()
-              nombreBD = "househunter.db"
-              conexion = Conexion(nombreBD)
-              conexion.CrearTablaHuesped()
-              nombre = ValidacionesHuesped.validar_nombre()
-              apellido = ValidacionesHuesped.validar_apellido()
-              numero_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
-              dni = ValidacionesHuesped.validar_dni()
-              nacionalidad = ValidacionesHuesped.validar_nacionalidad()
-              grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
-              seguro_vida = ValidacionesHuesped.validar_seguro_vida()
-              conexion.IngresarHuesped(nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
-
-            elif eleccion == "2":
-                print("Modificando huésped ...")
-                # Lógica para modificar huésped
-
-            elif eleccion == "3":
+              if eleccion == "1":
+                ValidacionesHuesped()
                 nombreBD = "househunter.db"
                 conexion = Conexion(nombreBD)
                 conexion.CrearTablaHuesped()
-                print("\n")
-                self.eliminar_checkin()
-                
-          
+                nombre = ValidacionesHuesped.validar_nombre()
+                apellido = ValidacionesHuesped.validar_apellido()
+                numero_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
+                dni = ValidacionesHuesped.validar_dni()
+                nacionalidad = ValidacionesHuesped.validar_nacionalidad()
+                grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+                seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+                conexion.IngresarHuesped(nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
 
-            elif eleccion == "4":
-                nombreBD = "househunter.db"
-                conexion = Conexion(nombreBD)
-                conexion.CrearTablaHuesped()
-                huespedes = conexion.MostrarHuespedes()
+              elif eleccion == "2":
+                  print("Modificando huésped ...")
+                  # Lógica para modificar huésped
 
-                if len(huespedes) > 0:
-                    for huesped in huespedes:
-                        print(
-                            f"ID: {huesped[0]}, Nombre: {huesped[1]}, Apellido: {huesped[2]}, Número de Pasaporte: {huesped[3]}, DNI: {huesped[4]}, Nacionalidad: {huesped[5]}, Grupo Sanguíneo: {huesped[6]}, Seguro de Vida: {'Sí' if huesped[7] else 'No'}"
-                        )
-                        print("\n")
-                else:
-                    print("No hay huéspedes")
-                    print("\n")
+              elif eleccion == "3":
+                  nombreBD = "househunter.db"
+                  conexion = Conexion(nombreBD)
+                  conexion.CrearTablaHuesped()
+                  print("\n")
+                  self.eliminar_checkin()
+                  
+            
 
-            elif eleccion == "5":
-                self.mostrar_menu_huespedes_filtros()
+              elif eleccion == "4":
+                  nombreBD = "househunter.db"
+                  conexion = Conexion(nombreBD)
+                  conexion.CrearTablaHuesped()
+                  huespedes = conexion.MostrarHuespedes()
 
-            elif eleccion == "6":
-                print("Volviendo...")
-                print("\n")
-                self.mostrar_abm()
-            else:
-                print(
-                    "Error: Opción no válida. Por favor, seleccione una opción válida."
-                )
+                  if len(huespedes) > 0:
+                      for huesped in huespedes:
+                          print(
+                              f"ID: {huesped[0]}, Nombre: {huesped[1]}, Apellido: {huesped[2]}, Número de Pasaporte: {huesped[3]}, DNI: {huesped[4]}, Nacionalidad: {huesped[5]}, Grupo Sanguíneo: {huesped[6]}, Seguro de Vida: {'Sí' if huesped[7] else 'No'}"
+                          )
+                          print("\n")
+                  else:
+                      print("No hay huéspedes")
+                      print("\n")
+
+              elif eleccion == "5":
+                  self.mostrar_menu_huespedes_filtros()
+
+              elif eleccion == "6":
+                  print("Volviendo...")
+                  print("\n")
+                  self.mostrar_abm()
+              else:
+                  print(
+                      "Error: Opción no válida. Por favor, seleccione una opción válida."
+                  )
 #menu abm - huesped
 
 
