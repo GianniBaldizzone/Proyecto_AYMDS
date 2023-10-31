@@ -230,12 +230,7 @@ class Conexion:
       (nombre, tipo_actividad, reserva_id))
     self.conexion.commit()
     print("Actividad creada con exito!!!")
-  ######
-  def MostrarActividad(self):
-    self.cursor.execute("SELECT *FROM ACTIVIDAD")
-    habitaciones = self.cursor.fetchall()
-    return habitaciones
-
+  
   def ModificaActividad(nombre, tipo_actividad, capacidad, reserva_id):
     self.cursor.execute(
         " UPDATE ACTIVIDAD SET nombre=?,capacidad=?,reserva_id=? WHERE id = ? ",
@@ -246,6 +241,10 @@ class Conexion:
     self.cursor.execute(" DELETE FROM ACTIVIDAD WHERE id = ?", (id))
     self.conexion.commit()
 
+  def MostrarActividades(self):
+    self.cursor.execute("SELECT * FROM ACTIVIDAD")
+    habitaciones = self.cursor.fetchall()
+    return habitaciones
 
   
   #ABM Actividad

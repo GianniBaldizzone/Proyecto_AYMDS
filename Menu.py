@@ -4,6 +4,7 @@ from bd import Conexion
 from datetime import datetime
 from ValidacionesEmpleado import ValidacionesEmpleado
 from ValidacionesReserva import ValidacionesReserva
+from ValidacionesActividades import ValidacionesActividades
 
 class Menu:
   
@@ -31,7 +32,7 @@ class Menu:
       elif eleccion == "2":
         self.mostrar_hospedaje()
       elif eleccion == "3":
-        self.mostrar_actividades()
+        self.mostrar_menu_actividades()
       elif eleccion == "4":
         self.mostrar_limpieza()
       elif eleccion == "5":
@@ -342,10 +343,10 @@ class Menu:
       print("No hay huespedes registrados")
       print("\n")
 
-#menu hospedaje
-#menu actividades
+  #menu hospedaje
+  #menu actividades
 
-  def mostrar_actividades(self):
+  def mostrar_menu_actividades(self):
     bucle = 0
 
     while bucle != 1:
@@ -414,8 +415,8 @@ class Menu:
   def eliminar_reserva_actividades(self):
     print("Eliminando reserva de actividades...")
     print("\n")
-#menu actividades
-#menu limpieza
+  #menu actividades
+  #menu limpieza
 
   def mostrar_limpieza(self):
     bucle = 0
@@ -458,8 +459,8 @@ class Menu:
   def modificar_estado_de_las_habitaciones(self):
     print("Modificando estado de la habitación...")
     print("\n")
-#menu limpieza
-#menu ABM
+  #menu limpieza
+  #menu ABM
 
   def mostrar_abm(self):
     bucle = 0
@@ -483,7 +484,7 @@ class Menu:
       elif eleccion == "2":
         self.mostrar_menu_empleado()
       elif eleccion == "3":
-        self.mostrar_menu_actividad()
+        self.mostrar_menu_abm_actividad()
       elif eleccion == "4":
         self.mostrar_menu_huesped()
       elif eleccion == "5":
@@ -563,9 +564,9 @@ class Menu:
         print(
             "Error Opción no válida ---> Por favor seleccione una opción válida"
         )
-#menu abm - habitaciones
+  #menu abm - habitaciones
 
-#menu filtros - habitaciones
+  #menu filtros - habitaciones
 
   def mostrar_menu_habitaciones_filtros(self):
     bucle = 0
@@ -694,8 +695,81 @@ class Menu:
 
 
 #menu abm - empleados
+
+#menu abm - actividades
+  def mostrar_menu_abm_actividad(self):
+    bucle = 0
+    while bucle != 1:
+      print("\n")
+      print(f"=== Menú ABM - Actividades ===")
+      print("Seleccione una opción:")
+      print("1. Crear Actividad")
+      print("2. Modificar Actividad")
+      print("3. Eliminar Actividad")
+      print("4. Mostrar Actividades")
+      print("5. Filtrar Actividades")
+      print("6. Volver")
+      print("\n")
+
+      eleccion = input("Ingrese el número de la opción: ")
+
+      if eleccion == "1":
+          validacion = ValidacionesActividades()
+          nombreBD = "househunter.db"
+          conexion = Conexion(nombreBD)
+          conexion.CrearTablaActividad()
+          nombre = validacion.validacionNombre()
+          nombre = input("Ingrese un nombre para la actividad:")
+          tipo_actividad = input("Ingrese el tipo de actividad:")
+          #capacidad = input("Ingrese la capacidad:")
+          reserva_id = input("Ingrese el ID de la reserva:")
+          #piso = validacion.validacionPiso()
+          #capacidad = validacion.validacionCantidad()
+          conexion.IngresarActividad(nombre, tipo_actividad, reserva_id)
+          
+      elif eleccion == "2":
+          print("Modificando actividad ...")
+      elif eleccion == "3":
+          nombreBD = "househunter.db"
+          conexion = Conexion(nombreBD)
+          conexion.CrearTablaActividad()
+          print("\n")
+          numeroID= input("Ingresar ID a eliminar")
+          print("\n")
+          conexion.ModificaActividad(numeroID)
+      elif eleccion == "4":
+          nombreBD = "househunter.db"
+          conexion = Conexion(nombreBD)
+          conexion.CrearTablaActividad()
+          actividades = conexion.MostrarActividades()
+
+          if len(actividades) > 0:
+            for actividad in actividades:
+              print(
+                  f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo de Actividad: {actividad[2]}, Capacidad: {actividad[3]}, ID Reserva: {actividad[4]} "
+              )
+              print("\n")
+          else:
+            print("No hay actividades disponibles.")
+            print("\n")
+
+      elif eleccion == "5":
+          #self.mostrar_menu_habitaciones_filtros()
+          print("Mostranfo filtros para activiades...")
+
+      elif eleccion == "6":
+          print("Volviendo...")
+          print("\n")
+          self.mostrar_abm()
+      else:
+          print(
+              "Error Opción no válida ---> Por favor seleccione una opción válida"
+          )
+
+#menu abm - actividades
+
 #menu abm - huesped
-  def mostrar_menu_huesped(self):
+def mostrar_menu_huesped(self):
         bucle = 0
 
         while bucle != 1:
@@ -768,8 +842,11 @@ class Menu:
                 )
 #menu abm - huesped
 
+
+
+
 #Menu contro maestro
-  def mostrar_menu_controlmaestro(self):
+def mostrar_menu_controlmaestro(self):
     bucle = 0
 
     while bucle != 1:
@@ -802,7 +879,7 @@ class Menu:
 #Menu contro maestro
 
 #menu ABM - Menu contro maestro - Eliminar
-  def mostrar_menu_controlmaestro_eliminar(self):
+def mostrar_menu_controlmaestro_eliminar(self):
     bucle = 0
 
     while bucle != 1:
@@ -854,7 +931,7 @@ class Menu:
 #menu ABM - Menu contro maestro - Crear
 
 
-  def mostrar_menu_controlmaestro_crear(self):
+def mostrar_menu_controlmaestro_crear(self):
     bucle = 0
 
     while bucle != 1:
@@ -907,7 +984,7 @@ class Menu:
 #menu ABM - Menu contro maestro - Setear
 
 
-  def mostrar_menu_controlmaestro_setear(self):
+def mostrar_menu_controlmaestro_setear(self):
     bucle = 0
 
     while bucle != 1:
@@ -996,9 +1073,3 @@ def mostrar_menu_huespedes_filtros(self):
             "Error Opción no válida ---> Por favor seleccione una opción válida"
         )
 #menu abm huesped filtros
-
-
-
-
-
-
