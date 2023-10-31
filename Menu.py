@@ -848,7 +848,12 @@ class Menu:
       print("\n")
       if eleccion != "4":
         print("\n")
-        nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        if campo != "tipo_actividad":
+          nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        
+        else:
+          nuevo_valor = ""  
+        nuevo_valor = ValidacionesActividades.validarCampos(campo, nuevo_valor)
         conexion.ModificaActividad(numeroID, campo, nuevo_valor)
         print(f"Se ha modificado el campo {campo} satisfactoriamente.")
         print("\n")

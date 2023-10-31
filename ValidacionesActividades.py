@@ -28,6 +28,7 @@ class ValidacionesActividades:
                 tipo_actividad = "Paga"
                 print("El tipo de actividad seleccionado fue Paga.")
                 return tipo_actividad
+                
             elif eleccion == "2":
                 tipo_actividad = "Gratuita"
                 print("El tipo de actividad seleccionado fue Gratuita.")
@@ -101,3 +102,61 @@ class ValidacionesActividades:
                 continue
             
             return actividad_id
+    
+    @staticmethod
+    def validarCampos(campo,nuevo_valor):
+        while True:
+            
+                # Validar que el id no sea nulo
+            if nuevo_valor is None:
+                print("Error: Parece que no has ingresado ningún valor.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            
+            if campo == "nombre":
+                while True:
+                    if nuevo_valor.strip().isalpha():
+                        return nuevo_valor.strip()
+                    else:
+                        print("Error: El nombre no puede estar vacío y debe contener solo letras.")
+                        nuevo_valor = input("Por favor, ingrese el nombre nuevamente: ")
+                        
+            elif campo == "tipo_actividad":
+                bucle = True
+
+                while bucle:
+                        print("*** Seleccionar Tipo de Actividad***")
+                        print("1. Paga")
+                        print("2. Gratuita")
+                        
+                        nuevo_valor = input("Ingrese el número de la opción: ")
+
+                        if nuevo_valor == "1":
+                            tipo_actividad = "Paga"
+                            print("El tipo de actividad seleccionado fue Paga.")
+                            return tipo_actividad
+                            
+                        elif nuevo_valor == "2":
+                            tipo_actividad = "Gratuita"
+                            print("El tipo de actividad seleccionado fue Gratuita.")
+                            return tipo_actividad
+                    
+                        else:
+                            print("Error: Opción no válida. Por favor, seleccione una opción válida.")
+                            
+            elif campo == "capacidad":
+                while True:
+                    if nuevo_valor.isdigit() and int(nuevo_valor) > 0 and int(nuevo_valor) <= 14:
+                        return int(nuevo_valor)
+                    else:
+                        print("Error: La capacidad tiene que ser un entero entre el 1 y 14.")
+                        nuevo_valor = input("Ingrese nuevamente la capacidad:")
+                  
+                 
+                        
+            else:
+                print(
+                    "Error Opción no válida ---> Por favor seleccione una opción válida"
+                )
+
+    
