@@ -242,11 +242,17 @@ class Conexion:
     print("Actividad creada con exito!!!")
   
   
-  def ModificaActividad(nombre, tipo_actividad, capacidad):
-    self.cursor.execute(
-        " UPDATE ACTIVIDAD SET nombre=?,tipo_actividad=?,capacidad=? WHERE id = ? ",
-        (nombre, tipo_actividad, capacidad))
+  def ModificaActividad(self, numeroID, campo, nuevo_valor):
+    consulta_sql = f"UPDATE ACTIVIDAD SET {campo} = ? WHERE id = ?"
+    
+  
+    self.cursor.execute(consulta_sql, (nuevo_valor, numeroID))
     self.conexion.commit()
+
+    print("\n")
+    print("Actividad modificada con éxito!!!")
+    print("\n")
+      
 
   def EliminarActividad(self, id):
     self.cursor.execute(" DELETE FROM ACTIVIDAD WHERE id = ?", (id,))

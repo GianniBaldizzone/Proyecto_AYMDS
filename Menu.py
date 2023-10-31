@@ -392,7 +392,7 @@ class Menu:
     if len(actividades) > 0:
           for actividad in actividades:
             print(
-                f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo Actividad: {actividad[2]}, Capacidad: {actividad[3]}, Reserva ID: {actividad[4]}"
+                f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo Actividad: {actividad[2]}, Capacidad: {actividad[3]}"
             )
             
     else:
@@ -765,7 +765,7 @@ class Menu:
           conexion.IngresarActividad(nombre, tipo_actividad)
           
       elif eleccion == "2":
-          print("Modificando actividad ...")
+          self.modificar_actividad()
           
       elif eleccion == "3":
           nombreBD = "househunter.db"
@@ -805,6 +805,57 @@ class Menu:
               "Error Opción no válida ---> Por favor seleccione una opción válida"
           )
 
+#metodos abm - actividades
+  def modificar_actividad(self):
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaActividad()
+    print("\n")
+    
+    #########################################################################
+    
+    numeroID= ValidacionesActividades.validarActividadId()
+    campo = ""
+    bucle = 0
+    while bucle != 1:
+      print("\n")
+      print("## Menú Modificar Actividad ##")
+      print("Seleccione una opción a modificar:")
+      print("1. Nombre de la actividad")
+      print("2. Tipo de Actividad")
+      print("3. Capacidad")
+      print("4. Salir de modificar")
+      print("\n")
+      
+      eleccion = input("Ingrese el número de la opción: ")
+      print("\n")
+
+      if eleccion == "1":
+        campo = "nombre"
+      elif eleccion == "2":
+        campo = "tipo_actividad"
+      elif eleccion == "3":
+        campo = "capacidad"  
+      elif eleccion == "4":
+        bucle = 1
+        print("Has salido del menu modificar actividad.")
+
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+    
+      print("\n")
+      if eleccion != "4":
+        print("\n")
+        nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        conexion.ModificaActividad(numeroID, campo, nuevo_valor)
+        print(f"Se ha modificado el campo {campo} satisfactoriamente.")
+        print("\n")
+        print("\n")
+    ##########################################################################
+    
+    
 #menu abm - actividades
 
 #menu abm - huesped
