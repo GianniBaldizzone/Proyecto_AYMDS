@@ -67,21 +67,22 @@ class Conexion:
             return None
 
   def obtener_id_habitacion_por_numero(self):
-        try:
-            numero_habitacion = input("Ingrese el número de habitación: ")  # Solicitar el número de habitación
-            self.cursor.execute("SELECT id FROM HABITACION WHERE numero=?", (numero_habitacion,))
-            resultado = self.cursor.fetchone()
+        while True:
+            try:
+                numero_habitacion = input("Ingrese el número de habitación: ")
+                self.cursor.execute("SELECT id FROM HABITACION WHERE numero=?", (numero_habitacion,))
+                resultado = self.cursor.fetchone()
 
-            if resultado:
-                id_habitacion = resultado[0]
-                return id_habitacion
-            else:
-                print(f"No se encontró ninguna habitación con el número {numero_habitacion}.")
-                return None
-        except sqlite3.Error as e:
-            print("Error al obtener el ID de la habitación:", e)
-            return None
-  
+                if resultado:
+                    id_habitacion = resultado[0]
+                    return id_habitacion
+                else:
+                    print(f"No se encontró ninguna habitación con el número {numero_habitacion}.")
+            except sqlite3.Error as e:
+                print("Error al obtener el ID de la habitación:", e)
+            
+            # Solicitar un nuevo número de habitación
+            print("Por favor, ingrese un número de habitación válido.")
   
   
   

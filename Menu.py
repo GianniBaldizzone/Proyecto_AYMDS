@@ -270,7 +270,7 @@ class Menu:
     empleado_id = self.id_empleado
     fecha_checkin = ValidacionesReserva.validar_checkin() 
     fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
-    habitacion_id = ValidacionesHabitaciones.validaciones_id_hab()
+    habitacion_id = conexion.obtener_id_habitacion_por_numero()
     estado = ValidacionesHabitaciones.validaciones_estado_hab()
     tipo_reserva = "Hospedaje"
     
