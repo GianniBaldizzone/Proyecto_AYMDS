@@ -112,7 +112,7 @@ class Menu:
     habitacion_id = ValidacionesHabitaciones.validaciones_id_hab()
     estado = ValidacionesHabitaciones.validaciones_estado_hab()
     huesped_id = ValidacionesHuesped.validaciones_id_huesp()
-    tipo_reserva = ValidacionesReserva.validaciones_tipo_reserva()
+    tipo_reserva = "Reserva"
     
     conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
     print("\n")

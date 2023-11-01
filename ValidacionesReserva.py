@@ -67,6 +67,7 @@ class ValidacionesReserva:
             print("*** Seleccionar Tipo de Reserva ***")
             print("1. Reserva")
             print("2. Actividad")
+            print("3. Hospedaje")
             
 
             eleccion = input("Ingrese el número de la opción: ")
@@ -78,6 +79,10 @@ class ValidacionesReserva:
             elif eleccion == "2":
                 tipo_reserva = "Actividad"
                 print("El tipo de reserva seleccionado fue Actividad.")
+                return tipo_reserva
+            elif eleccion == "3":
+                tipo_reserva = "Hospedaje"
+                print("El tipo de reserva seleccionado fue Hospedaje.")
                 return tipo_reserva
             else:
                 print("Error: Opción no válida. Por favor, seleccione una opción válida.")
