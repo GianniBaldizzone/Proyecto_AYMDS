@@ -51,8 +51,42 @@ class Conexion:
     self.cursor.execute(" DELETE FROM HABITACION WHERE id = ?", (id))
     self.conexion.commit()
 
+  def obtener_id_habitacion_por_numero(self):
+        try:
+            self.cursor.execute("SELECT id FROM HABITACION WHERE numero=?", (numero_habitacion,))
+            resultado = self.cursor.fetchone()
 
+            if resultado:
+                id_habitacion = resultado[0]
+                return id_habitacion
+            else:
+                print("No se encontró ninguna habitación con ese número.")
+                return None
+        except sqlite3.Error as e:
+            print("Error al obtener el ID de la habitación:", e)
+            return None
 
+  def obtener_id_habitacion_por_numero(self):
+        try:
+            numero_habitacion = input("Ingrese el número de habitación: ")  # Solicitar el número de habitación
+            self.cursor.execute("SELECT id FROM HABITACION WHERE numero=?", (numero_habitacion,))
+            resultado = self.cursor.fetchone()
+
+            if resultado:
+                id_habitacion = resultado[0]
+                return id_habitacion
+            else:
+                print(f"No se encontró ninguna habitación con el número {numero_habitacion}.")
+                return None
+        except sqlite3.Error as e:
+            print("Error al obtener el ID de la habitación:", e)
+            return None
+  
+  
+  
+  
+  
+  
   def MostrarHabitacionesPorPiso(self, piso):
     self.cursor.execute("SELECT * FROM HABITACION WHERE piso = ?", (piso,))
     habitaciones = self.cursor.fetchall()
@@ -172,6 +206,20 @@ class Conexion:
         else:
             result = "Error al recuperar reservas"
         return result
+  
+  def ConsultarReservasHospedaje(self):
+        self.cursor.execute("SELECT * FROM RESERVA WHERE tipoReserva = 'Hospedaje'")
+        reservas_hospedaje = self.cursor.fetchall()
+        if not reservas_hospedaje:
+            print("No se encontraron reservas de tipo Hospedaje.")
+        return reservas_hospedaje
+
+  def ConsultarReservasReserva(self):
+        self.cursor.execute("SELECT * FROM RESERVA WHERE tipoReserva = 'Reserva'")
+        reservas_reserva = self.cursor.fetchall()
+        if not reservas_reserva:
+            print("No se encontraron reservas de tipo Reserva.")
+        return reservas_reserva
     
   def ModificarReservas(self, numeroID, campo, nuevo_valor):
     consulta_sql = f"UPDATE RESERVA SET {campo} = ? WHERE id = ?"
@@ -346,10 +394,12 @@ class Conexion:
   
   def IngresarHuesped(self, nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida):
     self.cursor.execute(
-      "INSERT INTO HUESPED (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida))
+        "INSERT INTO HUESPED (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        (nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida))
     self.conexion.commit()
-    print("Huesped creado con exito!!!")
+    huesped_id = self.cursor.lastrowid
+    print("Huesped creado con éxito, ID:", huesped_id)
+    return huesped_id
   
   def MostrarHuespedes(self):
     try:

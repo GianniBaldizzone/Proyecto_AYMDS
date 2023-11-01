@@ -7,6 +7,11 @@ from ValidacionesReserva import ValidacionesReserva
 from ValidacionesActividades import ValidacionesActividades
 
 class Menu:
+
+  def __init__(self, nombre_empleado, contrasena_empleado, id_empleado):
+        self.nombre_empelado = nombre_empleado
+        self.contrasena_empleado = contrasena_empleado
+        self.id_empleado = id_empleado
   
   #menu principal
   def mostrar_menu(self):
@@ -89,7 +94,7 @@ class Menu:
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaReserva()
-    reservas = conexion.MostrarReservas()
+    reservas = conexion.ConsultarReservasReserva()
 
     if len(reservas) > 0:
       for reserva in reservas:
@@ -221,25 +226,56 @@ class Menu:
         )
 
   def ver_hospedajes(self):
-    print("Mostrar hospedajes...")
+    print("### Listado de hospedajes ###")
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaReserva()
+    reservas = conexion.ConsultarReservasHospedaje()
+
+    if len(reservas) > 0:
+      for reserva in reservas:
+        print(
+          f"ID Reserva: {reserva[0]}, Empleado ID: {reserva[1]}, Fecha checkin: {reserva[2]}, Fecha checkout: {reserva[3]}, ID Habitacion: {reserva[4]}, Estado: {reserva[5]}, ID Huesped: {reserva[6]}, Tipo de Reserva: {reserva[7]}"
+          )
+        print("\n")
+    else:
+      print("No hay hospedajes registrados")
+      print("\n")
     print("\n")
     
   ## CHECKIN ##
   def check_in(self):
     print("=== Crear Check-in ===")
     print("\n")
+    ValidacionesHuesped()
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
     nombre = ValidacionesHuesped.validar_nombre()
     apellido = ValidacionesHuesped.validar_apellido()
-    numero_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
-    dni = ValidacionesHuesped.validar_dni()
     nacionalidad = ValidacionesHuesped.validar_nacionalidad()
-    grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
-    seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+    if nacionalidad == "Argentina" or nacionalidad == "Otro - Argentina":
+      dni = ValidacionesHuesped.validar_dni()
+      grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+      seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+      huesped_id =conexion.IngresarHuesped(nombre, apellido, None, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+    else:
+      numero_de_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
+      grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+      seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+      huesped_id =conexion.IngresarHuesped(nombre, apellido, numero_de_pasaporte, None, nacionalidad, grupo_sanguineo, seguro_vida)
    
-    conexion.IngresarHuesped(nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+    
+
+    empleado_id = self.id_empleado
+    fecha_checkin = ValidacionesReserva.validar_checkin() 
+    fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
+    habitacion_id = ValidacionesHabitaciones.validaciones_id_hab()
+    estado = ValidacionesHabitaciones.validaciones_estado_hab()
+    tipo_reserva = "Hospedaje"
+    
+    conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
+    print("\n")
     
     
   ## CHECKIN ##
@@ -888,12 +924,17 @@ class Menu:
                 conexion.CrearTablaHuesped()
                 nombre = ValidacionesHuesped.validar_nombre()
                 apellido = ValidacionesHuesped.validar_apellido()
-                numero_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
-                dni = ValidacionesHuesped.validar_dni()
                 nacionalidad = ValidacionesHuesped.validar_nacionalidad()
-                grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
-                seguro_vida = ValidacionesHuesped.validar_seguro_vida()
-                conexion.IngresarHuesped(nombre, apellido, numero_pasaporte, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+                if nacionalidad == "Argentina" or nacionalidad == "Otro - Argentina":
+                  dni = ValidacionesHuesped.validar_dni()
+                  grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+                  seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+                  conexion.IngresarHuesped(nombre, apellido, None, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+                else:
+                  numero_de_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
+                  grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+                  seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+                  conexion.IngresarHuesped(nombre, apellido, numero_de_pasaporte, None, nacionalidad, grupo_sanguineo, seguro_vida)
 
               elif eleccion == "2":
                   print("Modificando huésped ...")

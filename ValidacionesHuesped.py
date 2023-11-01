@@ -152,6 +152,16 @@ class ValidacionesHuesped:
             else:
                 print("Error: Por favor, ingrese 'Sí' o 'No' para indicar si el huésped tiene seguro de vida.")
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @staticmethod
     def validaciones_id_huesp():
         nombreBD = "househunter.db"
