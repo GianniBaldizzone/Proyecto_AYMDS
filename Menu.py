@@ -1008,38 +1008,38 @@ class Menu:
 
 
 
-#Menu contro maestro
-def mostrar_menu_controlmaestro(self):
-    bucle = 0
+  #Menu contro maestro
+  def mostrar_menu_controlmaestro(self):
+      bucle = 0
 
-    while bucle != 1:
-      print("\n")
-      print(f"=== Menú ABM - Control maestror ===")
-      print("Seleccione una opción:")
-      print("1. Crear tablas")
-      print("2. Eliminar tablas")
-      print("3. Setear tablas")
-      print("4. Volver")
-      print("\n")
-
-      eleccion = input("Ingrese el número de la opción: ")
-
-      if eleccion == "1":  
-        self.mostrar_menu_controlmaestro_crear()
-        
-      elif eleccion == "2":
-        self.mostrar_menu_controlmaestro_eliminar()
-      elif eleccion == "3":
-        self.mostrar_menu_controlmaestro_setear()()
-      elif eleccion == "4":
-        print("Volviendo...")
+      while bucle != 1:
         print("\n")
-        self.mostrar_abm()
-      else:
-        print(
-            "Error Opción no válida ---> Por favor seleccione una opción válida"
-        )
-#Menu contro maestro
+        print(f"=== Menú ABM - Control maestror ===")
+        print("Seleccione una opción:")
+        print("1. Crear tablas")
+        print("2. Eliminar tablas")
+        print("3. Setear tablas")
+        print("4. Volver")
+        print("\n")
+
+        eleccion = input("Ingrese el número de la opción: ")
+
+        if eleccion == "1":  
+          self.mostrar_menu_controlmaestro_crear()
+          
+        elif eleccion == "2":
+          self.mostrar_menu_controlmaestro_eliminar()
+        elif eleccion == "3":
+          self.mostrar_menu_controlmaestro_setear()()
+        elif eleccion == "4":
+          print("Volviendo...")
+          print("\n")
+          self.mostrar_abm()
+        else:
+          print(
+              "Error Opción no válida ---> Por favor seleccione una opción válida"
+          )
+  #Menu contro maestro
 
 #menu ABM - Menu contro maestro - Eliminar
 def mostrar_menu_controlmaestro_eliminar(self):
