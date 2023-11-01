@@ -117,11 +117,28 @@ class Menu:
     print("\n")
 
   def hacer_reserva(self):
+    print("=== Crear Check-in ===")
+    print("\n")
+    ValidacionesHuesped()
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
+    nombre = ValidacionesHuesped.validar_nombre()
+    apellido = ValidacionesHuesped.validar_apellido()
+    nacionalidad = ValidacionesHuesped.validar_nacionalidad()
+    if nacionalidad == "Argentina" or nacionalidad == "Otro - Argentina":
+      dni = ValidacionesHuesped.validar_dni()
+      grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+      seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+      huesped_id =conexion.IngresarHuesped(nombre, apellido, None, dni, nacionalidad, grupo_sanguineo, seguro_vida)
+    else:
+      numero_de_pasaporte = ValidacionesHuesped.validar_numero_pasaporte()
+      grupo_sanguineo = ValidacionesHuesped.validar_grupo_sanguineo()
+      seguro_vida = ValidacionesHuesped.validar_seguro_vida()
+      huesped_id =conexion.IngresarHuesped(nombre, apellido, numero_de_pasaporte, None, nacionalidad, grupo_sanguineo, seguro_vida)
+   
     empleado_id = ValidacionesEmpleado.validar_ID()
-    fecha_checkin = ValidacionesReserva.validar_checkin() 
+    fecha_checkin = ValidacionesReserva.validar_checkin_reserva() 
     fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
     habitacion_id = ValidacionesHabitaciones.validaciones_id_hab()
     estado = ValidacionesHabitaciones.validaciones_estado_hab()

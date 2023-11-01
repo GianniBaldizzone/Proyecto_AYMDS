@@ -1,6 +1,54 @@
 from bd import Conexion
 from datetime import datetime
+from datetime import datetime, timedelta
 class ValidacionesReserva:
+    
+    
+
+    def validar_checkin_reserva():
+        fecha_checkin = None
+        fecha_actual = datetime.now()
+        fecha_minima = fecha_actual + timedelta(days=7)
+        print("Fecha de check-in")
+
+        while fecha_checkin is None or fecha_checkin < fecha_minima:
+            try:
+                año = int(input("Ingrese el año: "))
+                mes = int(input("Ingrese el mes: "))
+                dia = int(input("Ingrese el día: "))
+                hora = int(input("Ingrese la hora: "))
+                minutos = int(input("Ingrese los minutos: "))
+
+
+                if año < 1 or mes < 1 or mes > 12 or dia < 1 or dia > 31 or hora < 0 or hora > 23 or minutos < 0 or minutos > 59:
+                    print("Error: Valores de fecha y hora no válidos. Por favor, ingrese nuevamente.")
+                    continue
+
+                fecha_checkin = datetime(año, mes, dia, hora, minutos)
+
+                if fecha_checkin < fecha_minima:
+                    print("Error: La fecha de check-in debe ser al menos 7 días después de la fecha actual. Por favor, ingrese nuevamente.")
+                else:
+                    print("Fecha válida.")
+
+            except ValueError:
+                print("Error: Ingrese valores numéricos válidos. Por favor, ingrese nuevamente.")
+
+        return fecha_checkin
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @staticmethod
     def validar_checkin():
         bucle=0

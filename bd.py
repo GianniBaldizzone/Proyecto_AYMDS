@@ -1,5 +1,6 @@
 
 import sqlite3
+from datetime import datetime
 
 
 class Conexion:
@@ -60,22 +61,30 @@ class Conexion:
             print("Error al actualizar la disponibilidad de la habitación:", e)
 
   def obtener_id_habitacion_por_numero(self):
-        while True:
-            try:
-                numero_habitacion = input("Ingrese el número de habitación: ")
-                self.cursor.execute("SELECT id FROM HABITACION WHERE numero=?", (numero_habitacion,))
-                resultado = self.cursor.fetchone()
+    while True:
+        numero_habitacion = input("Ingrese el número de habitación: ")
+        if not numero_habitacion.isdigit():
+            print("Error: Debe ingresar un número de habitación válido.")
+            continue
 
-                if resultado:
-                    id_habitacion = resultado[0]
+        try:
+            numero_habitacion = int(numero_habitacion)
+            self.cursor.execute("SELECT id, disponibilidad FROM HABITACION WHERE numero=?", (numero_habitacion,))
+            resultado = self.cursor.fetchone()
+
+            if resultado:
+                id_habitacion, disponibilidad = resultado
+                if disponibilidad == 'Disponible':
                     return id_habitacion
                 else:
-                    print(f"No se encontró ninguna habitación con el número {numero_habitacion}.")
-            except sqlite3.Error as e:
-                print("Error al obtener el ID de la habitación:", e)
-            
-            # Solicitar un nuevo número de habitación
-            print("Por favor, ingrese un número de habitación válido.")
+                    print(f"La habitación con número {numero_habitacion} no está disponible.")
+            else:
+                print(f"No se encontró ninguna habitación con el número {numero_habitacion}.")
+        except sqlite3.Error as e:
+            print("Error al obtener el ID de la habitación:", e)
+
+        # Solicitar un nuevo número de habitación
+        print("Por favor, ingrese un número de habitación válido.")
   
   
   
@@ -492,23 +501,35 @@ class Conexion:
   #Seteo de datos
 
   def InsertarDatosPruebaHabitacion(self):
-    query = '''
-    INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) 
-    VALUES 
-    (101, 150, 1, 2, 'Doble', 'Disponible'),
-    (102, 200, 2, 4, 'Suite', 'Disponible'),
-    (103, 250, 1, 3, 'Individual', 'Disponible'),
-    (104, 300, 3, 6, 'Suite Presidencial', 'Disponible'),
-    (105, 180, 2, 3, 'Doble', 'Disponible'),
-    (106, 220, 1, 2, 'Individual', 'Disponible'),
-    (107, 270, 3, 4, 'Doble', 'Disponible'),
-    (108, 320, 2, 3, 'Individual', 'Disponible'),
-    (109, 350, 4, 5, 'Suite', 'Disponible'),
-    (110, 400, 3, 4, 'Doble', 'Disponible')
-    '''
-    self.cursor.execute(query)
+    # Lista de tipos de habitación y sus tarifas base
+    tipos_habitacion = ["Plata", "Gold", "Diamante"]
+    tarifas_base = [150, 200, 250]
+
+    # Inicializa el número de habitación
+    numero_habitacion = 1
+
+    for piso in range(5):  # Los pisos van de 0 a 4
+        for tipo_habitacion, tarifa_base in zip(tipos_habitacion, tarifas_base):
+            for _ in range(20):  # Generar 20 habitaciones por tipo de habitación y piso
+                # Calcula la capacidad basada en el piso (1, 2 o 3)
+                capacidad = 1 + (piso % 3)
+
+                # Realiza la inserción directa en la base de datos
+                self.cursor.execute(
+                    "INSERT INTO HABITACION (numero, precio, piso, capacidad, tipo_de_habitacion, disponibilidad) "
+                    "VALUES (?, ?, ?, ?, ?, ?)",
+                    (numero_habitacion, tarifa_base, piso, capacidad, tipo_habitacion, 'Disponible')
+                )
+
+                numero_habitacion += 1
+
     self.conexion.commit()
     print("Datos de prueba para HABITACION insertados con éxito!!!")
+
+
+
+
+
 
   def InsertarDatosPruebaEmpleados(self):
     query = '''
@@ -620,3 +641,16 @@ class Conexion:
             print("Error al actualizar la disponibilidad de la habitación:", e)
 
 # Metodos para actualizar el estado de las habitaciones al iniciar el programa
+
+#Metodo para calcular la facturacion
+  def calcular_precio_habitacion(tipo_habitacion, num_personas):
+    # Consulta la base de datos para obtener las tarifas
+    tarifa_base = obtener_tarifa_base(tipo_habitacion)
+    tarifa_por_persona = obtener_tarifa_por_persona(tipo_habitacion)
+    
+    # Calcula el precio total
+    precio_total = tarifa_base + (tarifa_por_persona * (num_personas - 1))
+    
+    return precio_total
+  
+#Metodo para calcular la facturacion
