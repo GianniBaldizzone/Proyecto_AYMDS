@@ -47,6 +47,7 @@ class Menu:
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         habitaciones_actualizadas = conexion.verificar_y_actualizar_disponibilidad()
+        habitaciones_actualizadas2= conexion.actualizar_disponibilidad_reservas_activas()
         if habitaciones_actualizadas:
             print("Las siguientes habitaciones se han actualizado a 'Disponible':")
             for habitacion_id in habitaciones_actualizadas:
@@ -137,12 +138,11 @@ class Menu:
       seguro_vida = ValidacionesHuesped.validar_seguro_vida()
       huesped_id =conexion.IngresarHuesped(nombre, apellido, numero_de_pasaporte, None, nacionalidad, grupo_sanguineo, seguro_vida)
    
-    empleado_id = ValidacionesEmpleado.validar_ID()
-    fecha_checkin = ValidacionesReserva.validar_checkin_reserva() 
+    empleado_id = self.id_empleado
+    fecha_checkin = ValidacionesReserva.validar_checkin() 
     fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
-    habitacion_id = ValidacionesHabitaciones.validaciones_id_hab()
+    habitacion_id = conexion.obtener_id_habitacion_por_numero()
     estado = ValidacionesHabitaciones.validaciones_estado_hab()
-    huesped_id = ValidacionesHuesped.validaciones_id_huesp()
     tipo_reserva = "Reserva"
     
     conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)

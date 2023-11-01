@@ -640,6 +640,37 @@ class Conexion:
         except sqlite3.Error as e:
             print("Error al actualizar la disponibilidad de la habitación:", e)
 
+
+
+  def actualizar_disponibilidad_reservas_activas(self):
+        habitaciones_actualizadas = []  # Lista para almacenar las habitaciones actualizadas
+        now = datetime.now()
+
+        try:
+            # Consulta la base de datos para obtener reservas activas con fecha de check-in anterior o igual y fecha de check-out posterior o igual a la fecha actual
+            self.cursor.execute("SELECT r.id, r.habitacion_id FROM RESERVA r WHERE r.fechaChekin <= ? AND r.fechaCheckout >= ?", (now, now))
+            reservas_activas = self.cursor.fetchall()
+
+            for reserva in reservas_activas:
+                reserva_id, habitacion_id = reserva
+                # Realiza la actualización de disponibilidad para cada habitación asociada a una reserva activa
+                self.actualizar_disponibilidad_habitacion(reserva_id, habitacion_id)
+                habitaciones_actualizadas.append(habitacion_id)
+
+        except sqlite3.Error as e:
+            print("Error al actualizar la disponibilidad de las habitaciones:", e)
+
+        return habitaciones_actualizadas  # Devuelve la lista de habitaciones actualizadas
+
+  def actualizar_disponibilidad_habitacion(self, reserva_id, habitacion_id):
+        try:
+            # Realiza el check-out y actualiza la disponibilidad de la habitación
+            self.cursor.execute("UPDATE HABITACION SET disponibilidad=? WHERE id=?", ("Disponible", habitacion_id))
+            self.conexion.commit()
+            print(f"La disponibilidad de la habitación con ID {habitacion_id} se ha actualizado a 'Disponible' debido a la reserva con ID {reserva_id}.")
+        except sqlite3.Error as e:
+            print("Error al actualizar la disponibilidad de la habitación:", e)
+
 # Metodos para actualizar el estado de las habitaciones al iniciar el programa
 
 #Metodo para calcular la facturacion
