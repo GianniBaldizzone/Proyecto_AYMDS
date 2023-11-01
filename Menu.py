@@ -26,7 +26,8 @@ class Menu:
       print("3. Actividades")
       print("4. Limpieza")
       print("5. ABM")
-      print("6. Salir")
+      print("6. Refresh")
+      print("7. Salir")
       print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
@@ -43,6 +44,14 @@ class Menu:
       elif eleccion == "5":
         self.mostrar_abm()
       elif eleccion == "6":
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        habitaciones_actualizadas = conexion.verificar_y_actualizar_disponibilidad()
+        if habitaciones_actualizadas:
+            print("Las siguientes habitaciones se han actualizado a 'Disponible':")
+            for habitacion_id in habitaciones_actualizadas:
+              print(f"Habitación ID: {habitacion_id}")
+      elif eleccion == "7":
         bucle = 1
         print("¡Hasta luego!")
 
@@ -276,6 +285,7 @@ class Menu:
     
     conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
     print("\n")
+    conexion.actualizar_disponibilidad_habitacion(habitacion_id)
     
     
   ## CHECKIN ##

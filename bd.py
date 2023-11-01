@@ -51,20 +51,13 @@ class Conexion:
     self.cursor.execute(" DELETE FROM HABITACION WHERE id = ?", (id))
     self.conexion.commit()
 
-  def obtener_id_habitacion_por_numero(self):
+  def actualizar_disponibilidad_habitacion(self, habitacion_id):
         try:
-            self.cursor.execute("SELECT id FROM HABITACION WHERE numero=?", (numero_habitacion,))
-            resultado = self.cursor.fetchone()
-
-            if resultado:
-                id_habitacion = resultado[0]
-                return id_habitacion
-            else:
-                print("No se encontró ninguna habitación con ese número.")
-                return None
+            self.cursor.execute("UPDATE HABITACION SET disponibilidad=? WHERE id=?", ("No disponible", habitacion_id))
+            self.conexion.commit()
+            print(f"La disponibilidad de la habitación con ID {habitacion_id} se ha actualizado a 'No disponible'.")
         except sqlite3.Error as e:
-            print("Error al obtener el ID de la habitación:", e)
-            return None
+            print("Error al actualizar la disponibilidad de la habitación:", e)
 
   def obtener_id_habitacion_por_numero(self):
         while True:
@@ -594,3 +587,36 @@ class Conexion:
     self.cursor.execute(query)
     self.conexion.commit()
     print("Datos de prueba para HUESPED insertados con éxito!!!")
+
+
+# Metodos para actualizar el estado de las habitaciones al iniciar el programa
+  def verificar_y_actualizar_disponibilidad(self):
+        habitaciones_actualizadas = []  # Lista para almacenar las habitaciones actualizadas
+
+        try:
+            # Obtén la fecha y hora actual
+            now = datetime.now()
+
+            # Consulta la base de datos para obtener reservas y hospedajes con fecha de check-out pasada
+            self.cursor.execute("SELECT id, habitacion_id FROM RESERVA WHERE fechaCheckout <= ?", (now,))
+            reservas = self.cursor.fetchall()
+
+            for reserva in reservas:
+                reserva_id, habitacion_id = reserva
+                # Realiza el check-out y actualiza la disponibilidad de la habitación correspondiente
+                self.actualizar_disponibilidad_habitacion_check_out(habitacion_id)
+                habitaciones_actualizadas.append(habitacion_id)  # Agrega la habitación actualizada a la lista
+        except sqlite3.Error as e:
+            print("Error al verificar y actualizar disponibilidad:", e)
+
+        return habitaciones_actualizadas  # Devuelve la lista de habitaciones actualizadas
+
+  def actualizar_disponibilidad_habitacion_check_out(self, habitacion_id):
+        try:
+            self.cursor.execute("UPDATE HABITACION SET disponibilidad=? WHERE id=?", ("Disponible", habitacion_id))
+            self.conexion.commit()
+            print(f"La disponibilidad de la habitación con ID {habitacion_id} se ha actualizado a 'Disponible'.")
+        except sqlite3.Error as e:
+            print("Error al actualizar la disponibilidad de la habitación:", e)
+
+# Metodos para actualizar el estado de las habitaciones al iniciar el programa
