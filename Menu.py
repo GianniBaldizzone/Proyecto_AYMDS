@@ -162,17 +162,27 @@ class Menu:
 
       if eleccion == "1":
         campo = "empleado_id"
+        
+        nuevo_valor = ValidacionesReserva.validar_id_empleado(nuevo_valor)
+        if nuevo_valor is not None:
+            conexion.ModificarReservas(campo, nuevo_valor, numeroID)
+            print(f"Se ha modificado el campo {campo} satisfactoriamente.")
+        else:
+            print("No se ha realizado la modificación debido a un ID de empleado inválido.")
+            
       elif eleccion == "2":
-        campo = "fecha_checkout"
+        campo = "fecha_checkin"
       elif eleccion == "3":
-        campo = "habitacion_id"
+        campo = "fecha_checkout"
       elif eleccion == "4":
-        campo = "estado"
+        campo = "habitacion_id"
       elif eleccion == "5":
-        campo = "huesped_id"
+        campo = "estado"
       elif eleccion == "6":
-        campo = "tipo_reserva"
+        campo = "huesped_id"
       elif eleccion == "7":
+        campo = "tipo_reserva"
+      elif eleccion == "8":
         bucle = 1
         print("Has salido del menu modificar huesped")
 
@@ -182,17 +192,16 @@ class Menu:
         )
 
       print("\n")
+     
       if eleccion != "8":
         print("\n")
-        nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
-        campo = ValidacionesReserva.validar_campos(campo)
+        #nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        #ampo = ValidacionesReserva.validar_campos(campo, nuevo_valor)
         conexion.ModificarReservas(numeroID, campo, nuevo_valor)
-        print(f"Se ha modificado el campo {campo} satisfactoriamente.")
-        print("\n")
-        print("\n")
-    conexion.ModificarReservas(numeroID, campo, nuevo_valor)
-    
-    print("\n")
+      
+      print(f"Se ha modificado el campo {campo} satisfactoriamente.")
+      print("\n")
+  
 
   def eliminar_reserva(self):
     nombreBD = "househunter.db"
@@ -584,7 +593,7 @@ class Menu:
         tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
         conexion.IngresarHabitacion(numero, precio, piso, capacidad, tipoDeHabitacion)
       elif eleccion == "2":
-        print("Modificando habitacion ...")
+        self.modificar_habitacion()
       elif eleccion == "3":
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
@@ -677,6 +686,61 @@ class Menu:
             "Error Opción no válida ---> Por favor seleccione una opción válida"
         )
 #menu filtros - habitaciones
+# menu abm modificar - habitaciones
+  def modificar_habitacion(self):
+    nombreBD = "househunter.db"
+    conexion = Conexion(nombreBD)
+    conexion.CrearTablaHabitacion()
+    print("\n")
+    
+    #########################################################################
+    #modificar este metodo
+    numeroID= ValidacionesHabitaciones.validarHabitacionId()
+    campo = ""
+    bucle = 0
+    while bucle != 1:
+      print("\n")
+      print("## Menú Modificar Habitacion ##")
+      print("Seleccione una opción a modificar:")
+      print("1. Precio de la Habitacion")
+      print("2. Capacidad de la Habitacion")
+      print("3. Tipo de Habitacion")
+      print("4. Salir de modificar")
+      print("\n")
+      
+      eleccion = input("Ingrese el número de la opción: ")
+      print("\n")
+
+      if eleccion == "1":
+        campo = "precio"
+      elif eleccion == "2":
+        campo = "capacidad"
+      elif eleccion == "3":
+        campo = "tipo_habitacion"  
+      elif eleccion == "4":
+        bucle = 1
+        print("Has salido del menu modificar actividad.")
+
+      else:
+        print(
+            "Error Opción no válida ---> Por favor seleccione una opción válida"
+        )
+    
+      print("\n")
+      #if eleccion != "4":
+        #print("\n")
+        ##if campo != "tipo_habitacion":
+         ## nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        
+        #else:
+        #nuevo_valor = ""  
+      nuevo_valor = ValidacionesHabitaciones.validarCampos(campo, nuevo_valor)
+      conexion.ModificaActividad(numeroID, campo, nuevo_valor)
+      print(f"Se ha modificado el campo {campo} satisfactoriamente.")
+      print("\n")
+      print("\n")
+    ##########################################################################
+# menu abm modificar - habitaciones
 
 #menu abm - empleados
 

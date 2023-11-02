@@ -251,9 +251,96 @@ class ValidacionesHabitaciones:
 
 
     
+  @staticmethod
+  def validarHabitacionId():
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
         
-    
+        while True:
+            habitacion_id = input("Ingrese el ID de la habitacion: ")
+            
+                # Validar que el id no sea nulo
+            if habitacion_id is None:
+                print("Error: Parece que no has ingresado ningún ID.")
+                print("Por favor, ingrese un dato válido.")
+                continue
 
+            # Validar que el id sea un número entero mayor que 0
+            try:
+                habitacion_id = int(habitacion_id)  # Intenta convertir el valor a un entero
+                if habitacion_id <= 0 :
+                    print("Error: El ID debe ser un número entero mayor que 0.")
+                    print("Por favor, ingrese un dato válido.")
+                    continue
+            except ValueError:
+                print("Error: El ID debe ser un número entero mayor que 0.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            
+            if not conexion.existeIDHab(habitacion_id):
+                print("Error: La habitacion con el ID proporcionado no existe en la base de datos.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            
+            return habitacion_id
+           
+  
+  #modificar este metodo
+  @staticmethod
+  def validarCampos(campo,nuevo_valor):
+        while True:
+            
+                # Validar que el id no sea nulo
+            if nuevo_valor is None:
+                print("Error: Parece que no has ingresado ningún valor.")
+                print("Por favor, ingrese un dato válido.")
+                continue
+            
+            if campo == "nombre":
+                while True:
+                    if nuevo_valor.strip().isalpha():
+                        return nuevo_valor.strip()
+                    else:
+                        print("Error: El nombre no puede estar vacío y debe contener solo letras.")
+                        nuevo_valor = input("Por favor, ingrese el nombre nuevamente: ")
+                        
+            elif campo == "tipo_actividad":
+                bucle = True
+
+                while bucle:
+                        print("*** Seleccionar Tipo de Actividad***")
+                        print("1. Paga")
+                        print("2. Gratuita")
+                        
+                        nuevo_valor = input("Ingrese el número de la opción: ")
+
+                        if nuevo_valor == "1":
+                            tipo_actividad = "Paga"
+                            print("El tipo de actividad seleccionado fue Paga.")
+                            return tipo_actividad
+                            
+                        elif nuevo_valor == "2":
+                            tipo_actividad = "Gratuita"
+                            print("El tipo de actividad seleccionado fue Gratuita.")
+                            return tipo_actividad
+                    
+                        else:
+                            print("Error: Opción no válida. Por favor, seleccione una opción válida.")
+                            
+            elif campo == "capacidad":
+                while True:
+                    if nuevo_valor.isdigit() and int(nuevo_valor) > 0 and int(nuevo_valor) <= 14:
+                        return int(nuevo_valor)
+                    else:
+                        print("Error: La capacidad tiene que ser un entero entre el 1 y 14.")
+                        nuevo_valor = input("Ingrese nuevamente la capacidad:")
+                  
+                 
+                        
+            else:
+                print(
+                    "Error Opción no válida ---> Por favor seleccione una opción válida"
+                )
 
 #def validar_numero_habitacion(piso):
   #if piso in {0, 1, 2, 3, 4}:

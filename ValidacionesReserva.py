@@ -59,7 +59,7 @@ class ValidacionesReserva:
         fecha_checkin = None
         fecha_actual = datetime.now()
         fecha_minima_hoy = datetime(fecha_actual.year, fecha_actual.month, fecha_actual.day, 10, 0)  # Hoy a las 10:00 AM
-        fecha_minima_manana = fecha_actual + timedelta(days=1)
+        fecha_minima_manana = fecha_minima_hoy + timedelta(days=1)
         fecha_minima_manana = datetime(fecha_minima_manana.year, fecha_minima_manana.month, fecha_minima_manana.day, 10, 0)  # Mañana a las 10:00 AM
 
         print("Fecha de check-in")
@@ -172,7 +172,40 @@ class ValidacionesReserva:
                 print("Por favor, ingrese un dato válido.")
                 continue
             return numeroID
-    
+    @staticmethod
+    def validar_id_empleado(nuevo_valor):
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        nuevo_valor = input("Ingrese el ID del empleado que quiere modificar!: ")
+        while True:
+            
+            # Validar que el id no sea nulo
+            if nuevo_valor is None:
+                print("Error: Parece que no has ingresado ningún ID.")
+                print("Por favor, ingrese un dato válido.")
+                nuevo_valor = input("Ingrese el ID del empleado que quiere modificar: ")
+                continue
+
+            # Validar que el id sea un número entero mayor que 0
+            try:
+                nuevo_valor = int(nuevo_valor)  # Intenta convertir el valor a un entero
+                if nuevo_valor <= 0:
+                    print("Error: El ID debe ser un número entero mayor que 0.")
+                    nuevo_valor = input("Ingrese el ID del empleado que quiere modificar: ")
+                    continue
+            except ValueError:
+                print("Error: El ID debe ser un número entero mayor que 0.")
+                nuevo_valor = input("Ingrese el ID del empleado que quiere modificar: ")
+                continue
+
+            if not conexion.existeIDEmpleado(nuevo_valor):
+                print("Error: El ID de empleado no existe en la base de datos.")
+                nuevo_valor = input("Ingrese el ID del empleado que quiere modificar: ")
+                continue
+
+            # Si pasa todas las validaciones, es un ID de empleado válido
+            return nuevo_valor
+        
     @staticmethod
     def validar_id_reserva_hospedaje():
         nombreBD = "househunter.db"
@@ -205,16 +238,16 @@ class ValidacionesReserva:
             return numeroID
         
     @staticmethod
-    def validar_campos(campo):
+    def validar_campos(campo, nuevo_valor):
             if campo == "empleado_id":
-                    # Aquí puedes realizar la validación para el nuevo valor del empleado_id
-                    if not ValidacionesReserva.validar_id_reserva():
-                        print("Error: El valor de empleado_id no es válido.")
-                        return False
+                campo = ValidacionesReserva.validar_id_empleado(nuevo_valor)
+            if campo == "fecha_checkin":
+                campo = ValidacionesReserva.validar_checkin()
+                    
 
-                    elif campo == "fecha_checkout":
-                        # Aquí puedes realizar la validación para el nuevo valor de la fecha_checkout
-                        if not ValidacionesReserva.validar_checkout():
+            elif campo == "fecha_checkout":
+                # Aquí puedes realizar la validación para el nuevo valor de la fecha_checkout
+                if not ValidacionesReserva.validar_checkout():
                             print("Error: La fecha de checkout no es válida.")
                             return False
         

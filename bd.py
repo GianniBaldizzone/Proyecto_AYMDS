@@ -167,6 +167,14 @@ class Conexion:
       count = False
     return count
   
+  def existeIDEmpleado(self, numeroID):
+    self.cursor.execute("SELECT COUNT(*) FROM EMPLEADO WHERE id = ?", (numeroID,))
+    count = self.cursor.fetchone()[0]
+    if count > 0:
+      count = True
+    else:
+      count = False
+    return count 
   
   #ABM Empleados
 
@@ -224,7 +232,7 @@ class Conexion:
             print("No se encontraron reservas de tipo Reserva.")
         return reservas_reserva
     
-  def ModificarReservas(self, numeroID, campo, nuevo_valor):
+  def ModificarReservas(self, campo, nuevo_valor, numeroID):
     consulta_sql = f"UPDATE RESERVA SET {campo} = ? WHERE id = ?"
     
   
