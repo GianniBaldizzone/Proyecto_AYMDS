@@ -26,8 +26,7 @@ class Menu:
       print("3. Actividades")
       print("4. Limpieza")
       print("5. ABM")
-      print("6. Refresh")
-      print("7. Salir")
+      print("6. Salir")
       print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
@@ -44,15 +43,6 @@ class Menu:
       elif eleccion == "5":
         self.mostrar_abm()
       elif eleccion == "6":
-        nombreBD = "househunter.db"
-        conexion = Conexion(nombreBD)
-        habitaciones_actualizadas = conexion.verificar_y_actualizar_disponibilidad()
-        habitaciones_actualizadas2= conexion.actualizar_disponibilidad_reservas_activas()
-        if habitaciones_actualizadas:
-            print("Las siguientes habitaciones se han actualizado a 'Disponible':")
-            for habitacion_id in habitaciones_actualizadas:
-              print(f"Habitación ID: {habitacion_id}")
-      elif eleccion == "7":
         bucle = 1
         print("¡Hasta luego!")
 
@@ -144,10 +134,10 @@ class Menu:
     habitacion_id = conexion.obtener_id_habitacion_por_numero()
     tipo_reserva = "Reserva"
     if conexion.existe_reserva_similar(fecha_checkin, fecha_checkout, habitacion_id):
-      conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, "Activa", huesped_id, tipo_reserva)
-      print("\n")
+      self.mostrar_reservas()
     else:
-     self.mostrar_reservas
+     conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, "Activa", huesped_id, tipo_reserva)
+     print("\n")
 
   def modificar_reserva(self):
     nombreBD = "househunter.db"
@@ -227,8 +217,7 @@ class Menu:
       print("2. Hacer nuevo Check_in")
       print("3. Modificar Check-in")
       print("4. Eliminar Check-in")
-      print("5. Mostrar Check-in")
-      print("6. Volver")
+      print("5. Volver")
       print("\n")
 
       eleccion = input("Ingrese el número de la opción: ")
@@ -242,8 +231,6 @@ class Menu:
       elif eleccion == "4":
         self.eliminar_reserva_hospedaje()
       elif eleccion == "5":
-        self.mostrar_checkin()
-      elif eleccion == "6":
         print("Volviendo...")
         print("\n")
         self.mostrar_menu()
@@ -300,12 +287,12 @@ class Menu:
     habitacion_id = conexion.obtener_id_habitacion_por_numero()
 
     tipo_reserva = "Hospedaje"
-    
-    conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id,"Activada", huesped_id, tipo_reserva)
-    print("\n")
-    conexion.actualizar_disponibilidad_habitacion(habitacion_id)
-    
-    
+    if conexion.existe_reserva_similar(fecha_checkin, fecha_checkout, habitacion_id):
+      self.mostrar_hospedaje()
+    else:
+     conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, "Activa", huesped_id, tipo_reserva)
+     print("\n")
+  
   ## CHECKIN ##
   
   def modificar_reserva_hospedaje(self):
