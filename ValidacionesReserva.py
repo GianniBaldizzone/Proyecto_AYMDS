@@ -176,7 +176,7 @@ class ValidacionesReserva:
     def validar_id_empleado(nuevo_valor):
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
-        nuevo_valor = input("Ingrese el ID del empleado que quiere modificar!: ")
+        #nuevo_valor = input("Ingrese el ID del empleado que quiere modificar!: ")
         while True:
             
             # Validar que el id no sea nulo
@@ -188,12 +188,14 @@ class ValidacionesReserva:
 
             # Validar que el id sea un número entero mayor que 0
             try:
-                nuevo_valor = int(nuevo_valor)  # Intenta convertir el valor a un entero
+                nuevo_valor = int(nuevo_valor)
                 if nuevo_valor <= 0:
+                    # Maneja el caso en que el valor es menor o igual a 0
                     print("Error: El ID debe ser un número entero mayor que 0.")
                     nuevo_valor = input("Ingrese el ID del empleado que quiere modificar: ")
                     continue
             except ValueError:
+                # Maneja el caso en que la entrada no se puede convertir a un entero
                 print("Error: El ID debe ser un número entero mayor que 0.")
                 nuevo_valor = input("Ingrese el ID del empleado que quiere modificar: ")
                 continue

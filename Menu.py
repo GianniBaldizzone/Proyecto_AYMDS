@@ -161,15 +161,7 @@ class Menu:
       print("\n")
 
       if eleccion == "1":
-        campo = "empleado_id"
-        
-        nuevo_valor = ValidacionesReserva.validar_id_empleado(nuevo_valor)
-        if nuevo_valor is not None:
-            conexion.ModificarReservas(campo, nuevo_valor, numeroID)
-            print(f"Se ha modificado el campo {campo} satisfactoriamente.")
-        else:
-            print("No se ha realizado la modificación debido a un ID de empleado inválido.")
-            
+        campo = "empleado_id"            
       elif eleccion == "2":
         campo = "fecha_checkin"
       elif eleccion == "3":
@@ -189,15 +181,18 @@ class Menu:
       else:
         print(
             "Error Opción no válida ---> Por favor seleccione una opción válida"
+            
         )
+        continue
 
       print("\n")
      
       if eleccion != "8":
         print("\n")
-        #nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
+        nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
         #ampo = ValidacionesReserva.validar_campos(campo, nuevo_valor)
-        conexion.ModificarReservas(numeroID, campo, nuevo_valor)
+        nuevo_valor = ValidacionesReserva.validar_id_empleado(nuevo_valor)
+        conexion.ModificarReservas(campo, nuevo_valor, numeroID)
       
       print(f"Se ha modificado el campo {campo} satisfactoriamente.")
       print("\n")
