@@ -237,15 +237,22 @@ class Conexion:
       
     
   def EliminarReserva(self, id):
-        result = None
-        self.cursor.execute("DELETE FROM RESERVA WHERE id = ?", (id,))
-        if self.cursor:
-            self.conexion.commit()
-            print("Reserva eliminada con éxito!!!")
-        else:
-            print("Error al eliminar la reserva")
-        
+    result = None
+    self.cursor.execute("DELETE FROM RESERVA WHERE id = ? AND tipo = 'Reserva'", (id,))
+    if self.cursor.rowcount > 0:
+        self.conexion.commit()
+        print("Reserva eliminada con éxito!!!")
+    else:
+        print("Error: No se encontró una reserva de tipo 'Reserva' con el ID proporcionado.")
 
+  def EliminarHospedaje(self, id):
+    result = None
+    self.cursor.execute("DELETE FROM RESERVA WHERE id = ? AND tipo = 'Hospedaje'", (id,))
+    if self.cursor.rowcount > 0:
+        self.conexion.commit()
+        print("Hospedaje eliminado con éxito!!!")
+    else:
+        print("Error: No se encontró un hospedaje de tipo 'Hospedaje' con el ID proporcionado.")
   def CerrarConexion(self):
         self.conexion.close()
   

@@ -151,7 +151,7 @@ class Menu:
   def modificar_reserva(self):
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
-    numeroID = ValidacionesReserva.validar_id_reserva()
+    numeroID = ValidacionesReserva.validar_id_reserva_reserva()
     bucle = 0
     while bucle != 1:
       print("\n")
@@ -208,7 +208,7 @@ class Menu:
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
     print("\n")
-    numeroID = ValidacionesReserva.validar_id_reserva()
+    numeroID = ValidacionesReserva.validar_id_reserva_reserva()
     print("\n")
     conexion.EliminarReserva(numeroID)
     print("\n")
@@ -297,63 +297,50 @@ class Menu:
     fecha_checkin = ValidacionesReserva.validar_checkin() 
     fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
     habitacion_id = conexion.obtener_id_habitacion_por_numero()
-    estado = ValidacionesHabitaciones.validaciones_estado_hab()
+
     tipo_reserva = "Hospedaje"
     
-    conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
+    conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id,"Activada", huesped_id, tipo_reserva)
     print("\n")
     conexion.actualizar_disponibilidad_habitacion(habitacion_id)
     
     
   ## CHECKIN ##
   
-  def modificar_checkin(self):
+  def modificar_reserva(self):
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
-    conexion.CrearTablaHuesped()
-    ##si el numeroID no esta dentro de la base de datos, volver a ingresarlo
-    while True:
-        numeroID = input("Ingresar ID del huesped a modificar: ")
-        
-        if conexion.IDExists(numeroID):
-            break  #sale del loop si es true
-        else:
-            print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
-            print("\n")
-    print("\n")
-    
+    numeroID = ValidacionesReserva.validar_id_reserva_hospedaje()
     bucle = 0
     while bucle != 1:
       print("\n")
       print("Seleccione una opción a modificar:")
-      print("1. Nombre")
-      print("2. Apellido")
-      print("3. Pasaporte")
-      print("4. DNI")
-      print("5. Nacionalidad")
-      print("6. Grupo Sanguineo")
-      print("7. Seguro de vida")
+      print("1. Empleado ID")
+      print("2. Fecha checkin")
+      print("3. Fecha checkout")
+      print("4. Habitacion ID")
+      print("5. Estado")
+      print("6. Huesped ID")
+      print("7. Tipo de reserva")
       print("8. Salir de modificar")
       print("\n")
-      
+
       eleccion = input("Ingrese el número de la opción: ")
       print("\n")
 
       if eleccion == "1":
-        campo = "nombre"
+        campo = "empleado_id"
       elif eleccion == "2":
-        campo = "apellido"
+        campo = "fecha_checkout"
       elif eleccion == "3":
-        campo = "numero_pasaporte"
+        campo = "habitacion_id"
       elif eleccion == "4":
-        campo = "dni"
+        campo = "estado"
       elif eleccion == "5":
-        campo = "nacionalidad"
+        campo = "huesped_id"
       elif eleccion == "6":
-        campo = "grupo_sanguineo"
+        campo = "tipo_reserva"
       elif eleccion == "7":
-        campo = "seguro_vida"
-      elif eleccion == "8":
         bucle = 1
         print("Has salido del menu modificar huesped")
 
@@ -361,50 +348,29 @@ class Menu:
         print(
             "Error Opción no válida ---> Por favor seleccione una opción válida"
         )
-    
+
       print("\n")
       if eleccion != "8":
         print("\n")
         nuevo_valor = input(f"Ingrese el nuevo valor para {campo}:")
-        conexion.ModificarHuespedes(numeroID, campo, nuevo_valor)
+        campo = ValidacionesReserva.validar_campos(campo)
+        conexion.ModificarReservas(numeroID, campo, nuevo_valor)
         print(f"Se ha modificado el campo {campo} satisfactoriamente.")
         print("\n")
         print("\n")
+    conexion.ModificarReservas(numeroID, campo, nuevo_valor)
+    
+    print("\n")
 
-  def eliminar_checkin(self):
+  def eliminar_reserva(self):
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
     print("\n")
-    while True:
-        numeroID = input("Ingresar ID del huesped a modificar/eliminar: ")
-        
-        if conexion.IDExists(numeroID):
-            break  #sale del loop si es true
-        else:
-            print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
-            print("\n")
+    numeroID = ValidacionesReserva.validar_id_reserva_hospedaje()
     print("\n")
-    
-    conexion.HuespedEliminar(numeroID)
+    conexion.EliminarHospedaje(numeroID)
     print("\n")
-    
-  def mostrar_checkin(self):
-    print("### Lista checkin - Huespedes ###")
-    nombreBD = "househunter.db"
-    conexion = Conexion(nombreBD)
-    conexion.CrearTablaHuesped()
-    huespedes = conexion.MostrarHuespedes()
-
-    if len(huespedes) > 0:
-      for huesped in huespedes:
-        print(
-          f"ID: {huesped[0]}, Nombre: {huesped[1]}, Apellido: {huesped[2]}, Pasaporte: {huesped[3]}, DNI: {huesped[4]}, Nacionalidad: {huesped[5]}, Grupo sanguineo: {huesped[6]}, Seguro de vida: {huesped[7]}"
-          )
-        print("\n")
-    else:
-      print("No hay huespedes registrados")
-      print("\n")
 
   #menu hospedaje
   #menu actividades
@@ -1042,7 +1008,7 @@ class Menu:
   #Menu contro maestro
 
 #menu ABM - Menu contro maestro - Eliminar
-def mostrar_menu_controlmaestro_eliminar(self):
+  def mostrar_menu_controlmaestro_eliminar(self):
     bucle = 0
 
     while bucle != 1:
@@ -1094,7 +1060,7 @@ def mostrar_menu_controlmaestro_eliminar(self):
 #menu ABM - Menu contro maestro - Crear
 
 
-def mostrar_menu_controlmaestro_crear(self):
+  def mostrar_menu_controlmaestro_crear(self):
     bucle = 0
 
     while bucle != 1:
@@ -1147,7 +1113,7 @@ def mostrar_menu_controlmaestro_crear(self):
 #menu ABM - Menu contro maestro - Setear
 
 
-def mostrar_menu_controlmaestro_setear(self):
+  def mostrar_menu_controlmaestro_setear(self):
     bucle = 0
 
     while bucle != 1:
@@ -1199,7 +1165,7 @@ def mostrar_menu_controlmaestro_setear(self):
 
 
 #menu abm huesped filtros
-def mostrar_menu_huespedes_filtros(self):
+  def mostrar_menu_huespedes_filtros(self):
     bucle = 0
 
     while bucle != 1:
