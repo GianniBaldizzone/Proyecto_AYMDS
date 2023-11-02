@@ -238,7 +238,7 @@ class Conexion:
     
   def EliminarReserva(self, id):
     result = None
-    self.cursor.execute("DELETE FROM RESERVA WHERE id = ? AND tipo = 'Reserva'", (id,))
+    self.cursor.execute("DELETE FROM RESERVA WHERE id = ? AND tipoReserva = 'Reserva'", (id,))
     if self.cursor.rowcount > 0:
         self.conexion.commit()
         print("Reserva eliminada con éxito!!!")
@@ -247,7 +247,7 @@ class Conexion:
 
   def EliminarHospedaje(self, id):
     result = None
-    self.cursor.execute("DELETE FROM RESERVA WHERE id = ? AND tipo = 'Hospedaje'", (id,))
+    self.cursor.execute("DELETE FROM RESERVA WHERE id = ? AND tipoReserva = 'Hospedaje'", (id,))
     if self.cursor.rowcount > 0:
         self.conexion.commit()
         print("Hospedaje eliminado con éxito!!!")
@@ -256,6 +256,31 @@ class Conexion:
   def CerrarConexion(self):
         self.conexion.close()
   
+
+  def existe_reserva_similar(self, fecha_checkin, fecha_checkout, habitacion_id):
+        try:
+            print(f"Verificando si existe una reserva similar para habitación {habitacion_id} en el intervalo de tiempo:")
+            print(f"Fecha de check-in: {fecha_checkin}")
+            print(f"Fecha de check-out: {fecha_checkout}")
+
+            query = "SELECT COUNT(*) FROM RESERVA WHERE habitacion_id = ? AND fechaChekin <= ? AND fechaCheckout >= ?"
+            params = (habitacion_id, fecha_checkout, fecha_checkin)
+            self.cursor.execute(query, params)
+            count = self.cursor.fetchone()[0]
+
+            if count > 0:
+                print("¡Existe una reserva similar en la base de datos!")
+                return True
+            else:
+                print("No se encontraron reservas similares en la base de datos.")
+                return False
+        except sqlite3.Error as e:
+            print("Error al verificar la existencia de la reserva:", e)
+            return True  # En caso de error, se asume que la reserva existe (por precaución)
+
+
+
+
   #Verifica que hay un ID existente contandolo en la bd
   def IDReservaExists(self, numeroID):   
     self.cursor.execute("SELECT COUNT(*) FROM RESERVA WHERE id = ?", (numeroID,))

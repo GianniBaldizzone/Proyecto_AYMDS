@@ -16,13 +16,18 @@ class ValidacionesReserva:
                 año = int(input("Ingrese el año: "))
                 mes = int(input("Ingrese el mes: "))
                 dia = int(input("Ingrese el día: "))
-                hora = int(input("Ingrese la hora: "))
-                minutos = int(input("Ingrese los minutos: "))
 
-
-                if año < 1 or mes < 1 or mes > 12 or dia < 1 or dia > 31 or hora < 0 or hora > 23 or minutos < 0 or minutos > 59:
-                    print("Error: Valores de fecha y hora no válidos. Por favor, ingrese nuevamente.")
+                if año < fecha_actual.year or (año == fecha_actual.year and mes < fecha_actual.month) or (año == fecha_actual.year and mes == fecha_actual.month and dia < fecha_actual.day):
+                    print("Error: La fecha de check-in no puede ser anterior a la fecha actual. Por favor, ingrese nuevamente.")
                     continue
+
+                if mes < 1 or mes > 12 or dia < 1 or dia > 31:
+                    print("Error: Valores de fecha no válidos. Por favor, ingrese nuevamente.")
+                    continue
+
+                # Autosetear la hora a las 10:00 AM
+                hora = 10
+                minutos = 0
 
                 fecha_checkin = datetime(año, mes, dia, hora, minutos)
 
@@ -35,7 +40,7 @@ class ValidacionesReserva:
                 print("Error: Ingrese valores numéricos válidos. Por favor, ingrese nuevamente.")
 
         return fecha_checkin
-    
+        
     
     
     
@@ -138,8 +143,7 @@ class ValidacionesReserva:
             else:
                 print("Error: Opción no válida. Por favor, seleccione una opción válida.")
                 
-    @staticmethod
-    def validar_id_reserva_reserva(self):
+    def validar_id_reserva_reserva():
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         while True:
@@ -154,7 +158,7 @@ class ValidacionesReserva:
             # Validar que el id sea un número entero mayor que 0
             try:
                 numeroID = int(numeroID)  # Intenta convertir el valor a un entero
-                if numeroID <= 0 :
+                if numeroID <= 0:
                     print("Error: El ID debe ser un número entero mayor que 0.")
                     print("Por favor, ingrese un dato válido.")
                     continue
@@ -163,14 +167,14 @@ class ValidacionesReserva:
                 print("Por favor, ingrese un dato válido.")
                 continue
 
-            if not conexion.IDReservaExists(numeroID, tipo="Reserva"):
+            if not conexion.IDReservaExists(numeroID):
                 print("Error: La reserva de tipo 'Reserva' con el ID proporcionado no existe en la base de datos.")
                 print("Por favor, ingrese un dato válido.")
                 continue
             return numeroID
     
     @staticmethod
-    def validar_id_reserva_hospedaje(self):
+    def validar_id_reserva_hospedaje():
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         while True:

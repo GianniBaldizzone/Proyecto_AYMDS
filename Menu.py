@@ -118,7 +118,7 @@ class Menu:
     print("\n")
 
   def hacer_reserva(self):
-    print("=== Crear Check-in ===")
+    print("=== Crear Reserva ===")
     print("\n")
     ValidacionesHuesped()
     nombreBD = "househunter.db"
@@ -139,14 +139,15 @@ class Menu:
       huesped_id =conexion.IngresarHuesped(nombre, apellido, numero_de_pasaporte, None, nacionalidad, grupo_sanguineo, seguro_vida)
    
     empleado_id = self.id_empleado
-    fecha_checkin = ValidacionesReserva.validar_checkin() 
+    fecha_checkin = ValidacionesReserva.validar_checkin_reserva() 
     fecha_checkout = ValidacionesReserva.validar_checkout(fecha_checkin) 
     habitacion_id = conexion.obtener_id_habitacion_por_numero()
-    estado = ValidacionesHabitaciones.validaciones_estado_hab()
     tipo_reserva = "Reserva"
-    
-    conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, estado, huesped_id, tipo_reserva)
-    print("\n")
+    if conexion.existe_reserva_similar(fecha_checkin, fecha_checkout, habitacion_id):
+      conexion.IngresarReserva(empleado_id, fecha_checkin, fecha_checkout,habitacion_id, "Activa", huesped_id, tipo_reserva)
+      print("\n")
+    else:
+     self.mostrar_reservas
 
   def modificar_reserva(self):
     nombreBD = "househunter.db"
@@ -237,9 +238,9 @@ class Menu:
       elif eleccion == "2":
         self.check_in()
       elif eleccion == "3":
-        self.modificar_checkin()
+        self.modificar_reserva_hospedaje()
       elif eleccion == "4":
-        self.eliminar_checkin()
+        self.eliminar_reserva_hospedaje()
       elif eleccion == "5":
         self.mostrar_checkin()
       elif eleccion == "6":
@@ -307,7 +308,7 @@ class Menu:
     
   ## CHECKIN ##
   
-  def modificar_reserva(self):
+  def modificar_reserva_hospedaje(self):
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     numeroID = ValidacionesReserva.validar_id_reserva_hospedaje()
@@ -362,7 +363,7 @@ class Menu:
     
     print("\n")
 
-  def eliminar_reserva(self):
+  def eliminar_reserva_hospedaje(self):
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaHuesped()
