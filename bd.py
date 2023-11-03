@@ -83,7 +83,7 @@ class Conexion:
         except sqlite3.Error as e:
             print("Error al obtener el ID de la habitación:", e)
 
-        # Solicitar un nuevo número de habitación
+        # Solicitar un nuevo número de habitaciónn
         print("Por favor, ingrese un número de habitación válido.")
   
   
