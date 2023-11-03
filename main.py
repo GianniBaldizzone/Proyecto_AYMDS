@@ -10,12 +10,12 @@ def run_tests():
     # Ejecuta las pruebas utilizando TextTestRunner
     test_runner = unittest.TextTestRunner()
     test_runner.run(test_suite)
-###
-#if __name__ == '__main__':
 
- #   run_tests()
+if __name__ == '__main__':
 
-# Tu código principal aquí
+    run_tests()
+
+ 
 from iniciosesion import InicioSesion
 from Menu import Menu
 from iniciosesion import InicioSesion

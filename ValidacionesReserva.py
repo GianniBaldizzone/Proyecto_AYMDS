@@ -8,7 +8,7 @@ class ValidacionesReserva:
     def validar_checkin_reserva():
         fecha_checkin = None
         fecha_actual = datetime.now()
-        fecha_minima = fecha_actual + timedelta(days=7)
+        fecha_minima = fecha_actual + timedelta(days=1)
         print("Fecha de check-in")
 
         while fecha_checkin is None or fecha_checkin < fecha_minima:
@@ -32,7 +32,7 @@ class ValidacionesReserva:
                 fecha_checkin = datetime(año, mes, dia, hora, minutos)
 
                 if fecha_checkin < fecha_minima:
-                    print("Error: La fecha de check-in debe ser al menos 7 días después de la fecha actual. Por favor, ingrese nuevamente.")
+                    print("Error: La fecha de check-in debe ser al menos 1 día después de la fecha actual. Por favor, ingrese nuevamente.")
                 else:
                     print("Fecha válida.")
 
@@ -233,7 +233,7 @@ class ValidacionesReserva:
                 print("Por favor, ingrese un dato válido.")
                 continue
 
-            if not conexion.IDReservaExists(numeroID, tipo="Hospedaje"):
+            if not conexion.IDReservaExists(numeroID):
                 print("Error: La reserva de tipo 'Hospedaje' con el ID proporcionado no existe en la base de datos.")
                 print("Por favor, ingrese un dato válido.")
                 continue

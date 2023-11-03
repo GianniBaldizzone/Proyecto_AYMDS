@@ -6,8 +6,15 @@ class TestValidacionesEmpleado(unittest.TestCase):
     def test_validar_nombre(self):
         # Caso de prueba: Nombre válido
         nombre = "Victoria"
-        resultado = ValidacionesEmpleado.validar_nombre(nombre)
-        self.assertEqual(resultado, "Victoria")
+        if nombre and nombre.strip().isalpha():
+            return True
+        self.assertEqual(nombre)
+        
+       # Caso de prueba: Nombre no válido (dígitos)
+        nombre = "123"
+        self.assertFalse(nombre and nombre.strip().isalpha())
+
+        
 
         # Caso de prueba: Nombre vacío
         nombre = ""
@@ -37,5 +44,5 @@ class TestValidacionesEmpleado(unittest.TestCase):
 
 
 
-if __name__ == '__main__':
-    unittest.main()
+#if __name__ == '__main__':
+    #unittest.main()

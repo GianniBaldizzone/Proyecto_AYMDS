@@ -165,91 +165,20 @@ class ValidacionesHabitaciones:
         print("Error: Opción no válida. Por favor, seleccione una opción válida.")
       
       
-  def validar_numero_habitacion(self, piso):
-
-    if piso == 0:
-      bucle4 = 0
-  
-      while bucle4 != 1:
+  def validar_numero_habitacion(self):
+    bucle4=0
+    while bucle4 != 1:
         print(f"*** Ingresar numero de habitación ***")
-        print("***El rango es entre 1 y 20 segun tu piso***")
         eleccion = input("Ingrese el número : ")
         numero = int(eleccion)
-        if numero >= 1 and numero <= 20:
+        if numero >= 1 and numero <= 360:
           return numero
         else:
           print(
               "Error Opción no válida ---> Por favor seleccione una opción válida"
           )
-    elif piso == 1:
-      bucle4 = 0
-  
-      while bucle4 != 1:
-        print(f"*** Ingresar numero de habitación ***")
-        print("***El rango es entre 101 y 120 segun tu piso***")
-        eleccion = input("Ingrese el número : ")
-        numero = int(eleccion)
-        if numero >= 101 and numero <= 120:
-          return numero
-        else:
-          print(
-              "Error Opción no válida ---> Por favor seleccione una opción válida"
-          )
-  
-    elif piso == 2:
-      bucle4 = 0
-  
-      while bucle4 != 1:
-        print(f"*** Ingresar numero de habitación ***")
-        print("***El rango es entre 201 y 220 segun tu piso***")
-        eleccion = input("Ingrese el número : ")
-        numero = int(eleccion)
-        if numero >= 201 and numero<= 220:
-          return numero
-        else:
-          print(
-              "Error Opción no válida ---> Por favor seleccione una opción válida"
-          )
-  
-    elif piso == 3:
-      bucle4 = 0
-  
-      while bucle4 != 1:
-        print("\n")
-        print(f"*** Ingresar numero de habitación ***")
-        print("***El rango es entre 301 y 320 segun tu piso***")
-        eleccion = input("Ingrese el número : ")
-        numero = int(eleccion)
-        if numero >= 301 and numero <= 320:
-          return numero
-        else:
-          print(
-              "Error Opción no válida ---> Por favor seleccione una opción válida"
-          )
-  
-    elif piso == 4:
-      bucle4 = 0
-  
-      while bucle4 != 1:
-        print(f"*** Ingresar numero de habitación ***")
-        print("***El rango es entre 301 y 320 segun tu piso***")
-        eleccion = input("Ingrese el número : ")
-        numero = int(eleccion)
-        if numero>=401 and numero<=20:
-          return numero
-        else:
-          print("\n")
-          print(
-              "Error Opción no válida ---> Por favor seleccione una opción válida"
-          )
-          print("\n")
-  
-    else:
-      print("\n")
-      print("Error no identificado ---> el piso fue mal seleccionado")
-      print("\n")
-
-
+        
+      
     
   @staticmethod
   def validarHabitacionId():

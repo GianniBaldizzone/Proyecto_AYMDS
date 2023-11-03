@@ -1,11 +1,11 @@
 import unittest
 from unittest.mock import patch
 from io import StringIO
-from InicioSesion import InicioSesion  # Importa la clase InicioSesion desde tu módulo
+from iniciosesion import InicioSesion  # Importa la clase InicioSesion desde tu módulo
 
 class TestInicioSesion(unittest.TestCase):
     def setUp(self):
-        # Inicializa el objeto InicioSesion para las pruebas
+        
         self.inicio_sesion = InicioSesion()
         
         # Redirige la salida estándar para capturar las impresiones

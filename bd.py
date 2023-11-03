@@ -53,12 +53,12 @@ class Conexion:
     self.conexion.commit()
 
   def actualizar_disponibilidad_habitacion(self, habitacion_id):
-        try:
-            self.cursor.execute("UPDATE HABITACION SET disponibilidad=? WHERE id=?", ("No disponible", habitacion_id))
-            self.conexion.commit()
-            print(f"La disponibilidad de la habitación con ID {habitacion_id} se ha actualizado a 'No disponible'.")
-        except sqlite3.Error as e:
-            print("Error al actualizar la disponibilidad de la habitación:", e)
+    try:
+      self.cursor.execute("UPDATE HABITACION SET disponibilidad=? WHERE id=?", ("No disponible", habitacion_id))
+      self.conexion.commit()
+      print(f"La disponibilidad de la habitación con ID {habitacion_id} se ha actualizado a 'No disponible'.")
+    except sqlite3.Error as e:
+      print("Error al actualizar la disponibilidad de la habitación:", e)
 
   def obtener_id_habitacion_por_numero(self):
     while True:

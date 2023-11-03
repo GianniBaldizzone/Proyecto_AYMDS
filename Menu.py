@@ -456,19 +456,18 @@ class Menu:
     print("\n")
 
   def eliminar_reserva_actividades(self):
-    print("Eliminando reserva de actividades...")
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaActividadReserva()
     print("\n")
     while True:
-        numeroID = input("Ingresar ID de la reserva a modificar/eliminar: ")
+      numeroID = input("Ingresar ID de la reserva a modificar/eliminar: ")
         
-        if conexion.IDActividadReservaExiste(numeroID):
-          break  #sale del loop si es true
-        else:
-            print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
-            print("\n")
+      if conexion.IDActividadReservaExiste(numeroID):
+        break  #sale del loop si es true
+      else:
+        print("El ID ingresado no existe en la base de datos. Por favor, inténtelo de nuevo.")
+        print("\n")
     print("\n")
     
     conexion.EliminarActividadReserva(numeroID)
@@ -582,7 +581,7 @@ class Menu:
         conexion = Conexion(nombreBD)
         conexion.CrearTablaHabitacion()
         piso = validacion.validacionPiso()
-        numero = validacion.validar_numero_habitacion(piso)
+        numero = validacion.validar_numero_habitacion()
         precio = validacion.validacion_precio()
         capacidad = validacion.validacionCantidad()
         tipoDeHabitacion = validacion.validacion_tipo_de_habitacion()
@@ -595,6 +594,7 @@ class Menu:
         conexion.CrearTablaHabitacion()
         print("\n")
         numeroID= input("Ingresar ID a eliminar")
+        numeroID= int(numeroID)
         print("\n")
         conexion.ModificarEliminar(numeroID)
       elif eleccion == "4":
@@ -775,13 +775,14 @@ class Menu:
         conexion.IngresarEmpleados(nombre, apellido, dni, isAdmin,telefono,contrasena)
 
       elif eleccion == "2":
-        self.mostrar_menu_empleado()
+        ("Modificar fuera de servicio")
       elif eleccion == "3":
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         conexion.CrearTablaEmpleados()
         print("\n")
         numeroID= input("Ingresar ID a eliminar")
+        numeroID = int (numeroID)
         print("\n")
         conexion.EmpleadoEliminar(numeroID)
       elif eleccion == "4":
