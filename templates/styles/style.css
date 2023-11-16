@@ -1,0 +1,81 @@
+a {
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px !important;
+    font-weight: 500;
+}
+
+input {
+    border-radius: 20px !important;
+    border: none;
+}
+
+.container-center {
+    margin-top: 15% !important;
+}
+
+.fa-solid {
+    color: #fff !important;
+}
+
+.btn {
+    color: #fff !important;
+    background-color: #9B6CD1 !important;
+    border: none;
+    width: 80%;
+    border-radius: 28px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.btn-login {
+    width: auto;
+    background-color: #503074 !important;
+    margin-top: 34px;
+    padding: 12px;
+    border: none;
+}
+
+
+
+.text-center {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.card {
+    background-color: #9B6CD1 !important;
+}
+
+.card .row {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+div.row {
+    display: flex !important;
+    justify-content: center !important; 
+}
+
+.card img {
+    max-width: 100%; /* Asegúrate de que la imagen no supere el tamaño de su contenedor */
+}
+
+.navbar {
+    background-color: #9B6CD1 !important;
+}
+
+.menu-img {
+    display: flex;
+    justify-content: center !important;
+    width: 36%;
+    
+}
