@@ -1,5 +1,30 @@
 import unittest
+from flask import Flask, render_template
+from bd import Conexion
 
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+  nombre_base_datos = 'househunter.db'
+  conexion = Conexion(nombre_base_datos)
+
+
+  nombre = "Gamaliel"
+  apellido = "Quiroz"
+  datos = {
+      'titulo': 'Mi Página',
+      'mensaje': '¡Hola desde Flask!',
+      'nombre': nombre,
+      'apellido': apellido
+  }
+
+  return render_template('index.html', datos=datos)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
 def run_tests():
     # Crea una instancia del TestLoader
     test_loader = unittest.TestLoader()
