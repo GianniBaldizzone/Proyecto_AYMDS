@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Nueva Reserva</title>
+
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/logo.ico') }}"
+      type="image/x-icon"
+    />
+
+    <!-- Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/5ecef25f55.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='styles/style.css')}}"
+    />
+  </head>
+  <body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
+        </a>
+        <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Contenedor de los elementos de la barra de navegación -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="navbar-text">
+            <h5 class="mr-3">{{ nombre_usuario }}</h5>
+            <img
+              src="{{ url_for('static', filename='img/logo2.png') }}"
+              alt="Foto del Empleado"
+              height="40"
+              class="rounded-circle me-2 shadow"
+            />
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Contenido principal -->
+    <div class="container text-center">
+      <div class="container-imagen text-center">
+        <div class="row row-img">
+          <div class="img-container">
+            <img
+              class="img-title"
+              src="{{ url_for('static', filename='../static/img/logo2.png') }}"
+              class="card-img text-center"
+              alt="Imagen House Hunter"
+            />
+
+            <h1 class="title-img-container">Nueva Reserva</h1>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="row row-cols-md-2 row-cols-lg-2 g-4 p-5 justify-content-center"
+      >
+        <div class="container container-form">
+          <h1 class="title-form-container">Registro de Reserva</h1>
+          <form method="post" class="form-reservas row g-3 mx-auto">
+            <div class="col-md-6">
+              <div class="mb-3 text-start">
+                <label for="nombre" class="form-label label-forms label-reserva"
+                  >Nombre:</label
+                >
+                <input
+                  type="text"
+                  class="form-control input-reserva"
+                  id="nombre"
+                  name="nombre"
+                  required
+                />
+              </div>
+
+              <div class="mb-3 text-start">
+                <label
+                  for="apellido"
+                  class="form-label label-forms label-reserva"
+                  >Apellido:</label
+                >
+                <input
+                  type="text"
+                  class="form-control input-reserva"
+                  id="apellido"
+                  name="apellido"
+                  required
+                />
+              </div>
+
+              <div class="mb-3 text-start">
+                <label
+                  for="nacionalidad"
+                  class="form-label label-forms label-reserva"
+                  >Nacionalidad:
+                </label>
+                <select
+                  class="form-select"
+                  id="nacionalidad"
+                  name="nacionalidad"
+                  required
+                >
+                  <option value="argentina">Argentina</option>
+                  <option value="otra">Otra</option>
+                </select>
+              </div>
+
+              <div class="mb-3 text-start">
+                <label for="dni" class="form-label label-forms label-reserva"
+                  >DNI:</label
+                >
+                <input
+                  type="text"
+                  class="form-control input-reserva"
+                  id="dni"
+                  name="dni"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="mb-3 text-start">
+                <label
+                  for="fecha_checkin"
+                  class="form-label label-forms label-reserva"
+                  >Fecha Check-in:</label
+                >
+                <input
+                  type="date"
+                  class="form-control input-reserva"
+                  id="fecha_checkin"
+                  name="fecha_checkin"
+                  required
+                />
+              </div>
+
+              <div class="mb-3 text-start">
+                <label
+                  for="fecha_checkout"
+                  class="form-label label-forms label-reserva"
+                  >Fecha Checkout:</label
+                >
+                <input
+                  type="date"
+                  class="form-control input-reserva"
+                  id="fecha_checkout"
+                  name="fecha_checkout"
+                  required
+                />
+              </div>
+
+              <div class="mb-3 text-start">
+                <label
+                  for="habitacion_id"
+                  class="form-label label-forms label-reserva"
+                >
+                  Numero de Habitación:</label
+                >
+                <select
+                  class="form-select"
+                  id="habitacion_id"
+                  name="habitacion_id"
+                  required
+                >
+                  <option value="101">101</option>
+                  <option value="102">102</option>
+                  <option value="103">103</option>
+                  <!-- Agrega más opciones según sea necesario -->
+                </select>
+              </div>
+
+              <div class="mb-3 form-check text-start">
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="seguro_vida"
+                  name="seguro_vida"
+                />
+                <label
+                  class="form-check-label label-forms label-reserva"
+                  for="seguro_vida"
+                >
+                  ¿Seguro de Vida?
+                </label>
+              </div>
+
+              <div class="mb-3 text-start">
+                <label
+                  for="grupo_sanguineo"
+                  class="form-label label-forms label-reserva"
+                  >Grupo Sanguíneo:</label
+                >
+                <select
+                  class="form-select"
+                  id="grupo_sanguineo"
+                  name="grupo_sanguineo"
+                  required
+                >
+                  <option value="a_positivo">A+</option>
+                  <option value="a_negativo">A-</option>
+                  <option value="b_positivo">B+</option>
+                  <option value="b_negativo">B-</option>
+                  <option value="o_positivo">O+</option>
+                  <option value="o_negativo">O-</option>
+                  <option value="ab_positivo">AB+</option>
+                  <option value="ab_negativo">AB-</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-secondary">
+                  Crear Reserva
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (bundle) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

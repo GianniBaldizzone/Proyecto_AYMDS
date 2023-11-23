@@ -1,3 +1,5 @@
+
+
 a {
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
@@ -6,9 +8,16 @@ a {
 
 label {
     font-family: 'Roboto', sans-serif;
-    font-size: 20px !important;
-    font-weight: 500;
     width: 10rem !important;
+    font-size: 25px !important;
+    font-weight: 500;
+}
+
+
+body {
+    overflow-x: hidden;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 input {
@@ -43,6 +52,10 @@ input {
     border: none;
 }
 
+.btn-secondary {
+    background-color: #503074 !important;
+    width: 40%;
+}
 
 
 .text-center {
@@ -97,4 +110,76 @@ div.row {
 
 .mr-3 {
     margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+/* RESERVAS */
+.img-container {
+    background-image: url("../img/menu-reserva.jpg");
+    /* Establece el tamaño de la imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    width: 100vw !important; /* Hace que la imagen ocupe todo el ancho del contenedor */
+    height: 300px; /* Ajusta la altura según tus necesidades */
+    
+}
+
+.container-imagen {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px !important;
+}
+
+.img-title {
+    height: 30vh;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    padding: 10px;
+} 
+
+.title-img-container{
+    color: #9B6CD1;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.form-reservas {
+    width: 60vw;
+    display: flex; 
+    
+}
+
+.form-label {
+    margin-bottom: 0px !important;
+}
+
+
+.container-form {
+    background-color: #9b6cd1;
+    width: 70vw;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Añadir sombra al contenedor del formulario */
+}
+
+.title-form-container {
+    color: #ffffff;
+    font-weight: 900;
+}
+
+.label-reserva {
+    font-size: 18px !important; /* Puedes ajustar el tamaño según tus preferencias */
+    font-weight: 400 !important; /* Otras propiedades de estilo que desees agregar */
+    width: 70% !important;
+}
+
+.input-reserva, .form-select {
+    width: 95% !important;
+    background-color: #b083e3 !important;
+    color: #503074;
+    border: none;
 }

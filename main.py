@@ -38,6 +38,26 @@ def programa():
             return render_template('index.html', error=error) 
        
 
+@app.route('/reserva')
+def reserva():
+    return render_template('reserva.html')
+
+@app.route('/hospedaje')
+def hospedaje():
+    return render_template('hospedaje.html')
+
+@app.route('/actividades')
+def actividades():
+    return render_template('actividades.html')
+
+@app.route('/abm')
+def abm():
+    return render_template('abm.html')
+
+@app.route('/reserva/reservaNueva')
+def  reservaNueva():
+    return render_template('reservaNueva.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
     
