@@ -58,6 +58,74 @@ def abm():
 def  reservaNueva():
     return render_template('reservaNueva.html')
 
+@app.route('/reserva/reservaCancelar')
+def  reservaCancelar():
+    return render_template('reservaCancelar.html')
+
+@app.route('/reserva/reservaEditar')
+def  reservaEditar():
+    return render_template('reservaEditar.html')
+
+@app.route('/reserva/reservaEditar2')
+def  reservaEditar2():
+    return render_template('reservaEditar2.html')
+
+@app.route('/hospedaje/checkinNuevo')
+def  checkinNuevo():
+    return render_template('checkinNuevo.html')
+
+@app.route('/hospedaje/checkinCancelar')
+def  checkinCancelar():
+    return render_template('checkinCancelar.html')
+
+@app.route('/hospedaje/checkinEditar')
+def  checkinEditar():
+    return render_template('checkinEditar.html')
+
+@app.route('/hospedaje/checkinEditar2')
+def  checkinEditar2():
+    return render_template('checkinEditar2.html')
+
+@app.route('/actividades/actividadDisponible')
+def  actividadDisponible():
+    return render_template('actividadDisponible.html')
+
+@app.route('/actividades/actividadNueva')
+def  actividadNueva():
+    return render_template('actividadNueva.html')
+
+@app.route('/actividades/actividadCancelar')
+def  actividadCancelar():
+    return render_template('actividadCancelar.html')
+
+@app.route('/actividades/actividadEditar')
+def  actividadEditar():
+    return render_template('actividadEditar.html')
+
+@app.route('/actividades/actividadEditar2')
+def  actividadEditar2():
+    return render_template('actividadEditar2.html')
+
+@app.route('/abm/abmHabitaciones')
+def  abmHabitaciones():
+    return render_template('abmHabitaciones.html')
+
+@app.route('/abm/abmEmpleados')
+def  abmEmpleados():
+    return render_template('abmEmpleados.html')
+
+@app.route('/abm/abmActividades')
+def  abmActividades():
+    return render_template('abmActividades.html')
+
+@app.route('/abm/abmHuespedes')
+def  abmHuespedes():
+    return render_template('abmHuespedes.html')
+
+@app.route('/abm/abmBd')
+def  abmBd():
+    return render_template('abmBd.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
     

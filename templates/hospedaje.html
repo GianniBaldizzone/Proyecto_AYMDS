@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Menu Hospedaje</title>
+    
+        <link rel="icon" href="{{ url_for('static', filename='img/logo.ico') }}" type="image/x-icon">
+    
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/5ecef25f55.js" crossorigin="anonymous"></script>
+    
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css')}}">
+    </head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
+            </a>
+            <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Contenedor de los elementos de la barra de navegación -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-text">
+                    <h5 class="mr-3"> {{ nombre_usuario }} </h5>
+                    <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Foto del Empleado" height="40" class="rounded-circle me-2 shadow">
+                </div>
+            </div>
+        </div>
+
+       
+    </nav>   
+    <!-- Contenido principal -->
+    <div class="container text-center">
+        <div class="container-imagen text-center">
+            <div class="row row-img">
+                
+                    
+                
+                <div class="img-container-hospedaje">
+                    <img class="img-title" src="{{ url_for('static', filename='../static/img/logo2.png') }}" class="card-img text-center" alt="Imagen House Hunter">
+                    
+                    <h1 class="title-img-container">Ver Hospedajes</h1>
+                </div>  
+            </div>
+        </div>
+        
+         
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <!-- Botón 1 -->
+                <a href="{{ url_for('checkinNuevo') }}" class="btn btn-primary btn-lg btn-block"><i class="m-2 fa-solid fa-calendar-plus"></i></i>Hacer Check In</a>
+            </div>
+
+            <div class="col">
+                <!-- Botón 2 -->
+                <a href="{{ url_for('checkinCancelar') }}" class="btn btn-primary btn-lg btn-block"><i class="m-2 fa-solid fa-calendar-xmark"></i>Cancelar Check In</a>
+            </div>
+
+            <div class="col">
+                <!-- Botón 2 -->
+                <a href="{{ url_for('checkinEditar') }}" class="btn btn-primary btn-lg btn-block"><i class="m-2 fa-solid fa-pen-to-square"></i>Editar Check In</a>
+            </div>
+
+           
+        </div>
+
+
+        <div class="row">
+            <h2>Tabla de Reservas</h2>
+            <table class="table table-responsive-md">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Empleado ID</th>
+                        <th scope="col">Fecha Check-in</th>
+                        <th scope="col">Fecha Check-out</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Habitación ID</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Huésped ID</th>
+                        <th scope="col">Tipo de Reserva</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí debes incluir tus datos de reserva desde la base de datos -->
+                    <tr>
+                        <th scope="row">1</th>
+                        <td class="d-none d-sm-table-cell">123</td>
+                        <td>2023-01-01</td>
+                        <td>2023-01-05</td>
+                        <td class="d-none d-sm-table-cell">101</td>
+                        <td>Confirmada</td>
+                        <td class="d-none d-sm-table-cell">456</td>
+                        <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td class="d-none d-sm-table-cell">456</td>
+                        <td>2023-02-10</td>
+                        <td>2023-02-15</td>
+                        <td class="d-none d-sm-table-cell">202</td>
+                        <td>Pendiente</td>
+                        <td class="d-none d-sm-table-cell">789</td>
+                        <td>VIP</td>
+                    </tr>
+                    <!-- Agrega más filas según sea necesario -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (bundle) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
