@@ -212,6 +212,19 @@ div.row {
     height: 300px; /* Ajusta la altura según tus necesidades */
 }
 
+/* ABM */
+
+.img-container-abm {
+    background-image: url("../img/menu-abm.jpg");
+    /* Establece el tamaño de la imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    width: 100vw !important; /* Hace que la imagen ocupe todo el ancho del contenedor */
+    height: 300px; /* Ajusta la altura según tus necesidades */
+}
+
 .btn-misma-altura {
     margin-top: 10px;
     width: 100%;
