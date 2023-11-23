@@ -1,5 +1,5 @@
 import unittest
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from bd import Conexion
 
 app = Flask(__name__)
@@ -8,19 +8,35 @@ app = Flask(__name__)
 @app.route('/')
 def index():
   nombre_base_datos = 'househunter.db'
-  conexion = Conexion(nombre_base_datos)
+ 
+ 
+  return render_template('index.html')
 
 
-  nombre = "Gamaliel"
-  apellido = "Quiroz"
-  datos = {
-      'titulo': 'Mi Página',
-      'mensaje': '¡Hola desde Flask!',
-      'nombre': nombre,
-      'apellido': apellido
-  }
-
-  return render_template('index.html', datos=datos)
+from iniciosesion import InicioSesion
+@app.route('/programa', methods=['POST'])
+def programa():
+    if request.method == 'POST':
+        nombre_usuario = request.form["nombre_usuario"]
+        contrasena = request.form["contrasena"]
+        
+        # Crea una instancia de InicioSesion y realiza la autenticación
+        inicio_sesion = InicioSesion()
+        
+        #autenticamos
+        empleado_id = inicio_sesion.autenticar(nombre_usuario, contrasena)
+        
+        #redirecciones
+        
+        #si son validas las credenciales
+        if empleado_id is not None:
+            return render_template('programa.html', nombre_usuario=nombre_usuario)
+        
+        #si no son validas las credenciales
+        if empleado_id is None:
+            error = 'Credenciales Incorrectas. Por favor, vuelva a intentarlo.'
+            return render_template('index.html', error=error) 
+       
 
 if __name__ == '__main__':
     app.run(debug=True)

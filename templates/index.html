@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Icono 
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">-->
+  
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.ico') }}" type="image/x-icon">
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/5ecef25f55.js" crossorigin="anonymous"></script>
@@ -23,7 +23,7 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
 
-    <title>{{datos.titulo}}</title>
+    <title>Login</title>
 </head>
 
 <body>
@@ -37,27 +37,39 @@
                 <div class="col-md-8">
                     <h1 class="text-center" style="color: blueviolet;">Login</h1>
 
-                    <form method="POST" class="mt-4">
+                    <form method="POST" action="/programa" class="mt-4">
                         <div class="mb-3 row justify-content-center">
-                            <label for="usuario" class="col-sm-2 col-form-label text-end">Nombre:</label>
+                            <label for="nombre_usuario" class="col-sm-2 col-form-label text-end">Nombre:</label>
                             <div class="col-sm-3">
-                                <input type="text" name="usuario" class="form-control" required>
+                                <input type="text" name="nombre_usuario" class="form-control" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row justify-content-center">
-                            <label for="password" class="col-sm-2 col-form-label text-end">Contraseña:</label>
+                            <label for="contrasena" class="col-sm-2 col-form-label text-end">Contraseña:</label>
                             <div class="col-sm-3">
-                                <input type="password" name="password" class="form-control" required>
+                                <input type="password" name="contrasena" class="form-control" required>
                             </div>
                         </div>
 
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center text-center">
                             <div class="col-sm-2">
-                                <a href="programa.html" class="btn btn-login btn-light">Ingresar</a>
+                                <input class="btn btn-login btn-light" type="submit" value="Ingresar">
                             </div>
                         </div>
+
+                        <!-- Mensajes de error -->
+                        {% if error %}
+                            <div class="row justify-content-center mt-2">
+                                <div class="col-sm-5 w-0 text-center mt-3">
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ error }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                     </form>
+                    
                 </div>
             </div>
         </div>

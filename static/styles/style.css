@@ -8,6 +8,7 @@ label {
     font-family: 'Roboto', sans-serif;
     font-size: 20px !important;
     font-weight: 500;
+    width: 10rem !important;
 }
 
 input {
@@ -16,7 +17,7 @@ input {
 }
 
 .container-center {
-    margin-top: 15% !important;
+    margin-top: 15vh !important;
 }
 
 .fa-solid {
@@ -37,7 +38,7 @@ input {
 .btn-login {
     width: auto;
     background-color: #503074 !important;
-    margin-top: 34px;
+    margin-top: 15px;
     padding: 12px;
     border: none;
 }
@@ -78,4 +79,22 @@ div.row {
     justify-content: center !important;
     width: 36%;
     
+}
+
+.text-violet {
+    color: #503074 !important;
+}
+
+.w-0 {
+    width: 40vw !important;
+}
+
+.navbar-text {
+    display: flex;
+    align-items: center;
+    padding-right: 25px;
+}
+
+.mr-3 {
+    margin-right: 10px;
 }

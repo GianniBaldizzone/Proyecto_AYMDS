@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Mi Página con Bootstrap</title>
+    <title>Menu</title>
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/5ecef25f55.js" crossorigin="anonymous"></script>
@@ -21,31 +21,50 @@
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
                 <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
             </a>
+            <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Contenedor de los elementos de la barra de navegación -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-text">
+                    <h5 class="mr-3"> {{ nombre_usuario }} </h5>
+                    <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Foto del Empleado" height="40" class="rounded-circle me-2 shadow">
+                </div>
+            </div>
         </div>
+
+       
     </nav>
 
     <!-- Contenido principal -->
     <div class="container text-center mt-4">
         <div class="row">
-           <img class="menu-img" src="img/logo.png" alt="">
+           <h1 class="text-black">Bienvenid@, <span class="text-violet">{{nombre_usuario}}</span>.</h1>
         </div>
+        
         <div class="row">
-            <div class="col-3">
+            <img class="menu-img" src="{{ url_for('static', filename='img/logo.png') }}" class="card-img text-center" alt="Imagen House Hunter">
+            
+        </div>
+        
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="col">
                 <!-- Botón 1 -->
                 <button type="button" class="btn btn-primary btn-lg btn-block"><i class="m-2 fa-solid fa-calendar-days"></i>Reserva</button>
             </div>
-            <div class="col-3">
+            <div class="col">
                 <!-- Botón 2 -->
                 <button type="button" class="btn btn-secondary btn-lg btn-block"><i class="m-2 fa-regular fa-calendar-check"></i>Hospedaje</button>
             </div>
-            <div class="col-3">
+            <div class="col">
                 <!-- Botón 3 -->
                 <button type="button" class="btn btn-success btn-lg btn-block"><i class="m-2 fa-regular fa-futbol"></i>Actividades</button>
             </div>
-            <div class="col-3">
+            <div class="col">
                 <!-- Botón 4 -->
                 <button type="button" class="btn btn-danger btn-lg btn-block"><i class="m-2 fa-solid fa-user-gear"></i>ABM</button>
             </div>
@@ -54,16 +73,16 @@
 
         <div class="row">
             <h2>Tabla de Reservas</h2>
-            <table class="table">
+            <table class="table table-responsive-md">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Empleado ID</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Empleado ID</th>
                         <th scope="col">Fecha Check-in</th>
                         <th scope="col">Fecha Check-out</th>
-                        <th scope="col">Habitación ID</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Habitación ID</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Huésped ID</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Huésped ID</th>
                         <th scope="col">Tipo de Reserva</th>
                     </tr>
                 </thead>
@@ -71,22 +90,22 @@
                     <!-- Aquí debes incluir tus datos de reserva desde la base de datos -->
                     <tr>
                         <th scope="row">1</th>
-                        <td>123</td>
+                        <td class="d-none d-sm-table-cell">123</td>
                         <td>2023-01-01</td>
                         <td>2023-01-05</td>
-                        <td>101</td>
+                        <td class="d-none d-sm-table-cell">101</td>
                         <td>Confirmada</td>
-                        <td>456</td>
+                        <td class="d-none d-sm-table-cell">456</td>
                         <td>Normal</td>
                     </tr>
                     <tr>
                         <th scope="row">2</th>
-                        <td>456</td>
+                        <td class="d-none d-sm-table-cell">456</td>
                         <td>2023-02-10</td>
                         <td>2023-02-15</td>
-                        <td>202</td>
+                        <td class="d-none d-sm-table-cell">202</td>
                         <td>Pendiente</td>
-                        <td>789</td>
+                        <td class="d-none d-sm-table-cell">789</td>
                         <td>VIP</td>
                     </tr>
                     <!-- Agrega más filas según sea necesario -->
