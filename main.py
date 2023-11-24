@@ -1,11 +1,12 @@
 import unittest
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from bd import Conexion
 
 app = Flask(__name__)
+app.secret_key = 'contrasena1'  # Clave secreta para las sesiones
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
   nombre_base_datos = 'househunter.db'
  
@@ -14,7 +15,7 @@ def index():
 
 
 from iniciosesion import InicioSesion
-@app.route('/programa', methods=['POST'])
+@app.route('/programa', methods=['POST', 'GET'])
 def programa():
     if request.method == 'POST':
         nombre_usuario = request.form["nombre_usuario"]
@@ -30,13 +31,18 @@ def programa():
         
         #si son validas las credenciales
         if empleado_id is not None:
+            # Almacena el nombre de usuario en la sesión
+            session['nombre_usuario'] = nombre_usuario
             return render_template('programa.html', nombre_usuario=nombre_usuario)
         
         #si no son validas las credenciales
         if empleado_id is None:
             error = 'Credenciales Incorrectas. Por favor, vuelva a intentarlo.'
             return render_template('index.html', error=error) 
-       
+        
+    # Si es una solicitud GET, verifica si hay un nombre de usuario en la sesión
+    nombre_usuario = session.get('nombre_usuario')
+    return render_template('programa.html', nombre_usuario=nombre_usuario)  
 
 @app.route('/reserva')
 def reserva():
