@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Menu ABM - Huespedes</title>
+    <title>Control Maestro - Crear Tablas</title>
 
     <link rel="icon" href="{{ url_for('static', filename='img/logo.ico') }}" type="image/x-icon">
 
@@ -20,7 +20,7 @@
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('abm') }}">
+            <a class="navbar-brand" href="{{ url_for('abmBd') }}">
                 <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
             </a>
             <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
@@ -43,7 +43,7 @@
             <div class="row row-img">
                 <div class="img-container-abm">
                     <img class="img-title" src="{{ url_for('static', filename='../static/img/logo2.png') }}" class="card-img text-center" alt="Imagen House Hunter">
-                    <h1 class="title-img-container">Menú ABM - Huespedes</h1>
+                    <h1 class="title-img-container">Control Maestro - Crear Tablas</h1>
                 </div>
             </div>
         </div>
@@ -52,12 +52,17 @@
         <div class="row row-cols-lg-3 g-4">
             <div class="col">
                 <!-- Botón 1 -->
-                <a href="{{ url_for('huespedCrear') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-circle-plus"></i></i>Crear Huesped</a>
+                <a href="{{ url_for('crearTablasHabitacion') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-bed"></i>Tablas Habitacion</a>
             </div>
 
             <div class="col">
                 <!-- Botón 2 -->
-                <a href="{{ url_for('huespedEdit') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-pen-to-square"></i>Modificar Huesped</a>
+                <a href="{{ url_for('empleadoEditar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-calendar-check"></i>Tablas Reserva</a>
+            </div>
+
+            <div class="col">
+                <!-- Botón 2 -->
+                <a href="{{ url_for('empleadoEliminar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-user-tie"></i>Tablas Empleado</a>
             </div>
 
             
@@ -66,15 +71,18 @@
         <!-- Segunda fila con 2 columnas -->
         <div class="row row-cols-lg-3 g-4 d-flex justify-content-center">
             
+
                 <div class="col">
                     <!-- Botón 2 -->
-                    <a href="{{ url_for('huespedEliminar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-trash"></i></i>Eliminar Huesped</a>
+                    <a href="{{ url_for('empleadoEliminar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-table-tennis-paddle-ball"></i>Tablas Actividad</a>
                 </div>
+
                 <div class="col">
                     <!-- Botón 2 -->
-                    <a href="{{ url_for('huespedMostrar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-table-list"></i>Mostrar Huespedes</a>
+                    <a href="{{ url_for('empleadoEliminar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block btn-misma-altura"><i class="m-2 fa-solid fa-person-walking-luggage"></i>Tablas Huesped</a>
                 </div>
-            
+                    
+                    
 
         </div>
 

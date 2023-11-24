@@ -132,6 +132,101 @@ def  abmHuespedes():
 def  abmBd():
     return render_template('abmBd.html')
 
+@app.route('/abm/abmHabitaciones/habitacionCrear')
+def  habitacionCrear():
+    return render_template('habitacionCrear.html')
+
+@app.route('/abm/abmHabitaciones/habitacionEditar')
+def  habitacionEditar():
+    return render_template('habitacionEditar.html')
+
+@app.route('/abm/abmHabitaciones/habitacionEditar2')
+def  habitacionEditar2():
+    return render_template('habitacionEditar2.html')
+
+@app.route('/abm/abmHabitaciones/habitacionEliminar')
+def  habitacionEliminar():
+    return render_template('habitacionEliminar.html')
+
+@app.route('/abm/abmHabitaciones/habitacionMostrar')
+def  habitacionMostrar():
+    return render_template('habitacionMostrar.html')
+
+@app.route('/abm/abmHabitaciones/habitacionFiltrar')
+def  habitacionFiltrar():
+    return render_template('habitacionFiltrar.html')
+
+@app.route('/abm/abmEmpleados/empleadoCrear')
+def  empleadoCrear():
+    return render_template('empleadoCrear.html')
+
+@app.route('/abm/abmEmpleados/empleadoEditar')
+def  empleadoEditar():
+    return render_template('empleadoEditar.html')
+
+@app.route('/abm/abmEmpleados/empleadoEditar2')
+def  empleadoEditar2():
+    return render_template('empleadoEditar2.html')
+
+@app.route('/abm/abmEmpleados/empleadoEliminar')
+def  empleadoEliminar():
+    return render_template('empleadoEliminar.html')
+
+@app.route('/abm/abmEmpleados/empleadoMostrar')
+def  empleadoMostrar():
+    return render_template('empleadoMostrar.html')
+
+@app.route('/abm/abmActividades/actividadCrear')
+def  actividadCrear():
+    return render_template('actividadCrear.html')
+
+@app.route('/abm/abmActividades/actividadEdit')
+def  actividadEdit():
+    return render_template('actividadEdit.html')
+
+@app.route('/abm/abmActividades/actividadEdit2')
+def  actividadEdit2():
+    return render_template('actividadEdit2.html')
+
+@app.route('/abm/abmActividades/actividadEliminar')
+def  actividadEliminar():
+    return render_template('actividadEliminar.html')
+
+@app.route('/abm/abmActividades/actividadMostrar')
+def  actividadMostrar():
+    return render_template('actividadMostrar.html')
+
+@app.route('/abm/abmHuespedes/huespedCrear')
+def  huespedCrear():
+    return render_template('huespedCrear.html')
+
+@app.route('/abm/abmHuespedes/huespedEdit')
+def  huespedEdit():
+    return render_template('huespedEdit.html')
+
+@app.route('/abm/abmHuespedes/huespedEdit2')
+def  huespedEdit2():
+    return render_template('huespedEdit2.html')
+
+@app.route('/abm/abmHuespedes/huespedEliminar')
+def  huespedEliminar():
+    return render_template('huespedEliminar.html')
+
+@app.route('/abm/abmHuespedes/huespedMostrar')
+def  huespedMostrar():
+    return render_template('huespedMostrar.html')
+
+@app.route('/abm/abmBd/crearTablas')
+def  crearTablas():
+    return render_template('crearTablas.html')
+
+@app.route('/crearTablas/crearTablasHabitacion')
+def  crearTablasHabitacion():
+    return render_template('crearTablasHabitacion.html')
+
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
     
