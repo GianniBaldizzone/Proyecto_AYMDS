@@ -1130,3 +1130,10 @@ class Menu:
             "Error Opción no válida ---> Por favor seleccione una opción válida"
         )
 #menu abm huesped filtros
+
+  def obtener_numeros_habitacion(self):
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaHabitacion()
+        numeros_habitacion = conexion.ObtenerNumerosHabitacion()  # Asume que tienes un método en tu clase de conexión para obtener estos números
+        return numeros_habitacion

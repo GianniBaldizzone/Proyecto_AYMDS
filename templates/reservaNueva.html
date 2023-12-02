@@ -131,8 +131,13 @@
                   name="nacionalidad"
                   required
                 >
-                  <option value="argentina">Argentina</option>
-                  <option value="otra">Otra</option>
+                <option value="argentina">Argentina</option>
+                <option value="brasil">Brasil</option>
+                <option value="chile">Chile</option>
+                <option value="colombia">Colombia</option>
+                <option value="mexico">México</option>
+                <option value="peru">Perú</option>
+                <option value="otra">Otra</option>
                 </select>
               </div>
 
@@ -182,24 +187,15 @@
               </div>
 
               <div class="mb-3 text-start">
-                <label
-                  for="habitacion_id"
-                  class="form-label label-forms label-reserva"
-                >
-                  Numero de Habitación:</label
-                >
-                <select
-                  class="form-select"
-                  id="habitacion_id"
-                  name="habitacion_id"
-                  required
-                >
-                  <option value="101">101</option>
-                  <option value="102">102</option>
-                  <option value="103">103</option>
-                  <!-- Agrega más opciones según sea necesario -->
+                <label for="habitacion_id" class="form-label label-forms label-reserva">
+                    Numero de Habitación:
+                </label>
+                <select class="form-select" id="habitacion_id" name="habitacion_id" required>
+                    {% for numero_habitacion in numeros_habitacion %}
+                        <option value="{{ numero_habitacion }}">{{ numero_habitacion }}</option>
+                    {% endfor %}
                 </select>
-              </div>
+            </div>
 
               <div class="mb-3 form-check text-start">
                 <input

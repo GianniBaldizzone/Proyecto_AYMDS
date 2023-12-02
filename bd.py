@@ -87,7 +87,14 @@ class Conexion:
         print("Por favor, ingrese un número de habitación válido.")
   
   
-  
+  def ObtenerNumerosHabitacion(self):
+        try:
+            self.cursor.execute("SELECT numero FROM HABITACION")
+            numeros_habitacion = [numero[0] for numero in self.cursor.fetchall()]
+            return numeros_habitacion
+        except Exception as e:
+            print(f"Error al obtener números de habitación: {e}")
+            return []
   
   
   def MostrarHabitacionesPorPiso(self, piso):
