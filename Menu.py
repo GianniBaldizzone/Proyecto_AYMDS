@@ -90,22 +90,12 @@ class Menu:
         )
 
   def ver_reservas(self):
-    print("### Listado de reservas ###")
-    nombreBD = "househunter.db"
-    conexion = Conexion(nombreBD)
-    conexion.CrearTablaReserva()
-    reservas = conexion.ConsultarReservasReserva()
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaReserva()
+        reservas = conexion.ConsultarReservasReserva()
 
-    if len(reservas) > 0:
-      for reserva in reservas:
-        print(
-          f"ID Reserva: {reserva[0]}, Empleado ID: {reserva[1]}, Fecha checkin: {reserva[2]}, Fecha checkout: {reserva[3]}, ID Habitacion: {reserva[4]}, Estado: {reserva[5]}, ID Huesped: {reserva[6]}, Tipo de Reserva: {reserva[7]}"
-          )
-        print("\n")
-    else:
-      print("No hay reservas registradas")
-      print("\n")
-    print("\n")
+        return reservas  # Devuelve la lista de reservas
 
   def hacer_reserva(self):
     print("=== Crear Reserva ===")

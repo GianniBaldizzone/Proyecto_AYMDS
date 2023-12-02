@@ -26,6 +26,9 @@
             <a class="navbar-brand" href="{{ url_for('login') }}">
                 <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
             </a>
+            <a class="navbar-brand" href="{{ url_for('cerrar') }}">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </a>
             <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -92,28 +95,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Aquí debes incluir tus datos de reserva desde la base de datos -->
-                    <tr>
-                        <th scope="row">1</th>
-                        <td class="d-none d-sm-table-cell">123</td>
-                        <td>2023-01-01</td>
-                        <td>2023-01-05</td>
-                        <td class="d-none d-sm-table-cell">101</td>
-                        <td>Confirmada</td>
-                        <td class="d-none d-sm-table-cell">456</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td class="d-none d-sm-table-cell">456</td>
-                        <td>2023-02-10</td>
-                        <td>2023-02-15</td>
-                        <td class="d-none d-sm-table-cell">202</td>
-                        <td>Pendiente</td>
-                        <td class="d-none d-sm-table-cell">789</td>
-                        <td>VIP</td>
-                    </tr>
-                    <!-- Agrega más filas según sea necesario -->
+                    {% for reserva in reservas %}
+                        <tr>
+                            <th scope="row">{{ reserva[0] }}</th>
+                            <td class="d-none d-sm-table-cell">{{ reserva[1] }}</td>
+                            <td>{{ reserva[2] }}</td>
+                            <td>{{ reserva[3] }}</td>
+                            <td class="d-none d-sm-table-cell">{{ reserva[4] }}</td>
+                            <td>{{ reserva[5] }}</td>
+                            <td class="d-none d-sm-table-cell">{{ reserva[6] }}</td>
+                            <td>{{ reserva[7] }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
