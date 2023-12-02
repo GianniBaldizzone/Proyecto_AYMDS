@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Menu</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.ico') }}" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/5ecef25f55.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css')}}">
+</head>
+
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('hospedaje') }}">
+                <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
+            </a>
+            <a class="navbar-brand" href="{{ url_for('cerrar') }}">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </a>
+            <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Contenedor de los elementos de la barra de navegación -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-text">
+                    <h5 class="mr-3"> {{ nombre_usuario }} </h5>
+                    <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Foto del Empleado" height="40" class="rounded-circle me-2 shadow">
+                </div>
+            </div>
+        </div>
+
+       
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container text-center mt-4">
+        <div class="row">
+           <h1 class="text-black">Ver Hospedajes</h1>
+        </div>
+           
+        <div class="row">
+            <h2>Tabla de Hospedajes</h2>
+            <table class="table table-responsive-md">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Empleado ID</th>
+                        <th scope="col">Fecha Check-in</th>
+                        <th scope="col">Fecha Check-out</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Habitación ID</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Huésped ID</th>
+                        <th scope="col">Tipo de Reserva</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reserva in reservas %}
+                        <tr>
+                            <th scope="row">{{ reserva[0] }}</th>
+                            <td class="d-none d-sm-table-cell">{{ reserva[1] }}</td>
+                            <td>{{ reserva[2] }}</td>
+                            <td>{{ reserva[3] }}</td>
+                            <td class="d-none d-sm-table-cell">{{ reserva[4] }}</td>
+                            <td>{{ reserva[5] }}</td>
+                            <td class="d-none d-sm-table-cell">{{ reserva[6] }}</td>
+                            <td>{{ reserva[7] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (bundle) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

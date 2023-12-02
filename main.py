@@ -72,6 +72,24 @@ def programa():
         reservas = menu.ver_reservas()
 
         return render_template('programa.html', nombre_usuario=session.get('usuario'), reservas=reservas)
+
+
+@app.route('/reserva/reservaVer', methods=['GET'])
+def  reservaVer():
+     # Crear una instancia de TuClaseMenu (ajusta según la implementación real)
+        menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+        reservas = menu.ver_reservas()
+
+        return render_template('reservaVer.html', nombre_usuario=session.get('usuario'), reservas=reservas)
+    
+
+@app.route('/hospedaje/HospedajeVer', methods=['GET'])
+def  hospedajeVer():
+     # Crear una instancia de TuClaseMenu (ajusta según la implementación real)
+        menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+        hospedaje = menu.ver_hospedajes()
+
+        return render_template('hospedajeVer.html', nombre_usuario=session.get('usuario'), hospedaje=hospedaje)
         
 @app.route('/reserva', methods=['GET'])
 def reserva():
@@ -89,6 +107,9 @@ def actividades():
 @app.route('/abm')
 def abm():
     return render_template('abm.html')
+
+
+        
 
 @app.route('/reserva/reservaNueva')
 def  reservaNueva():
