@@ -1,51 +1,69 @@
 import unittest
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, redirect, url_for, session
 from bd import Conexion
+from Menu import Menu
 
 app = Flask(__name__)
 app.secret_key = 'contrasena1'  # Clave secreta para las sesiones
+nombreBD = 'househunter.db'
+conexion = Conexion(nombreBD)
 
+app.debug = True
+  
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
-  nombre_base_datos = 'househunter.db'
- 
- 
-  return render_template('index.html')
+     # Verificar si el usuario ya está autenticado
+    if 'usuario' in session:
+        return redirect(url_for('programa'))
+    else:
+        return redirect(url_for('login'))
 
 
-from iniciosesion import InicioSesion
-@app.route('/programa', methods=['POST', 'GET'])
-def programa():
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    # Verificar si el usuario ya está autenticado
+    if 'usuario' in session:
+        return redirect(url_for('programa'))
+
+    
     if request.method == 'POST':
         nombre_usuario = request.form["nombre_usuario"]
         contrasena = request.form["contrasena"]
-        
-        # Crea una instancia de InicioSesion y realiza la autenticación
-        inicio_sesion = InicioSesion()
-        
-        #autenticamos
-        empleado_id = inicio_sesion.autenticar(nombre_usuario, contrasena)
-        
-        #redirecciones
-        
-        #si son validas las credenciales
-        if empleado_id is not None:
-            # Almacena el nombre de usuario en la sesión
-            session['nombre_usuario'] = nombre_usuario
-            return render_template('programa.html', nombre_usuario=nombre_usuario)
-        
-        #si no son validas las credenciales
-        if empleado_id is None:
-            error = 'Credenciales Incorrectas. Por favor, vuelva a intentarlo.'
-            return render_template('index.html', error=error) 
-        
-    # Si es una solicitud GET, verifica si hay un nombre de usuario en la sesión
-    nombre_usuario = session.get('nombre_usuario')
-    return render_template('programa.html', nombre_usuario=nombre_usuario)  
+        print(f"Usuario: {nombre_usuario}, Contraseña: {contrasena}")
+        nombreBD = 'househunter.db'
+        conexion = Conexion(nombreBD)
+        empleados = conexion.MostrarEmpleados()
+        conexion.CerrarConexion()
+        error = "Credenciales Incorrectas. Por favor, vuelva a intentarlo."
 
-@app.route('/reserva')
+        for empleado in empleados:
+            print(f"Empleado en la base de datos: {empleado}")
+            if empleado[1] == nombre_usuario and empleado[6] == contrasena:
+                session['usuario'] = empleado[1]
+                session['contrasena'] = empleado[6]
+                session['id'] = empleado[0]
+                
+                return redirect(url_for('programa'))
+                
+        
+        return render_template('login.html', error=error)
+
+    error = ""
+    return render_template('login.html', error=error)
+ 
+ 
+
+@app.route('/programa', methods=['GET', 'POST'])
+def programa():
+    if len(session) == 0:
+        return redirect('login')
+    else:
+        return render_template('programa.html', nombre_usuario=session.get('usuario'))
+        
+@app.route('/reserva', methods=['GET'])
 def reserva():
+           
     return render_template('reserva.html')
 
 @app.route('/hospedaje')

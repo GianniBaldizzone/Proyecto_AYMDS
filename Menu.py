@@ -9,7 +9,7 @@ from ValidacionesActividades import ValidacionesActividades
 class Menu:
 
   def __init__(self, nombre_empleado, contrasena_empleado, id_empleado):
-        self.nombre_empelado = nombre_empleado
+        self.nombre_empleado = nombre_empleado
         self.contrasena_empleado = contrasena_empleado
         self.id_empleado = id_empleado
   

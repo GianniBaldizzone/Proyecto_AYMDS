@@ -140,6 +140,7 @@ class Conexion:
     try:
         self.cursor.execute("SELECT * FROM EMPLEADO")
         empleados = self.cursor.fetchall()
+        print(f"Empleados recuperados: {empleados}")
         return empleados
     except sqlite3.Error as e:
         print("Error al recuperar empleados:", e)
