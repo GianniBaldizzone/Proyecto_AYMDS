@@ -67,16 +67,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for reserva in reservas %}
+                    {% for hospedaje in hospedaje %}
                         <tr>
-                            <th scope="row">{{ reserva[0] }}</th>
-                            <td class="d-none d-sm-table-cell">{{ reserva[1] }}</td>
-                            <td>{{ reserva[2] }}</td>
-                            <td>{{ reserva[3] }}</td>
-                            <td class="d-none d-sm-table-cell">{{ reserva[4] }}</td>
-                            <td>{{ reserva[5] }}</td>
-                            <td class="d-none d-sm-table-cell">{{ reserva[6] }}</td>
-                            <td>{{ reserva[7] }}</td>
+                            <th scope="row">{{ hospedaje[0] }}</th>
+                            <td class="d-none d-sm-table-cell">{{ hospedaje[1] }}</td>                        
+                            <td>{{ hospedaje[2] }}</td>
+                            <td>{{ hospedaje[3] }}</td>
+                            <td class="d-none d-sm-table-cell">{{ hospedaje[4] }}</td>
+                            <td>{{ hospedaje[5] }}</td>
+                            <td class="d-none d-sm-table-cell">{{ hospedaje[6] }}</td>
+                            <td>{{ hospedaje[7] }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

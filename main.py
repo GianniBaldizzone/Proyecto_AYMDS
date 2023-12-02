@@ -145,7 +145,12 @@ def  checkinEditar2():
 
 @app.route('/actividades/actividadDisponible')
 def  actividadDisponible():
-    return render_template('actividadDisponible.html')
+    
+     # Crear una instancia de TuClaseMenu (ajusta según la implementación real)
+        menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+        actividad = menu.mostrar_actividad()
+
+        return render_template('actividadDisponible.html', nombre_usuario=session.get('usuario'), actividad=actividad)
 
 @app.route('/actividades/actividadNueva')
 def  actividadNueva():

@@ -234,22 +234,12 @@ class Menu:
         )
 
   def ver_hospedajes(self):
-    print("### Listado de hospedajes ###")
-    nombreBD = "househunter.db"
-    conexion = Conexion(nombreBD)
-    conexion.CrearTablaReserva()
-    reservas = conexion.ConsultarReservasHospedaje()
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaReserva()
+        hospedajes = conexion.ConsultarReservasHospedaje()
 
-    if len(reservas) > 0:
-      for reserva in reservas:
-        print(
-          f"ID Reserva: {reserva[0]}, Empleado ID: {reserva[1]}, Fecha checkin: {reserva[2]}, Fecha checkout: {reserva[3]}, ID Habitacion: {reserva[4]}, Estado: {reserva[5]}, ID Huesped: {reserva[6]}, Tipo de Reserva: {reserva[7]}"
-          )
-        print("\n")
-    else:
-      print("No hay hospedajes registrados")
-      print("\n")
-    print("\n")
+        return hospedajes  # Devuelve la lista de reservas
     
   ## CHECKIN ##
   def check_in(self):
@@ -394,22 +384,12 @@ class Menu:
         )
 
   def mostrar_actividad(self):
-    nombreBD = "househunter.db"
-    conexion = Conexion(nombreBD)
-    conexion.CrearTablaActividad()
-    actividades = conexion.MostrarActividades()
-    print("## Listado de Actividades Disponibles ##")
+        nombreBD = "househunter.db"
+        conexion = Conexion(nombreBD)
+        conexion.CrearTablaActividad()
+        actividades = conexion.MostrarActividades()
 
-    if len(actividades) > 0:
-          for actividad in actividades:
-            print(
-                f"ID: {actividad[0]}, Nombre: {actividad[1]}, Tipo Actividad: {actividad[2]}, Capacidad: {actividad[3]}"
-            )
-            
-    else:
-          print("No hay actividades")
-          print("\n")
-    print("\n")
+        return actividades  # Devuelve la lista de actividades
 
   def ver_reservas_actividades(self):
     print("## Listado de Reservas Actividades ##")
