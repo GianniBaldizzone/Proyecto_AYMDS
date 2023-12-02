@@ -392,23 +392,11 @@ class Menu:
         return actividades  # Devuelve la lista de actividades
 
   def ver_reservas_actividades(self):
-    print("## Listado de Reservas Actividades ##")
     nombreBD = "househunter.db"
     conexion = Conexion(nombreBD)
     conexion.CrearTablaActividadReserva()
     reservas = conexion.MostrarActividadReserva()
-
-    if len(reservas) > 0:
-          for reserva in reservas:
-            print(
-                f"ID Reserva Actividad: {reserva[0]}, ID Actividad: {reserva[1]}, ID Reserva: {reserva[2]}"
-            )
-            print("\n")
-    else:
-          print("No hay reservas de actividades.")
-          print("\n")
-    
-    print("\n")
+    return reservas
 
   def hacer_reserva_de_actividades(self):
     validacion = ValidacionesActividades()

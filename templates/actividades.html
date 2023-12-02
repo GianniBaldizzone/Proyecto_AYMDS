@@ -55,23 +55,30 @@
         
          
         <div class="row row-cols-1 row-cols-md-4 g-4">
+
             <div class="col">
                 
                 <!-- Botón 1 -->
+                <a href="{{ url_for('verReservaActividad') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block"><i class="m-2 fa-regular fa-calendar-check"></i></i>Ver Reservas</a>
+            </div>
+
+            <div class="col">
+                
+                <!-- Botón 2 -->
                 <a href="{{ url_for('actividadDisponible') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block"><i class="m-2 fa-regular fa-calendar-check"></i></i>Actividades Disponibles</a>
             </div>
             <div class="col">
-                <!-- Botón 1 -->
+                <!-- Botón 3 -->
                 <a href="{{ url_for('actividadNueva') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block"><i class="m-2 fa-solid fa-calendar-plus"></i></i>Reservar Actividad</a>
             </div>
 
             <div class="col">
-                <!-- Botón 2 -->
+                <!-- Botón 4 -->
                 <a href="{{ url_for('actividadCancelar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block"><i class="m-2 fa-solid fa-calendar-xmark"></i>Cancelar Actividad</a>
             </div>
 
             <div class="col">
-                <!-- Botón 2 -->
+                <!-- Botón 5 -->
                 <a href="{{ url_for('actividadEditar') }}" class="d-flex align-items-center btn btn-primary lh-normal btn-lg btn-block"><i class="m-2 fa-solid fa-pen-to-square"></i>Editar Actividad</a>
             </div>
 

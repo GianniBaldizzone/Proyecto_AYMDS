@@ -151,6 +151,16 @@ def  actividadDisponible():
         actividad = menu.mostrar_actividad()
 
         return render_template('actividadDisponible.html', nombre_usuario=session.get('usuario'), actividad=actividad)
+    
+
+@app.route('/actividades/verReservaActividad')
+def  verReservaActividad():
+    
+     # Crear una instancia de TuClaseMenu (ajusta según la implementación real)
+        menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+        reserva = menu.ver_reservas_actividades()
+
+        return render_template('verReservaActividad.html', nombre_usuario=session.get('usuario'), reserva=reserva)
 
 @app.route('/actividades/actividadNueva')
 def  actividadNueva():
