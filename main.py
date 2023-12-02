@@ -216,7 +216,11 @@ def  habitacionEliminar():
 
 @app.route('/abm/abmHabitaciones/habitacionMostrar')
 def  habitacionMostrar():
-    return render_template('habitacionMostrar.html')
+    menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+    habitacion = menu.mostrar_habitaciones()
+
+    return render_template('habitacionMostrar.html', nombre_usuario=session.get('usuario'), habitacion=habitacion)
+    
 
 @app.route('/abm/abmHabitaciones/habitacionFiltrar')
 def  habitacionFiltrar():
@@ -240,7 +244,11 @@ def  empleadoEliminar():
 
 @app.route('/abm/abmEmpleados/empleadoMostrar')
 def  empleadoMostrar():
-    return render_template('empleadoMostrar.html')
+    menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+    empleado = menu.mostrar_empleado()
+
+    return render_template('empleadoMostrar.html', nombre_usuario=session.get('usuario'), empleado=empleado)
+    
 
 @app.route('/abm/abmActividades/actividadCrear')
 def  actividadCrear():
@@ -260,7 +268,10 @@ def  actividadEliminar():
 
 @app.route('/abm/abmActividades/actividadMostrar')
 def  actividadMostrar():
-    return render_template('actividadMostrar.html')
+    menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+    actividad = menu.mostrar_actividad()
+
+    return render_template('actividadDisponible.html', nombre_usuario=session.get('usuario'), actividad=actividad)
 
 @app.route('/abm/abmHuespedes/huespedCrear')
 def  huespedCrear():
@@ -280,7 +291,10 @@ def  huespedEliminar():
 
 @app.route('/abm/abmHuespedes/huespedMostrar')
 def  huespedMostrar():
-    return render_template('huespedMostrar.html')
+    menu = Menu(nombre_empleado=session.get('usuario'), contrasena_empleado=session.get('contrasena'), id_empleado=session.get('id'))
+    huesped = menu.mostrar_huespedes()
+
+    return render_template('huespedMostrar.html', nombre_usuario=session.get('usuario'), huesped=huesped)
 
 @app.route('/abm/abmBd/crearTablas')
 def  crearTablas():

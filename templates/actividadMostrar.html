@@ -46,43 +46,29 @@
     <div class="container text-center mt-4">
 
         <div class="row">
-            <h2 class="title-img-container">Listado de Actividades</h2>
+            <h2 class="text-black">Ver actividades</h2>
             <table class="table table-responsive-md">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col" class="d-none d-sm-table-cell">Empleado ID</th>
-                        <th scope="col">Fecha Check-in</th>
-                        <th scope="col">Fecha Check-out</th>
-                        <th scope="col" class="d-none d-sm-table-cell">Habitación ID</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col" class="d-none d-sm-table-cell">Huésped ID</th>
-                        <th scope="col">Tipo de Reserva</th>
+                        <th scope="col" class="d-none d-sm-table-cell">Nombre</th>
+                        <th scope="col">Tipo de actividad</th>
+                        <th scope="col">Capacidad</th>
+                        
+                      
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Aquí debes incluir tus datos de reserva desde la base de datos -->
-                    <tr>
-                        <th scope="row">1</th>
-                        <td class="d-none d-sm-table-cell">123</td>
-                        <td>2023-01-01</td>
-                        <td>2023-01-05</td>
-                        <td class="d-none d-sm-table-cell">101</td>
-                        <td>Confirmada</td>
-                        <td class="d-none d-sm-table-cell">456</td>
-                        <td>Normal</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td class="d-none d-sm-table-cell">456</td>
-                        <td>2023-02-10</td>
-                        <td>2023-02-15</td>
-                        <td class="d-none d-sm-table-cell">202</td>
-                        <td>Pendiente</td>
-                        <td class="d-none d-sm-table-cell">789</td>
-                        <td>VIP</td>
-                    </tr>
-                    <!-- Agrega más filas según sea necesario -->
+                    {% for actividad in actividad %}
+                        <tr>
+                            <th scope="row">{{ actividad[0] }}</th>
+                            <td >{{ actividad[1] }}</td>                        
+                            <td>{{ actividad[2] }}</td>
+                            <td>{{ actividad[3] }}</td>
+                            
+                           
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

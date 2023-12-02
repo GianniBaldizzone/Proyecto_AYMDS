@@ -586,58 +586,15 @@ class Menu:
 
   #menu filtros - habitaciones
 
-  def mostrar_menu_habitaciones_filtros(self):
-    bucle = 0
+  
 
-    while bucle != 1:
-      print("\n")
-      print(f"=== Menú ABM - Habitaciones - Filtrar Habitaciones===")
-      print("Seleccione una opción:")
-      print("1. Filtrar por piso")
-      print("2. Filtrar por cantidad Maxima")
-      print("3. Volver")
-      print("\n")
-
-      eleccion = input("Ingrese el número de la opción: ")
-
-      if eleccion == "1":
-        validacion = ValidacionesHabitaciones()
+  def mostrar_habitaciones(self):
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         conexion.CrearTablaHabitacion()
-        piso = validacion.validacionPiso()
-        habitaciones = conexion.MostrarHabitacionesPorPiso(piso)
-
-        if len(habitaciones) > 0:
-          for habitacion in habitaciones:
-            print(
-                f"ID: {habitacion[0]}, Número: {habitacion[1]}, Precio: {habitacion[2]}, Piso: {habitacion[3]}, Estado de Limpieza: {habitacion[4]}, Capacidad Actual: {habitacion[5]}, Capacidad Máxima: {habitacion[6]}, Tipo de Habitación: {habitacion[7]}"
-            )
-            print("\n")
-
-      elif eleccion == "2":
-        validacion = ValidacionesHabitaciones()
-        nombreBD = "househunter.db"
-        conexion = Conexion(nombreBD)
-        conexion.CrearTablaHabitacion()
-        capacidadMaxima = validacion.validacionCantidadMaxima()
-        habitaciones = conexion.MostrarHabitacionesPorCantidadMaxima(
-            capacidadMaxima)
-        if len(habitaciones) > 0:
-          for habitacion in habitaciones:
-            print(
-                f"ID: {habitacion[0]}, Número: {habitacion[1]}, Precio: {habitacion[2]}, Piso: {habitacion[3]}, Estado de Limpieza: {habitacion[4]}, Capacidad Actual: {habitacion[5]}, Capacidad Máxima: {habitacion[6]}, Tipo de Habitación: {habitacion[7]}"
-            )
-            print("\n")
-
-      elif eleccion == "3":
-        print("Volviendo...")
-        print("\n")
-        self.mostrar_menu_habitacion()
-      else:
-        print(
-            "Error Opción no válida ---> Por favor seleccione una opción válida"
-        )
+        habitaciones = conexion.MostrarHabitaciones()
+        return habitaciones
+   
 #menu filtros - habitaciones
 # menu abm modificar - habitaciones
   def modificar_habitacion(self):
@@ -743,29 +700,15 @@ class Menu:
         numeroID = int (numeroID)
         print("\n")
         conexion.EmpleadoEliminar(numeroID)
-      elif eleccion == "4":
+  
+  def mostrar_empleado(self):
         nombreBD = "househunter.db"
         conexion = Conexion(nombreBD)
         conexion.CrearTablaEmpleados()
         empleados = conexion.MostrarEmpleados()
 
-        if len(empleados) > 0:
-          for empleado in empleados:
-            print(
-                f"ID: {empleado[0]}, Nombre: {empleado[1]}, Apellido: {empleado[2]}, Dni: {empleado[3]}, Es Admin: {empleado[4]}, Telefono: {empleado[5]}, Contraseña: {empleado[6]}"
-            )
-            print("\n")
-        else:
-          print("No hay empleados")
-          print("\n")
-      elif eleccion == "5":
-        print("Volviendo...")
-        print("\n")
-        self.mostrar_abm()
-      else:
-        print(
-            "Error Opción no válida ---> Por favor seleccione una opción válida"
-        )
+        return empleados
+
 
 
 #menu abm - empleados
@@ -948,33 +891,12 @@ class Menu:
                   
             
 
-              elif eleccion == "4":
+  def mostrar_huespedes(self):
                   nombreBD = "househunter.db"
                   conexion = Conexion(nombreBD)
                   conexion.CrearTablaHuesped()
                   huespedes = conexion.MostrarHuespedes()
-
-                  if len(huespedes) > 0:
-                      for huesped in huespedes:
-                          print(
-                              f"ID: {huesped[0]}, Nombre: {huesped[1]}, Apellido: {huesped[2]}, Número de Pasaporte: {huesped[3]}, DNI: {huesped[4]}, Nacionalidad: {huesped[5]}, Grupo Sanguíneo: {huesped[6]}, Seguro de Vida: {'Sí' if huesped[7] else 'No'}"
-                          )
-                          print("\n")
-                  else:
-                      print("No hay huéspedes")
-                      print("\n")
-
-              elif eleccion == "5":
-                  self.mostrar_menu_huespedes_filtros()
-
-              elif eleccion == "6":
-                  print("Volviendo...")
-                  print("\n")
-                  self.mostrar_abm()
-              else:
-                  print(
-                      "Error: Opción no válida. Por favor, seleccione una opción válida."
-                  )
+                  return huespedes
 #menu abm - huesped
 
 
