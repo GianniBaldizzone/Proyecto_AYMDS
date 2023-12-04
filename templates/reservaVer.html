@@ -26,13 +26,12 @@
             <a class="navbar-brand" href="{{ url_for('reserva') }}">
                 <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
             </a>
-            <a class="navbar-brand" href="{{ url_for('cerrar') }}">
-                <i class="fa-solid fa-circle-xmark"></i>
-            </a>
+
             <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <!-- Contenedor de los elementos de la barra de navegación -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-text">
@@ -40,15 +39,18 @@
                     <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Foto del Empleado" height="40" class="rounded-circle me-2 shadow">
                 </div>
             </div>
-        </div>
 
-       
-    </nav>
+            <!-- Botón para cerrar sesión -->
+            <a class="navbar-brand ms-auto" href="{{ url_for('cerrar') }}">
+                <i class="fa-solid fa-circle-xmark fa-lg m-4"></i>
+            </a>
+        </div>
+    </nav> 
 
     <!-- Contenido principal -->
     <div class="container text-center mt-4">
         <div class="row">
-           <h1 class="text-black">Ver Reservas</h1>
+           <h1 class="text-darkviolet">Ver Reservas</h1>
         </div>
            
         <div class="row">
@@ -56,17 +58,17 @@
             <table class="table table-responsive-md">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col" class="d-none d-sm-table-cell">Empleado ID</th>
-                        <th scope="col">Fecha Check-in</th>
-                        <th scope="col">Fecha Check-out</th>
-                        <th scope="col" class="d-none d-sm-table-cell">Habitación ID</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col" class="d-none d-sm-table-cell">Huésped ID</th>
-                        <th scope="col">Tipo de Reserva</th>
+                        <th scope="col" class="bg-violet">ID</th>
+                        <th scope="col" class="d-none d-sm-table-cell bg-violet">Empleado ID</th>
+                        <th scope="col" class="bg-violet">Fecha Check-in</th>
+                        <th scope="col" class="bg-violet">Fecha Check-out</th>
+                        <th scope="col" class="d-none d-sm-table-cell bg-violet">Habitación ID</th>
+                        <th scope="col" class="bg-violet">Estado</th>
+                        <th scope="col" class="d-none d-sm-table-cell bg-violet">Huésped ID</th>
+                        <th scope="col" class="bg-violet">Tipo de Reserva</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
                     {% for reserva in reservas %}
                         <tr>
                             <th scope="row">{{ reserva[0] }}</th>

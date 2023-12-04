@@ -166,6 +166,7 @@ div.row {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Añadir sombra al contenedor del formulario */
 }
 
+
 .title-form-container {
     color: #ffffff;
     font-weight: 900;
@@ -230,4 +231,27 @@ div.row {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.bg-violet {
+    background: #9B6CD1 !important;
+    color: #fff !important;
+}
+
+.table-body {
+    font-weight: 400;    
+}
+
+td {
+    color: #3e245b !important;
+}
+
+th {
+    color: #35115f !important;
+}
+
+.text-darkviolet {
+    color: #35115f !important;
+    font-weight: bold;
+    text-transform: uppercase;
 }

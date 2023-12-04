@@ -94,19 +94,19 @@ def  hospedajeVer():
 @app.route('/reserva', methods=['GET'])
 def reserva():
            
-    return render_template('reserva.html')
+    return render_template('reserva.html',nombre_usuario=session.get('usuario'))
 
 @app.route('/hospedaje')
 def hospedaje():
-    return render_template('hospedaje.html')
+    return render_template('hospedaje.html', nombre_usuario=session.get('usuario'))
 
 @app.route('/actividades')
 def actividades():
-    return render_template('actividades.html')
+    return render_template('actividades.html', nombre_usuario=session.get('usuario'))
 
 @app.route('/abm')
 def abm():
-    return render_template('abm.html')
+    return render_template('abm.html', nombre_usuario=session.get('usuario'))
 
 
         

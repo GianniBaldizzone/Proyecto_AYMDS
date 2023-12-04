@@ -46,22 +46,22 @@
     <div class="container text-center mt-4">
 
         <div class="row">
-            <h2 class="text-black">Ver huéspedes</h2>
+            <h2 class="text-darkviolet">Ver huéspedes</h2>
             <table class="table table-responsive-md">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Número de Pasaporte</th>
-                        <th scope="col">DNI</th>
-                        <th scope="col">Nacionalidad</th>
-                        <th scope="col">Grupo Sanguíneo</th>
-                        <th scope="col">Seguro de Vida</th>
+                        <th scope="col" class="bg-violet">ID</th>
+                        <th scope="col" class="bg-violet">Nombre</th>
+                        <th scope="col" class="bg-violet">Apellido</th>
+                        <th scope="col" class="bg-violet">Número de Pasaporte</th>
+                        <th scope="col" class="bg-violet">DNI</th>
+                        <th scope="col" class="bg-violet">Nacionalidad</th>
+                        <th scope="col" class="bg-violet">Grupo Sanguíneo</th>
+                        <th scope="col" class="bg-violet">Seguro de Vida</th>
                         <!-- Add more columns as needed -->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
                     {% for huesped in huesped %}
                         <tr>
                             <th scope="row">{{ huesped[0] }}</th>

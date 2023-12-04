@@ -46,21 +46,21 @@
     <div class="container text-center mt-4">
 
         <div class="row">
-            <h2 class="text-black">Ver empleados</h2>
+            <h2 class="text-darkviolet">Ver empleados</h2>
             <table class="table table-responsive-md">
                 <thead>
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">DNI</th>
-                        <th scope="col">isAdmin</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Contraseña</th>
+                        <th scope="col" class="bg-violet">ID</th>
+                        <th scope="col" class="bg-violet">Nombre</th>
+                        <th scope="col" class="bg-violet">Apellido</th>
+                        <th scope="col" class="bg-violet">DNI</th>
+                        <th scope="col" class="bg-violet">isAdmin</th>
+                        <th scope="col" class="bg-violet">Teléfono</th>
+                        <th scope="col" class="bg-violet">Contraseña</th>
                         <!-- Add more columns as needed -->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
                     {% for empleado in empleado %}
                         <tr>
                             <th scope="row">{{ empleado[0] }}</th>

@@ -23,10 +23,12 @@
             <a class="navbar-brand" href="{{ url_for('abm') }}">
                 <i class="fa-solid fa-circle-arrow-left fa-lg m-4"></i>
             </a>
+
             <!-- Muestra el botón de hamburguesa en pantallas pequeñas -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <!-- Contenedor de los elementos de la barra de navegación -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-text">
@@ -34,8 +36,13 @@
                     <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Foto del Empleado" height="40" class="rounded-circle me-2 shadow">
                 </div>
             </div>
+
+            <!-- Botón para cerrar sesión -->
+            <a class="navbar-brand ms-auto" href="{{ url_for('cerrar') }}">
+                <i class="fa-solid fa-circle-xmark fa-lg m-4"></i>
+            </a>
         </div>
-    </nav>
+    </nav> 
 
     <!-- Contenido principal -->
     <div class="container text-center">
